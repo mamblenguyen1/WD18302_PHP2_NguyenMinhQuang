@@ -1,6 +1,11 @@
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../style.css">
+<?
+echo ' ';
+?>
+
 <div class="search-box">
     <form action="" method="post" id="myForm">
+    <h1>PC07626 - Lab 1.2 </h1>
         <p class="timkim" align="center">
             <label for="">Xin vui lòng nhập tên tài khoản</label>
             <br>

@@ -1,7 +1,13 @@
 <?php
 $courses = [
-    's1' => 'course1',
-    's2' => 'course2',
-    's3' => 'course3'
+    'VL' => 'Vĩnh Long',
+    'CT' => 'Cần Thơ',
+    'KG' => 'Kiên Giang',
+    'SG' => 'Sài Gòn',
+    'HD' => 'Hải Dương',
+    'HN' => 'Hà Nội',
+    'HCM' => 'Hồ Chí Minh',
+    'DN' => 'Đà Nẵng',
+    'HP' => 'Hải Phòng',
+    'BN' => 'Bắc Ninh'
 ];
-?>
