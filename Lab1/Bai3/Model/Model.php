@@ -1,6 +1,5 @@
 <?
 
-include '../Model/config.php';
 function get_user($user_name)
 {
     $db = new connect();

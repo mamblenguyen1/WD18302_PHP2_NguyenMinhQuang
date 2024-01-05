@@ -1,11 +1,8 @@
-<link rel="stylesheet" href="../style.css">
-<?
-echo ' ';
-?>
+<link rel="stylesheet" href="style.css">
 
 <div class="search-box">
     <form action="" method="post" id="myForm">
-    <h1>PC07626 - Lab 1.2 </h1>
+    <h1>PC07626 - Lab 1.3 </h1>
         <p class="timkim" align="center">
             <label for="">Xin vui lòng nhập tên tài khoản</label>
             <br>
