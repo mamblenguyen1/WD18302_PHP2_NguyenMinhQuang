@@ -10,12 +10,12 @@ use src\Responsitories\UserRespon;
 $UserRespon = new UserRespon;
 $user = new UserFunction();
 $user_id = $_GET['user_id'];
-if (isset($_POST['save'])) {
-    $user_id = $_POST['user_id'];
-    $userName = $_POST['userName'];
-    $userEmail = $_POST['userEmail'];
-    $userPhone = $_POST['userPhone'];
-    $UserRespon->UpdateUserResponse($userName, $userEmail,  $userPhone, $user_id);
+if (isset($_POST['change'])) {
+    $user_id = $_GET['user_id'];
+    $oldPass = $_POST['oldPass'];
+    $newPass = $_POST['newPass'];
+    $rePass = $_POST['rePass'];
+    $UserRespon->ChangePass($oldPass, $newPass, $rePass, $user_id);
     // echo '<script>window.location.href="../../index.php"</script>';
 }
 
@@ -25,17 +25,17 @@ if (isset($_POST['save'])) {
     <div class="popup">
         <h2 style="text-align: center;">Chỉnh sửa dữ liệu</h2>
         <form id="editForm" method="post">
-            <input type="hidden" name="user_id" value="<? echo $user->getInfoUser($user_id, 'user_id') ?>">
-            <label for="userName">Tên tài khoản:</label>
-            <input type="text" name="userName" value="<? echo $user->getInfoUser($user_id, 'user_name') ?>">
+            <input type="hidden" name="user_id" value="">
+            <label for="userName">Mật khẩu cũ : </label>
+            <input type="text" name="oldPass" value="">
 
-            <label for="userEmail">Email:</label>
-            <input type="email" id="userEmail" name="userEmail" value="<? echo $user->getInfoUser($user_id, 'user_email') ?>">
+            <label for="userEmail">Mật khẩu mới : </label>
+            <input type="text" id="userEmail" name="newPass" value="">
 
-            <label for="userPhone">SĐT:</label>
-            <input type="tel" id="userPhone" name="userPhone" value="<?= $user->getInfoUser($user_id, 'user_phone') ?>">
+            <label for="userPhone">Nhập lại mật khẩu :</label>
+            <input type="text" id="userPhone" name="rePass" value="">
 
-            <button type="submit" name="save">Lưu</button>
+            <button type="submit" name="change">Lưu</button>
         </form>
     </div>
 </div>

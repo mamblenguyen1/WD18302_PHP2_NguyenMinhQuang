@@ -9,7 +9,6 @@ td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-    width: 18%;
 }
 
 th {
@@ -57,25 +56,9 @@ button {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-a.button-primary {
-    display: inline-block;
-    font-size: 16px;
-    padding: 10px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    background-color: #2e5185; /* Màu nền chính của nút */
-    color: #ffffff; /* Màu chữ của nút */
-    border: 2px solid #2e5185; /* Viền của nút */
-    border-radius: 4px; /* Độ cong góc của nút */
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
 
-a.button-primary:hover {
-    background-color: #334c70; /* Màu nền khi di chuột qua nút */
-    border-color: #334c70; /* Màu viền khi di chuột qua nút */
-}
+
+
 button.button-danger {
     display: inline-block;
     font-size: 14px;
