@@ -16,7 +16,7 @@ $controller = new BaseController();
 $model = new BaseModel();
 $user = new UserFunction();
 $UserRespon = new UserRespon();
-require_once '../Lab2.2/src/View/user_view.php';
+require_once '../Lab2/src/View/user_view.php';
 
 
 ?>
