@@ -9,6 +9,7 @@ require_once 'vendor/autoload.php';
 
 use src\core\Form;
 use src\Model\UserFunction;
+use src\Helpers\status;
 
 $user = new UserFunction();
 
@@ -85,12 +86,12 @@ if (isset($_POST['recovery'])) {
                     <td><? echo $users['user_email'] ?></td>
                     <td><?= $users['user_phone'] ?></td>
                     <td style="width: 500px;"><?
-                        if ($users['is_deleted'] == 0) {
-                            echo 'Đang hoạt động';
-                        } else {
-                            echo 'Vô hiệu hóa';
-                        }
-                        ?></td>
+                                                if ($users['is_deleted'] == 0) {
+                                                    echo  status::getStatus()[status::ACTIVE];
+                                                } else {
+                                                    echo  status::getStatus()[status::DEACTIVE];
+                                                }
+                                                ?></td>
                     <td>
                         <a name="" id="" class="btn btn-primary" style="width: 100%;" href="src/View/edit_user.php?user_id=<?= $users['user_id'] ?>" role="button">Sửa</a>
 
