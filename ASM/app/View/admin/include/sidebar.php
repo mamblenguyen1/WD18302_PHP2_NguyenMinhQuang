@@ -1,17 +1,34 @@
+<?php
+
+use app\Model\UserFunction;
+use app\Helpers\status;
+$user = new UserFunction();
+?>
+
 <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
-    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar" >
         <ul class="nav">
-            <li class="nav-item nav-profile">
+            <li class="nav-item nav-profile" >
                 <a href="#" class="nav-link">
                     <div class="nav-profile-image">
-                        <img src="assets/images/faces/face1.jpg" alt="profile">
+                        <img src="assets/images/user_avatar/user_avatar.jpg" alt="profile">
                         <span class="login-status online"></span>
                         <!--change to offline or busy as needed-->
                     </div>
                     <div class="nav-profile-text d-flex flex-column">
-                        <span class="font-weight-bold mb-2">David Grey. H</span>
-                        <span class="text-secondary text-small">Project Manager</span>
+                        <span class="font-weight-bold mb-2">
+                            <?= $user->getInfoUser(1 , 'user_name')?>
+                        </span>
+                        <span class="text-secondary text-small">
+                        <?
+                                if (1) {
+                                    echo status::getRole()[status::ADMIN] ;
+                                } else {
+                                    echo  status::getRole()[status::USER] ;
+                                }
+                                ?>
+                        </span>
                     </div>
                     <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
                 </a>
@@ -38,7 +55,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.php">
+                <a class="nav-link" href="?pages=invoice&action=list">
                     <span class="menu-title">Hóa Đơn</span>
                     <!-- <i class="mdi mdi-home menu-icon"></i> -->
                     <i class="mdi mdi-script menu-icon"></i>

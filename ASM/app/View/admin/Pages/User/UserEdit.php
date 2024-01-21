@@ -1,34 +1,44 @@
 <?
+
 include 'app/View/admin/include/header.php';
 include 'app/View/admin/include/sidebar.php';
+?>
+<?
+if (isset($_GET['user_id'])) {
+    $user_id = $_GET['user_id'];
+    if (isset($_POST['editUser'])) {
+        $userRespon->UpdateUserResponse($user_id);
+    }
+}
 ?>
 <div class="content-wrapper">
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Cập nhật tài khoản</h4>
-                <form class="forms-sample">
+                <form class="forms-sample" method="post">
                     <div class="form-group">
                         <label for="exampleInputName1">Tên tài khoản :</label>
-                        <input type="text" name="product_name" class="form-control" id="exampleInputName1" placeholder="Nhập tên khách hàng">
+                        <input type="text" name="user_name" class="form-control" value="<?= $user->getInfoUser($user_id, 'user_name') ?>" placeholder="Nhập tên khách hàng">
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail3">Email :</label>
-                        <input type="number" name="product_price" class="form-control" id="exampleInputEmail3" placeholder="Nhập Email">
+                        <label for="exampleInputEmail3">Địa chỉ :</label>
+                        <input type="text" name="user_adress" class="form-control" value="<?= $user->getInfoUser($user_id, 'user_adress') ?>" placeholder="Nhập Email">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword4">Số điện thoại :</label>
-                        <input type="number" name="product_quantity" class="form-control" id="exampleInputPassword4" placeholder="Nhập số điện thoại">
+                        <input type="number" name="user_phone" class="form-control" value="<?= $user->getInfoUser($user_id, 'user_phone') ?>" placeholder="Nhập số điện thoại">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword4">Cấp quyền :</label>
-                        <select class="form-control form-control-lg" id="exampleFormControlSelect1" fdprocessedid="7bufqn">
-                            <option>Admin</option>
-                            <option>User</option>
+                        <select name="role_id" id="role" class="form-control select2" style="width: 100%;">
+                            <option selected="selected" value="<?= $user->getInfoUser($user_id, 'role_id') ?>"><?= $user->getInfoUser($user_id, 'role_id') == 1 ?  'Người quản trị' : 'Khách hàng' ?></option>
+                            <option value="<?= $user->getInfoUser($user_id, 'role_id') == 2 ?  '1' : '2' ?>"><?= $user->getInfoUser($user_id, 'role_id') == 2 ?  'Người quản trị' : 'Khách hàng' ?></option>
+
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                    <button type="submit" name="editUser" class="btn btn-gradient-primary me-2">Cập nhật</button>
                     <a href="index.php?pages=user&action=list">Quay lại</a>
                 </form>
             </div>

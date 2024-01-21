@@ -1,4 +1,6 @@
 <?
+
+use app\Helpers\status;
 include 'app/View/admin/include/header.php';
 include 'app/View/admin/include/sidebar.php';
 ?>
@@ -25,9 +27,9 @@ include 'app/View/admin/include/sidebar.php';
           <div class="card bg-gradient-danger card-img-holder text-white">
             <div class="card-body">
               <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-              <h4 class="font-weight-normal mb-3">Weekly Sales <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+              <h4 class="font-weight-normal mb-3">Khách hàng <i class="mdi mdi-chart-line mdi-24px float-right"></i>
               </h4>
-              <h2 class="mb-5">$ 15,0000</h2>
+              <h2 class="mb-5">30</h2>
               <h6 class="card-text">Increased by 60%</h6>
             </div>
           </div>
@@ -36,9 +38,9 @@ include 'app/View/admin/include/sidebar.php';
           <div class="card bg-gradient-info card-img-holder text-white">
             <div class="card-body">
               <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-              <h4 class="font-weight-normal mb-3">Weekly Orders <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+              <h4 class="font-weight-normal mb-3">Sản phẩm bán được <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
               </h4>
-              <h2 class="mb-5">45,6334</h2>
+              <h2 class="mb-5">500</h2>
               <h6 class="card-text">Decreased by 10%</h6>
             </div>
           </div>
@@ -47,7 +49,7 @@ include 'app/View/admin/include/sidebar.php';
           <div class="card bg-gradient-success card-img-holder text-white">
             <div class="card-body">
               <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-              <h4 class="font-weight-normal mb-3">Visitors Online <i class="mdi mdi-diamond mdi-24px float-right"></i>
+              <h4 class="font-weight-normal mb-3">Tổng số hóa đơn <i class="mdi mdi-diamond mdi-24px float-right"></i>
               </h4>
               <h2 class="mb-5">95,5741</h2>
               <h6 class="card-text">Increased by 5%</h6>
@@ -78,72 +80,64 @@ include 'app/View/admin/include/sidebar.php';
         </div>
       </div>
       <div class="row">
-        <div class="col-12 grid-margin">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">Recent Tickets</h4>
-              <div class="table-responsive">
-                <table class="table">
-                  <thead>
+      <div class="col-lg-12 grid-margin stretch-card">
+
+<div class="card">
+
+    <div class="card-body">
+
+        <h4 class="card-title">Danh sách khách hàng</h4>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th> Tên tài khoản </th>
+                    <th> Email </th>
+                    <th> Số điện thoại </th>
+                    <th> Trạng thái </th>
+                    <th> Thao tác </th>
+                </tr>
+            </thead>
+            <tbody>
+                <?
+                $usersAll = $user->Get_User_DB_limit(5);
+                foreach ($usersAll as $users) {
+                ?>
                     <tr>
-                      <th> Assignee </th>
-                      <th> Subject </th>
-                      <th> Status </th>
-                      <th> Last Update </th>
-                      <th> Tracking ID </th>
+                        <td class="py-1">
+                            <?= $users['user_name'] ?>
+                        </td>
+                        <td> <?= $users['user_adress'] ?> </td>
+                        <td>
+                            <? if ($users['role_id'] == 1) {
+                                echo '<label class="badge badge-primary">' . status::getRole()[status::ADMIN] . '</label>';
+                            } else {
+                                echo '<label class="badge badge-danger">' . status::getRole()[status::USER] . '</label>';
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <? if ($users['is_deleted'] == 0) {
+                                echo '<label class="badge badge-primary">' . status::getStatus()[status::ACTIVE] . '</label>';
+                            } else {
+                                echo '<label class="badge badge-danger">' . status::getStatus()[status::DEACTIVE] . '</label>';
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <a href="?pages=user&action=detail&user_id=<?= $users['user_id'] ?>">
+                                <button type="button" class="btn btn-outline-success btn-icon-text" fdprocessedid="zlcdq9"><i class="mdi mdi-alert btn-icon-prepend"></i> Chi tiết </button>
+                          </a>
+                            </form>
+                        </td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <img src="assets/images/faces/face1.jpg" class="me-2" alt="image"> David Grey
-                      </td>
-                      <td> Fund is not recieved </td>
-                      <td>
-                        <label class="badge badge-gradient-success">DONE</label>
-                      </td>
-                      <td> Dec 5, 2017 </td>
-                      <td> WD-12345 </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <img src="assets/images/faces/face2.jpg" class="me-2" alt="image"> Stella Johnson
-                      </td>
-                      <td> High loading time </td>
-                      <td>
-                        <label class="badge badge-gradient-warning">PROGRESS</label>
-                      </td>
-                      <td> Dec 12, 2017 </td>
-                      <td> WD-12346 </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <img src="assets/images/faces/face3.jpg" class="me-2" alt="image"> Marina Michel
-                      </td>
-                      <td> Website down for one week </td>
-                      <td>
-                        <label class="badge badge-gradient-info">ON HOLD</label>
-                      </td>
-                      <td> Dec 16, 2017 </td>
-                      <td> WD-12347 </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <img src="assets/images/faces/face4.jpg" class="me-2" alt="image"> John Doe
-                      </td>
-                      <td> Loosing control on server </td>
-                      <td>
-                        <label class="badge badge-gradient-danger">REJECTED</label>
-                      </td>
-                      <td> Dec 3, 2017 </td>
-                      <td> WD-12348 </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+
+                <? } ?>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
       </div>
       <div class="row">
         <div class="col-md-7 grid-margin stretch-card">

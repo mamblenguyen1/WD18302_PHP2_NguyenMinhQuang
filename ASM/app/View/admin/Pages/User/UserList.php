@@ -1,13 +1,27 @@
-<?
+<?php
+
+use app\Helpers\status;
+
 include 'app/View/admin/include/header.php';
 include 'app/View/admin/include/sidebar.php';
+?>
+
+<?php
+    if(isset($_POST['delete'])){
+        $user_id = $_POST['user_id'];
+        $user->DeleteUser($user_id, 1);
+    }
+    if(isset($_POST['recovery'])){
+        $user_id = $_POST['user_id'];
+        $user->DeleteUser($user_id, 0);
+    }
 ?>
 <div class="content-wrapper">
     <div class="col-lg-12 grid-margin stretch-card">
 
         <div class="card">
             <a href="?pages=user&action=add">
-                <button type="button" class="btn btn-outline-primary" style="width: 200px; margin: 10px 30px;">Thêm sản phẩm</button>
+                <button type="button" class="btn btn-outline-primary" style="width: 200px; margin: 10px 30px;">Thêm tài khoản</button>
             </a>
 
             <div class="card-body">
@@ -24,59 +38,60 @@ include 'app/View/admin/include/sidebar.php';
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="py-1">
-                                Người dùng 1
-                            </td>
-                            <td> nd1@gmail.com </td>
-                            <td>
-                                123456789
-                            </td>
-                            <td>
-                                <label class="badge badge-primary">Hiện</label>
-                                <label class="badge badge-danger">Ẩn</label>
+                        <?
+                        $usersAll = $user->Get_User_DB();
+                        foreach ($usersAll as $users) {
+                        ?>
+                            <tr>
+                                <td class="py-1">
+                                    <?= $users['user_name'] ?>
+                                </td>
+                                <td> <?= $users['user_adress'] ?> </td>
+                                <td>
+                                    <? if ($users['role_id'] == 1) {
+                                        echo '<label class="badge badge-primary">' . status::getRole()[status::ADMIN] . '</label>';
+                                    } else {
+                                        echo '<label class="badge badge-danger">' . status::getRole()[status::USER] . '</label>';
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <? if ($users['is_deleted'] == 0) {
+                                        echo '<label class="badge badge-primary">' . status::getStatus()[status::ACTIVE] . '</label>';
+                                    } else {
+                                        echo '<label class="badge badge-danger">' . status::getStatus()[status::DEACTIVE] . '</label>';
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <a href="?pages=user&action=detail&user_id=<?= $users['user_id'] ?>">
+                                        <button type="button" class="btn btn-outline-success btn-icon-text" fdprocessedid="zlcdq9"><i class="mdi mdi-alert btn-icon-prepend"></i> Chi tiết </button>
 
-                            </td>
-                            <td>
-                                <a href="?pages=user&action=detail">
-                                    <button type="button" class="btn btn-outline-success btn-icon-text" fdprocessedid="zlcdq9"><i class="mdi mdi-alert btn-icon-prepend"></i> Chi tiết  </button>
+                                    </a>
+                                    <a href="?pages=user&action=edit&user_id=<?= $users['user_id'] ?>">
 
-                                </a>
-                                <a href="?pages=user&action=edit">
+                                        <button type="button" class="btn btn-outline-info btn-icon-text"> Sửa <i class="mdi mdi-settings btn-icon-append"></i></button>
+                                    </a>
+                                    <form action="" method="post" style="display: inline-block;">
+                                        <input type="hidden" name="user_id" value="<?= $users['user_id'] ?>">
+                                        <?
+                                        if ($users['is_deleted'] == 0) {
+                                            echo ' <form action="" method="post">
+                                            <input type="hidden" name="user_id" value="' . $users['user_id'] . '">
+                                            <button style="width: 100%" type="submit" class="btn btn-danger" name="delete"> Xóa
+                                        </form>';
+                                        } else {
+                                            echo '<form action="" method="post">
+                                            <input type="hidden" name="user_id" value="' . $users['user_id'] . '">
+                                            <button style="width: 100% " type="submit" class="btn btn-success" name="recovery"> Khôi phục
+                                        </form>';
+                                        }
+                                        ?>
+                                    </form>
+                                </td>
+                            </tr>
 
-                                <button type="button" class="btn btn-outline-info btn-icon-text"> Sửa <i class="mdi mdi-settings btn-icon-append"></i></button>
-                                </a>
-
-                                <button type="button" class="btn btn-outline-danger btn-icon-text"> Xóa <i class="mdi mdi-alert btn-icon-prepend"></i></button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="py-1">
-                                Người dùng 1
-                            </td>
-                            <td> nd1@gmail.com </td>
-                            <td>
-                                123456789
-                            </td>
-                            <td>
-                                <label class="badge badge-primary">Hiện</label>
-                                <label class="badge badge-danger">Ẩn</label>
-
-                            </td>
-                            <td>
-                                <a href="?pages=product&action=detail">
-                                    <button type="button" class="btn btn-outline-success btn-icon-text" fdprocessedid="zlcdq9"><i class="mdi mdi-alert btn-icon-prepend"></i> Chi tiết  </button>
-
-                                </a>
-                                <a href="?pages=product&action=edit">
-
-                                <button type="button" class="btn btn-outline-info btn-icon-text"> Sửa <i class="mdi mdi-settings btn-icon-append"></i></button>
-                                </a>
-
-                                <button type="button" class="btn btn-outline-danger btn-icon-text"> Xóa <i class="mdi mdi-alert btn-icon-prepend"></i></button>
-                            </td>
-                        </tr>
+                        <? } ?>
 
                     </tbody>
                 </table>

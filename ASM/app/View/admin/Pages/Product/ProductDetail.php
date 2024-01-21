@@ -1,16 +1,14 @@
-<?php
-
-use app\Helpers\status;
-
+<?
 include 'app/View/admin/include/header.php';
 include 'app/View/admin/include/sidebar.php';
 ?>
 
 <?php
 
-if (isset($_GET['user_id'])) {
-    $user_id = $_GET['user_id'];
-}
+    if(isset($_GET['product_id'])){
+        $product_id = $_GET['product_id'];
+    }
+
 ?>
 <div class="main-panel">
     <div class="content-wrapper">
@@ -19,30 +17,25 @@ if (isset($_GET['user_id'])) {
             <div class="card-body" style="padding: 20px 20px;">
                 <div class="product-info">
                     <div class="info">
-                        <h4 class="card-title" style="padding: 0;">Thông tin chi tiết khách hàng
-                            : <?= $user->getInfoUser($user_id, 'user_name'); ?></h4>
+                        <h4 class="card-title" style="padding: 0;">Thông tin chi tiết sản phẩm
+                            : <?= $product->getInfoProduct($product_id , 'product_name')?></h4>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Tên tài khoản</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoUser($user_id, 'user_name'); ?></span>
+                            <span style="font-weight: bold;">Tên sản phẩm</span> <span class="info" style="margin-left: 3%;"><?= $product->getInfoProduct($product_id , 'product_name')?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Địa chỉ</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoUser($user_id, 'user_adress'); ?></span>
+                            <span style="font-weight: bold;">Giá sản phẩm</span> <span class="info" style="margin-left: 3%;"><?= $product->getInfoProduct($product_id , 'product_price')?> VNĐ</span>
+                        </div>
+                        <!-- <div class="product-name">
+                            <span style="font-weight: bold;">Phần trăm giảm giá</span> <span class="info" style="margin-left: 3%;">20 %</span>
+                        </div> -->
+                        <div class="product-name">
+                            <span style="font-weight: bold;">Số lượng </span> <span class="info" style="margin-left: 3%;"><?= $product->getInfoProduct($product_id , 'product_quantity')?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Số điện thoại</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoUser($user_id, 'user_phone'); ?></span>
+                            <span style="font-weight: bold ;vertical-align: top;">Mô tả sản phẩm </span> <span class="info" style="margin-left: 3%;"><?= $product->getInfoProduct($product_id , 'product_description')?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Cấp quyền </span> <span class="info" style="margin-left: 3%;">
-                                <?
-                                if ($user->getInfoUser($user_id, 'role_id') == 1) {
-                                    echo '<label class="badge badge-primary">' . status::getRole()[status::ADMIN] . '</label>';
-                                } else {
-                                    echo '<label class="badge badge-danger">' . status::getRole()[status::USER] . '</label>';
-                                }
-                                ?>
-                            </span>
-                        </div>
-                        <div class="product-name">
-                            <span style="font-weight: bold;">Người tạo</span> <span class="info" style="margin-left: 3%;"><? $user_created = $user->getInfoUser($user_id, 'user_created');
+                            <span style="font-weight: bold;">Người tạo</span> <span class="info" style="margin-left: 3%;"><?  $user_created = $product->getInfoProduct($product_id, 'created_user');
                                                                                                                             if ($user_created > 0) {
                                                                                                                                 echo $user->getInfoUser($user_created, 'user_name');
                                                                                                                             } else {
@@ -50,41 +43,30 @@ if (isset($_GET['user_id'])) {
                                                                                                                             } ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Người sửa</span> <span class="info" style="margin-left: 3%;"><? $user_updated = $user->getInfoUser($user_id, 'user_updated');
-                                                                                                                            if ($user_updated > 0) {
-                                                                                                                                echo $user->getInfoUser($user_updated, 'user_name');
+                            <span style="font-weight: bold;">Người sửa</span> <span class="info" style="margin-left: 3%;"><?  $user_created = $product->getInfoProduct($product_id, 'updated_user');
+                                                                                                                            if ($user_created > 0) {
+                                                                                                                                echo $user->getInfoUser($user_created, 'user_name');
                                                                                                                             } else {
                                                                                                                                 echo '';
                                                                                                                             } ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Người xóa </span> <span class="info" style="margin-left: 3%;"><? $user_deleted = $user->getInfoUser($user_id, 'user_deleted');
-                                                                                                                            if ($user_deleted > 0) {
-                                                                                                                                echo $user->getInfoUser($user_deleted, 'user_name');
+                            <span style="font-weight: bold;">Người xóa </span> <span class="info" style="margin-left: 3%;"><?  $user_created = $product->getInfoProduct($product_id, 'deleted_user');
+                                                                                                                            if ($user_created > 0) {
+                                                                                                                                echo $user->getInfoUser($user_created, 'user_name');
                                                                                                                             } else {
                                                                                                                                 echo '';
                                                                                                                             } ?></span>
                         </div>
                     </div>
                     <div class="product-img">
-                        <?php
-                        if ($user->getInfoUser($user_id, 'role_id') == 1) {
-                            echo '
-                        <img width="200px" height="200px" src="assets/images/user_avatar/admin_avatar.png" alt="">
-                                ';
-                        } else {
-                            echo '
-                                <img width="200px" height="200px" src="assets/images/user_avatar/user_avatar.jpg" alt="">
-                                ';
-                        }
-
-                        ?>
+                        <img width="200px" height="200px" src="assets/images/product/<?= $product->getInfoProduct($product_id , 'product_img')?>" alt="">
                     </div>
                 </div>
 
             </div>
 
-            <a style="padding: 20px 30px;" href="index.php?pages=user&action=list">
+            <a style="padding: 20px 30px;" href="index.php?pages=product&action=list">
                 <button type="submit" name="detail" class="btn btn-primary mr-2">Quay lại</button>
             </a>
         </div>
@@ -127,7 +109,7 @@ if (isset($_GET['user_id'])) {
 
             }
         </style>
-    </div>
-    <?
-    include 'app/View/admin/include/footer.php';
-    ?>
+                </div>           
+        <?
+        include 'app/View/admin/include/footer.php';
+        ?>
