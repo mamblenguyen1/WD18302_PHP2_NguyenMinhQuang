@@ -34,28 +34,28 @@ $user = new UserFunction();
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="?pages=admin&action=Dashboard">
+                <a class="nav-link" href="/?pages=HomeController/home">
                     <span class="menu-title">Bảng điều khiển</span>
                     <i class="mdi mdi-home menu-icon"></i>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="?pages=product&action=list">
+                <a class="nav-link" href="/?pages=ProductController/list">
                     <span class="menu-title">Sản phẩm</span>
                     <!-- <i class="mdi mdi-home menu-icon"></i> -->
                     <i class="mdi mdi-cube-outline menu-icon"></i>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="?pages=user&action=list">
+                <a class="nav-link" href="/?pages=UserController/list">
                     <span class="menu-title">Khách hàng</span>
                     <!-- <i class="mdi mdi-home menu-icon"></i> -->
                     <i class="mdi mdi-account menu-icon"></i>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="?pages=invoice&action=list">
+                <a class="nav-link" href="/?pages=InvoiceController/list">
                     <span class="menu-title">Hóa Đơn</span>
                     <!-- <i class="mdi mdi-home menu-icon"></i> -->
                     <i class="mdi mdi-script menu-icon"></i>

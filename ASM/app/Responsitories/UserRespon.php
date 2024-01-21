@@ -24,7 +24,7 @@ class UserRespon
             $user = new UserFunction();
             $user->AddUser($user_name, $user_adress, $user_phone, $user_password, $role_id);
             echo '<script>alert("Tạo tài khoản thành công ")</script>';
-            echo '<script>window.location.href="index.php?pages=user&action=list"</script>';
+            echo '<script>window.location.href="/?pages=UserController/list/"</script>';
         } else {
             echo '<script>alert("Xin vui lòng điền đầy đủ thông tin")</script>';
         }
@@ -47,7 +47,7 @@ class UserRespon
             $user = new UserFunction();
             $user->UpdateUser($user_name, $user_adress, $user_phone,  $user_id, $role_id);
             echo '<script>alert("Cập nhật tài khoản thành công ")</script>';
-            echo '<script>window.location.href="index.php?pages=user&action=list"</script>';
+            echo '<script>window.location.href="/?pages=UserController/details/&id='.$user_id.'"</script>';
         } else {
             echo 'Xin vui lòng điền đầy đủ thông tin';
         }

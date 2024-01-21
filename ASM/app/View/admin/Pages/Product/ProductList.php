@@ -1,10 +1,11 @@
 <?
-use app\Helpers\status;
 
-include 'app/View/admin/include/header.php';
-include 'app/View/admin/include/sidebar.php';
-?>
-<?php
+
+use app\Helpers\status;
+use app\Model\ProductFunction;
+
+$product = new ProductFunction();
+
     if(isset($_POST['delete'])){
         $product_id = $_POST['product_id'];
         $product->DeleteProduct($product_id, 1);
@@ -18,7 +19,7 @@ include 'app/View/admin/include/sidebar.php';
     <div class="col-lg-12 grid-margin stretch-card">
 
         <div class="card">
-            <a href="?pages=product&action=add">
+            <a href="/?pages=ProductController/add">
                 <button type="button" class="btn btn-outline-primary" style="width: 200px; margin: 10px 30px;">Thêm sản phẩm</button>
             </a>
 
@@ -57,11 +58,11 @@ include 'app/View/admin/include/sidebar.php';
                                     ?>
                                 </td>
                             <td>
-                                <a href="?pages=product&action=detail&product_id=<?= $product['product_id']?>">
+                                <a href="/?pages=ProductController/details/&id=<?= $product['product_id']?>">
                                     <button type="button" class="btn btn-outline-success btn-icon-text" fdprocessedid="zlcdq9"><i class="mdi mdi-alert btn-icon-prepend"></i> Chi tiết </button>
 
                                 </a>
-                                <a href="?pages=product&action=edit&product_id=<?= $product['product_id']?>">
+                                <a href="/?pages=ProductController/edit/&id=<?= $product['product_id']?>">
 
                                 <button type="button" class="btn btn-outline-info btn-icon-text"> Sửa <i class="mdi mdi-settings btn-icon-append"></i></button>
                                 </a>
@@ -94,11 +95,3 @@ include 'app/View/admin/include/sidebar.php';
     </div>
 </div>
 </div>
-
-
-<?
-include 'app/View/admin/include/footer.php';
-?>
-</body>
-
-</html>

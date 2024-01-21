@@ -1,7 +1,4 @@
-<?
-include 'app/View/admin/include/header.php';
-include 'app/View/admin/include/sidebar.php';
-?>
+
 <div class="content-wrapper">
     <div class="col-lg-12 grid-margin stretch-card">
 
@@ -78,10 +75,6 @@ include 'app/View/admin/include/sidebar.php';
 </div>
 </div>
 
-
-<?
-include 'app/View/admin/include/footer.php';
-?>
 </body>
 
 </html>

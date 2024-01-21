@@ -1,26 +1,24 @@
 <?php
-
+use app\Model\UserFunction;
 use app\Helpers\status;
-
-include 'app/View/admin/include/header.php';
-include 'app/View/admin/include/sidebar.php';
+$user = new UserFunction();
 ?>
 
 <?php
-    if(isset($_POST['delete'])){
-        $user_id = $_POST['user_id'];
-        $user->DeleteUser($user_id, 1);
-    }
-    if(isset($_POST['recovery'])){
-        $user_id = $_POST['user_id'];
-        $user->DeleteUser($user_id, 0);
-    }
+if (isset($_POST['delete'])) {
+    $user_id = $_POST['user_id'];
+    $user->DeleteUser($user_id, 1);
+}
+if (isset($_POST['recovery'])) {
+    $user_id = $_POST['user_id'];
+    $user->DeleteUser($user_id, 0);
+}
 ?>
 <div class="content-wrapper">
     <div class="col-lg-12 grid-margin stretch-card">
 
         <div class="card">
-            <a href="?pages=user&action=add">
+            <a href="/?pages=UserController/add/">
                 <button type="button" class="btn btn-outline-primary" style="width: 200px; margin: 10px 30px;">Thêm tài khoản</button>
             </a>
 
@@ -64,11 +62,11 @@ include 'app/View/admin/include/sidebar.php';
                                     ?>
                                 </td>
                                 <td>
-                                    <a href="?pages=user&action=detail&user_id=<?= $users['user_id'] ?>">
+                                    <a href="/?pages=UserController/details/&id=<?= $users['user_id'] ?>">
                                         <button type="button" class="btn btn-outline-success btn-icon-text" fdprocessedid="zlcdq9"><i class="mdi mdi-alert btn-icon-prepend"></i> Chi tiết </button>
 
                                     </a>
-                                    <a href="?pages=user&action=edit&user_id=<?= $users['user_id'] ?>">
+                                    <a href="/?pages=UserController/edit/&id=<?= $users['user_id'] ?>">
 
                                         <button type="button" class="btn btn-outline-info btn-icon-text"> Sửa <i class="mdi mdi-settings btn-icon-append"></i></button>
                                     </a>
@@ -100,11 +98,3 @@ include 'app/View/admin/include/sidebar.php';
     </div>
 </div>
 </div>
-
-
-<?
-include 'app/View/admin/include/footer.php';
-?>
-</body>
-
-</html>

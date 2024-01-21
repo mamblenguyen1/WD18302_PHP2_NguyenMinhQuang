@@ -1,16 +1,13 @@
 <?php
+use app\Model\UserFunction;
+$user = new UserFunction();
 
 use app\Helpers\status;
-
-include 'app/View/admin/include/header.php';
-include 'app/View/admin/include/sidebar.php';
 ?>
 
 <?php
-
-if (isset($_GET['user_id'])) {
-    $user_id = $_GET['user_id'];
-}
+$user_id = $data['user'][0]['id'];
+// echo $user_id;
 ?>
 <div class="main-panel">
     <div class="content-wrapper">
@@ -84,11 +81,12 @@ if (isset($_GET['user_id'])) {
 
             </div>
 
-            <a style="padding: 20px 30px;" href="index.php?pages=user&action=list">
+            <a style="padding: 20px 30px;" href="/?pages=UserController/list">
                 <button type="submit" name="detail" class="btn btn-primary mr-2">Quay lại</button>
             </a>
         </div>
 
+        </div>
 
 
 
@@ -128,6 +126,3 @@ if (isset($_GET['user_id'])) {
             }
         </style>
     </div>
-    <?
-    include 'app/View/admin/include/footer.php';
-    ?>

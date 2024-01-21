@@ -1,15 +1,21 @@
-<?
+<?php
 
-include 'app/View/admin/include/header.php';
-include 'app/View/admin/include/sidebar.php';
+
+use app\Model\UserFunction;
+use app\Responsitories\UserRespon;
+
+$userRespon = new UserRespon();
+
+$user = new UserFunction();
 ?>
+
+
 <?
-if (isset($_GET['user_id'])) {
-    $user_id = $_GET['user_id'];
-    if (isset($_POST['editUser'])) {
-        $userRespon->UpdateUserResponse($user_id);
-    }
+$user_id = $data['user'][0]['id'];
+if (isset($_POST['editUser'])) {
+    $userRespon->UpdateUserResponse($user_id);
 }
+
 ?>
 <div class="content-wrapper">
     <div class="col-12 grid-margin stretch-card">
@@ -39,7 +45,7 @@ if (isset($_GET['user_id'])) {
                     </div>
 
                     <button type="submit" name="editUser" class="btn btn-gradient-primary me-2">Cập nhật</button>
-                    <a href="index.php?pages=user&action=list">Quay lại</a>
+                    <a href="/?pages=UserController/list">Quay lại</a>
                 </form>
             </div>
         </div>
@@ -47,7 +53,3 @@ if (isset($_GET['user_id'])) {
 </div>
 </div>
 </div>
-
-<?
-include 'app/View/admin/include/footer.php';
-?>

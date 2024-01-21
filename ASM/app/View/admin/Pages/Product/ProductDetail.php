@@ -1,13 +1,15 @@
-<?
-include 'app/View/admin/include/header.php';
-include 'app/View/admin/include/sidebar.php';
-?>
 
 <?php
 
-    if(isset($_GET['product_id'])){
-        $product_id = $_GET['product_id'];
-    }
+use app\Helpers\status;
+use app\Model\ProductFunction;
+use app\Model\UserFunction;
+$user = new UserFunction();
+
+$product = new ProductFunction();
+
+$product_id = $data['product'][0]['id'];
+echo $product_id;  
 
 ?>
 <div class="main-panel">
@@ -66,10 +68,14 @@ include 'app/View/admin/include/sidebar.php';
 
             </div>
 
-            <a style="padding: 20px 30px;" href="index.php?pages=product&action=list">
+            <a style="padding: 20px 30px;" href="/?pages=ProductController/list">
                 <button type="submit" name="detail" class="btn btn-primary mr-2">Quay lại</button>
             </a>
         </div>
+        </div>
+
+        </div>
+
 
 
 
@@ -109,7 +115,4 @@ include 'app/View/admin/include/sidebar.php';
 
             }
         </style>
-                </div>           
-        <?
-        include 'app/View/admin/include/footer.php';
-        ?>
+       

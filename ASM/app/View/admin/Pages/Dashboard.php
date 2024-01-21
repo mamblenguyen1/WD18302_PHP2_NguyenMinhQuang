@@ -1,10 +1,3 @@
-<?
-
-use app\Helpers\status;
-include 'app/View/admin/include/header.php';
-include 'app/View/admin/include/sidebar.php';
-?>
-
 <div class="col-lg-12 grid-margin stretch-card">
   <div class="main-panel">
     <div class="content-wrapper">
@@ -80,64 +73,7 @@ include 'app/View/admin/include/sidebar.php';
         </div>
       </div>
       <div class="row">
-      <div class="col-lg-12 grid-margin stretch-card">
-
-<div class="card">
-
-    <div class="card-body">
-
-        <h4 class="card-title">Danh sách khách hàng</h4>
-        <table class="table table-hover table-striped">
-            <thead>
-                <tr>
-                    <th> Tên tài khoản </th>
-                    <th> Email </th>
-                    <th> Số điện thoại </th>
-                    <th> Trạng thái </th>
-                    <th> Thao tác </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?
-                $usersAll = $user->Get_User_DB_limit(5);
-                foreach ($usersAll as $users) {
-                ?>
-                    <tr>
-                        <td class="py-1">
-                            <?= $users['user_name'] ?>
-                        </td>
-                        <td> <?= $users['user_adress'] ?> </td>
-                        <td>
-                            <? if ($users['role_id'] == 1) {
-                                echo '<label class="badge badge-primary">' . status::getRole()[status::ADMIN] . '</label>';
-                            } else {
-                                echo '<label class="badge badge-danger">' . status::getRole()[status::USER] . '</label>';
-                            }
-                            ?>
-                        </td>
-                        <td>
-                            <? if ($users['is_deleted'] == 0) {
-                                echo '<label class="badge badge-primary">' . status::getStatus()[status::ACTIVE] . '</label>';
-                            } else {
-                                echo '<label class="badge badge-danger">' . status::getStatus()[status::DEACTIVE] . '</label>';
-                            }
-                            ?>
-                        </td>
-                        <td>
-                            <a href="?pages=user&action=detail&user_id=<?= $users['user_id'] ?>">
-                                <button type="button" class="btn btn-outline-success btn-icon-text" fdprocessedid="zlcdq9"><i class="mdi mdi-alert btn-icon-prepend"></i> Chi tiết </button>
-                          </a>
-                            </form>
-                        </td>
-                    </tr>
-
-                <? } ?>
-
-            </tbody>
-        </table>
-    </div>
-</div>
-</div>
+        
       </div>
       <div class="row">
         <div class="col-md-7 grid-margin stretch-card">
@@ -282,6 +218,3 @@ include 'app/View/admin/include/sidebar.php';
     </div>
   </div>
 </div>
-<?
-include 'app/View/admin/include/footer.php';
-?>

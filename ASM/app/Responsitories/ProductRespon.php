@@ -34,7 +34,7 @@ class ProductRespon
                 move_uploaded_file($anhne, $path);
             }
             echo '<script>alert("Tạo sản phẩm thành công ")</script>';
-            echo '<script>window.location.href="index.php?pages=product&action=list"</script>';
+            echo '<script>window.location.href="/?pages=ProductController/list"</script>';
         } else {
             echo 'Xin vui lòng điền đầy đủ thông tin';
         }
@@ -68,11 +68,11 @@ class ProductRespon
                     }
                 }
                 echo '<script>alert("Cập nhật sản phẩm thành công ")</script>';
-                echo '<script>window.location.href="index.php?pages=product&action=list"</script>';
+                echo '<script>window.location.href="/?pages=ProductController/details/&id='.$product_id.'"</script>';
             } else {
                 $product->UpdateProduct($product_name, $product_price, $product_quantity,  $product_description, $old_product_img, $product_id);
-                echo '<script>alert("Tạo sản phẩm thành công ")</script>';
-                echo '<script>window.location.href="index.php?pages=product&action=list"</script>';
+                echo '<script>alert("Cập nhật sản phẩm thành công ")</script>';
+                echo '<script>window.location.href="/?pages=ProductController/details/&id='.$product_id.'"</script>';
             }
         } else {
             echo 'Xin vui lòng điền đầy đủ thông tin';

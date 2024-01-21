@@ -1,11 +1,13 @@
 <?php
-include 'app/View/admin/include/header.php';
-include 'app/View/admin/include/sidebar.php';
+
+use app\Responsitories\UserRespon;
+
+$userRespon = new UserRespon();
 ?>
 <?php
 
-if(isset($_POST['addUser'])){
-    $userRespon ->AddUserResponse();
+if (isset($_POST['addUser'])) {
+    $userRespon->AddUserResponse();
 }
 
 
@@ -41,7 +43,7 @@ if(isset($_POST['addUser'])){
                     </div>
 
                     <button type="submit" name="addUser" class="btn btn-gradient-primary me-2">Thêm</button>
-                    <a href="index.php?pages=user&action=list">Quay lại</a>
+                    <a href="/?pages=UserController/list">Quay lại</a>
                 </form>
             </div>
         </div>
@@ -49,7 +51,3 @@ if(isset($_POST['addUser'])){
 </div>
 </div>
 </div>
-
-<?
-include 'app/View/admin/include/footer.php';
-?>
