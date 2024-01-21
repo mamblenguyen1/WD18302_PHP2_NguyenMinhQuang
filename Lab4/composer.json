@@ -1,6 +1,5 @@
 {
     "name": "php/oop",
-    "description": "Bài lab 3",
     "autoload": {
         "psr-4": {
             "src\\": "src/"

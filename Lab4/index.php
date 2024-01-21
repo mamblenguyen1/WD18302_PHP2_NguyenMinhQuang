@@ -96,7 +96,7 @@ if (isset($_POST['recovery'])) {
                     <td><?= $STT++ ?></td>
                     <td><?= $users['user_name'] ?></td>
                     <td>******</td>
-                    <td><? echo $users['user_email'] ?></td>
+                    <td><? echo $users['user_adress'] ?></td>
                     <td><?= $users['user_phone'] ?></td>
                     <td style="width: 500px;"><?
                                                 if ($users['is_deleted'] == 0) {

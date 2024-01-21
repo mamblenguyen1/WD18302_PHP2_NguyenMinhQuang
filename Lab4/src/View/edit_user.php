@@ -18,7 +18,7 @@ if (isset($_GET['user_id'])) {
 if (isset($_POST['edit'])) {
     $user_id = $_POST['user_id'];
     $userName = $_POST['userName'];
-    $userEmail = $_POST['userEmail'];
+    $userEmail = $_POST['user_adress'];
     $userPhone = $_POST['userPhone'];
     $emailPattern = '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/';
     $phonePattern = '/^0\d{9,10}$/';
@@ -60,7 +60,7 @@ if (isset($_POST['edit'])) {
         </div>
         <div class="mb-3">
             <label for="" class="form-label">Email</label>
-            <input type="text" class="form-control" name="userEmail" id="" value="<?= $user->getInfoUser($user_id, 'user_email') ?>" />
+            <input type="text" class="form-control" name="user_adress" id="" value="<?= $user->getInfoUser($user_id, 'user_adress') ?>" />
         </div>
 
         <div class="d-flex gap-2">
