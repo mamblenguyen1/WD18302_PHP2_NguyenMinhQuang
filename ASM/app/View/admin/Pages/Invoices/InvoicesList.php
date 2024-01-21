@@ -3,7 +3,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
 
         <div class="card">
-            <a href="?pages=invoice&action=choose">
+            <a href="/?pages=InvoiceController/choose">
                 <button type="button" class="btn btn-outline-primary" style="width: 200px; margin: 10px 30px;">Tạo hóa đơn</button>
             </a>
 

@@ -1,26 +1,25 @@
-<?
-include 'app/View/admin/include/header.php';
-include 'app/View/admin/include/sidebar.php';
+<?php
 
 
-
-if (isset($_GET['user_id'])) {
-    $user_id = $_GET['user_id'];
-}
+use app\Model\ProductFunction;
+use app\Model\UserFunction;
+$user = new UserFunction();
+$product  = new ProductFunction();
+$user_id = $data['Invoice'][0]['id'];
 
 if (isset($_POST['addProduct'])) {
     $product_id = $_POST['product_id'];
-    // $user_name = $_POST['user_name'];
-    // $user_adress = $_POST['user_adress'];
-    // $user_phone = $_POST['user_phone'];
-    // $product_quantity = 1;
+    // // $user_name = $_POST['user_name'];
+    // // $user_adress = $_POST['user_adress'];
+    // // $user_phone = $_POST['user_phone'];
+    // // $product_quantity = 1;
 
-    echo $product_id;
-    // echo $user_name;
-    // echo $user_adress;
-    // echo $product_quantity;
-    // echo $user_phone;
-    exit();
+    // echo $product_id;
+    // // echo $user_name;
+    // // echo $user_adress;
+    // // echo $product_quantity;
+    // // echo $user_phone;
+    // exit();
     if (
         $product_id == '' &&
         $user_name == '' &&
@@ -80,7 +79,7 @@ if (isset($_POST['addProduct'])) {
                         <ul class="product-list">
                             <li class="product-item" id="product1">
                                 <form action="" method="post">
-                                    <img src="link_anh_san_pham_1.jpg" alt="Ảnh sản phẩm 1">
+                                    <img src="assets/images/product/CucHoaMi.jpg" alt="Ảnh sản phẩm 1">
                                     <h3>Tên sản phẩm 1</h3>
                                     <input type="hidden" value="<?= $product_id ?>" name="product_id">
                                     <a class="update-button" onclick="giamSoLuong()">-</a>

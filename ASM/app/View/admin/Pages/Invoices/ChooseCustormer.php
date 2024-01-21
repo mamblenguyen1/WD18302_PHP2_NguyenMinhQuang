@@ -1,7 +1,12 @@
-<?
-include 'app/View/admin/include/header.php';
-include 'app/View/admin/include/sidebar.php';
+<?php
+
+use app\Model\UserFunction;
+
+$user = new UserFunction();
+
 ?>
+
+
 <div class="content-wrapper">
     <div class="col-lg-12 grid-margin stretch-card">
         <div id="popup1" class="popup">
@@ -12,7 +17,7 @@ include 'app/View/admin/include/sidebar.php';
                 foreach ($usersAll as $users) {
                 ?>
                     <li>
-                        <a href="index.php?pages=invoice&action=add&user_id=<?= $users['user_id'] ?>" class="user-button">
+                        <a href="?pages=InvoiceController/add/&id=<?= $users['user_id'] ?>" class="user-button">
                             <?= $users['user_name'] ?>
                             <span class="user-phone"><?= $users['user_adress'] ?></span>
                         </a>
@@ -167,21 +172,20 @@ include 'app/View/admin/include/sidebar.php';
         cursor: pointer;
         border-radius: 5px;
     }
+
     .user-phone {
         margin: 5px 30px;
         font-style: italic;
         color: #555;
         /* Dark gray text color */
     }
-    .closeButton{
-        position:  absolute;
+
+    .closeButton {
+        position: absolute;
         top: 30px;
         right: 30px;
     }
 </style>
-<?
-include 'app/View/admin/include/footer.php';
-?>
 </body>
 
 </html>

@@ -52,22 +52,22 @@ class InvoiceController extends BaseController
         $this->_renderBase->renderFooter();
     }
 
-    function add()
+    function choose()
     {
         $this->_renderBase->renderHeader();
         $this->load->render('admin/include/sidebar');
-        $this->load->render('admin/Pages/Product/ProductAdd');
+        $this->load->render('admin/Pages/Invoices/ChooseCustormer');
         $this->_renderBase->renderFooter();
     }
 
 
-    function details()
+    function add()
     {
         if (isset($_GET['id'])) {
             $userId = $_GET['id'];
         } 
         $data = [
-            "product" => [
+            "Invoice" => [
                 [
                     "id" => $userId,
                 ]
@@ -75,7 +75,7 @@ class InvoiceController extends BaseController
         ];
         $this->_renderBase->renderHeader();
         $this->load->render('admin/include/sidebar');
-        $this->load->render('admin/Pages/Product/ProductDetail', $data);
+        $this->load->render('admin/Pages/Invoices/InvoicesAdd', $data);
         $this->_renderBase->renderFooter();
     }
 
