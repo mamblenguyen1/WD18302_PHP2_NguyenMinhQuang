@@ -14,6 +14,13 @@ class UserFunction extends AbstractUserFunction
         $sql = "SELECT * FROM user";
         return $db->pdo_query($sql);
     }
+
+    function Get_User_DB_Active()
+    {
+        $db = new Database();
+        $sql = "SELECT * FROM user WHERE is_deleted = 0";
+        return $db->pdo_query($sql);
+    }
     function Get_User_DB_limit($limit)
     {
         $db = new Database();

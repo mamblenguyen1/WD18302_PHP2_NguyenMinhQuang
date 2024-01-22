@@ -5,15 +5,13 @@ use app\Model\UserFunction;
 $user = new UserFunction();
 
 ?>
-
-
 <div class="content-wrapper">
     <div class="col-lg-12 grid-margin stretch-card">
         <div id="popup1" class="popup">
             <h2>Chọn tài khoản</h2>
             <ul class="product-list">
                 <?
-                $usersAll = $user->Get_User_DB();
+                $usersAll = $user->Get_User_DB_Active();
                 foreach ($usersAll as $users) {
                 ?>
                     <li>
@@ -28,22 +26,46 @@ $user = new UserFunction();
         </div>
 
         <!-- Popup 2 -->
-        <div id="popup2" class="popup">
-            <h2>Đăng kí tài khoản</h2>
-            <p>This is the content of Popup 2.</p>
-            <button onclick="hidePopup(2)">Đóng</button>
+        <div id="popup2" class="popup" >
+            <div class="card-body" >
+                <h4 class="card-title">Thông tin hóa đơn</h4>
+                <form class="forms-sample" action="/?pages=InvoiceController/addProduct" method="post" >
+                    <div class="form-group">
+                        <label for="exampleInputUsername1">Họ và tên</label>
+                        <input type="text" class="form-control" name="user_name" placeholder="Họ tên khách hàng">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Địa chỉ nhận hàng</label>
+                        <input type="text" class="form-control" name="user_adress" placeholder="Nhập địa chỉ nhận hàng">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Số điện thoại</label>
+                        <input type="text" class="form-control" name="user_phone" placeholder="Nhập số điện thoại">
+                    </div>
+
+                    <button type="submit" name="addInfo" class="btn btn-gradient-primary me-2">Tạo hóa đơn</button>
+                    <button type="button" onclick="hidePopup(2)">Đóng</button>
+
+                </form>
+            </div>
         </div>
-        <div class="card">
-            <label>
+        <div class="card choose">
+            <!-- <label >
                 <input type="radio" name="popupSelector" onclick="showPopup(1)">
-                <span class="radio-button">Đã có tài khoản</span>
+                <span class="radio-button">Khách hàng đã có tài khoản</span>
             </label>
 
-            <label>
+            <label >
                 <input type="radio" name="popupSelector" onclick="showPopup(2)">
-                <span class="radio-button">Chưa có tài khoản</span>
-            </label>
+                <span class="radio-button">Khách vãng lai</span>
+            </label> -->
+            <div class="card-select">
+            <div class="inputst" onclick="showPopup(1)">Khách hàng đã có tài khoản</div>
+            <div class="inputst" onclick="showPopup(2)">Khách vãng lai</div>
         </div>
+        </div>
+
+       
     </div>
     <div id="overlay" class="overlay" onclick="hideAllPopups()"></div>
 
@@ -69,25 +91,28 @@ $user = new UserFunction();
 </div>
 
 <style>
-    /* Style cho radio button */
-    input[type="radio"] {
-        display: none;
+ 
+    .card-select {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
     }
 
-    .radio-button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #3498db;
-        color: #fff;
-        font-size: 16px;
-        cursor: pointer;
-        border: none;
-        border-radius: 5px;
-        margin-right: 10px;
-    }
-
-    input[type="radio"]:checked+.radio-button {
+    .inputst {
         background-color: #2980b9;
+        width: 300px;
+        margin: 30px;
+        text-align: center;
+        padding: 90px 20px;
+        border-radius: 50%;
+        box-shadow: 0 0 5px gray;
+        color: white;
+    }
+    .inputst:hover{
+        background-color: #4CAF50;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
     }
 
     /* Style cho popup */
@@ -102,7 +127,7 @@ $user = new UserFunction();
         background-color: #fff;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         z-index: 1000;
-        max-height: 400px;
+        max-height: 500px;
         overflow-y: auto;
     }
 

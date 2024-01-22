@@ -1,92 +1,126 @@
-<?
-include 'app/View/admin/include/header.php';
-include 'app/View/admin/include/sidebar.php';
-?>
-<div class="main-panel">
-    <div class="content-wrapper">
+<?php
 
+use app\Model\InvoiceFunction;
+
+$InvoiceFunction = new InvoiceFunction();
+$invoice_id = $data['Invoice'][0]['id'];
+
+
+?>
+
+<div class="content-wrapper">
+    <div class="col-12 grid-margin stretch-card">
         <div class="card">
-            <div class="card-body" style="padding: 20px 20px;">
-                <div class="product-info">
+            <div class="card-body">
+                <div class="invoice">
+                    <h1>Hóa Đơn Bán Hàng</h1>
                     <div class="info">
-                        <h4 class="card-title" style="padding: 0;">Thông tin chi tiết sản phẩm
-                            : Product 1</h4>
-                        <div class="product-name">
-                            <span style="font-weight: bold;">Tên sản phẩm</span> <span class="info" style="margin-left: 3%;">Product 1</span>
+                        <div class="sender-info">
+                            <p><strong>Người Bán:</strong> Minh Quang Store</p>
+                            <p><strong>Địa Chỉ:</strong> Bình Minh - Vĩnh Long</p>
+                            <p><strong>Số Điện Thoại:</strong> 0123456789</p>
                         </div>
-                        <div class="product-name">
-                            <span style="font-weight: bold;">Giá sản phẩm</span> <span class="info" style="margin-left: 3%;">200 VNĐ</span>
-                        </div>
-                        <div class="product-name">
-                            <span style="font-weight: bold;">Phần trăm giảm giá</span> <span class="info" style="margin-left: 3%;">20 %</span>
-                        </div>
-                        <div class="product-name">
-                            <span style="font-weight: bold;">Số lượng </span> <span class="info" style="margin-left: 3%;">50</span>
-                        </div>
-                        <div class="product-name">
-                            <span style="font-weight: bold ;vertical-align: top;">Mô tả sản phẩm </span> <span class="info" style="margin-left: 3%;">sản phẩm đẹp</span>
-                        </div>
-                        <div class="product-name">
-                            <span style="font-weight: bold;">Người tạo</span> <span class="info" style="margin-left: 3%;">Tui nè</span>
-                        </div>
-                        <div class="product-name">
-                            <span style="font-weight: bold;">Người sửa</span> <span class="info" style="margin-left: 3%;">Tui nè</span>
-                        </div>
-                        <div class="product-name">
-                            <span style="font-weight: bold;">Người xóa </span> <span class="info" style="margin-left: 3%;">Tui nè</span>
+                        <div class="recipient-info">
+                            <p><strong>Người Nhận Hàng:</strong> <?= $InvoiceFunction->Get_Invoice_Info($invoice_id, 'user_name'); ?></p>
+                            <p><strong>Địa Chỉ:</strong> <?= $InvoiceFunction->Get_Invoice_Info($invoice_id, 'user_adress'); ?></p>
+                            <p><strong>Số Điện Thoại:</strong> <?= $InvoiceFunction->Get_Invoice_Info($invoice_id, 'user_phone'); ?></p>
+                            <p><strong>Ngày đặt hàng:</strong> <?= $InvoiceFunction->Get_Invoice_Info($invoice_id, 'Invoice_date'); ?></p>
                         </div>
                     </div>
-                    <div class="product-img">
-                        <img width="300px" height="300px" src="admin/public/images/" alt="">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Sản Phẩm</th>
+                                <th>Số Lượng</th>
+                                <th>Đơn Giá</th>
+                                <th>Thành Tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?
+                            $totalPrice = 0;
+                            $InvoiceDetails = $InvoiceFunction->Get_Invoice_Details($invoice_id);
+                            foreach ($InvoiceDetails as $InvoiceDetail) {
+                            ?>
+                                <tr>
+                                    <td><?= $InvoiceDetail['product_name']?></td>
+                                    <td><?= $InvoiceDetail['product_quantity']?></td>
+                                    <td><?= $InvoiceDetail['product_price']?> VNĐ</td>
+                                    <td><?= $InvoiceDetail['product_quantity'] * $InvoiceDetail['product_price']?> VNĐ</td>
+                                </tr>
+                            <? 
+                        $totalPrice = $totalPrice + ($InvoiceDetail['product_quantity'] * $InvoiceDetail['product_price']);
+                        } ?>
+                        </tbody>
+                    </table>
+                    <div class="total">
+                        <p><strong>Tổng Cộng:</strong> <?= $totalPrice?> VND</p>
+                    </div>
+                    <div class="thank-you">
+                        <p>Cảm ơn quý khách đã mua hàng!</p>
                     </div>
                 </div>
-
             </div>
-
-            <a style="padding: 20px 30px;" href="index.php?pages=product&action=list">
-                <button type="submit" name="detail" class="btn btn-primary mr-2">Quay lại</button>
-            </a>
         </div>
+    </div>
+</div>
 
+<style>
+    .invoice {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
 
+    h1,
+    h2,
+    p {
+        margin: 0;
+    }
 
+    h1 {
+        color: #2c3e50;
+    }
 
-        <style>
-            .product-name span {
-                text-align: right;
-                width: 150px;
-                display: inline-block;
-                font-size: 16px;
-            }
+    .info {
+        margin-bottom: 20px;
+    }
 
-            .product-name .info {
-                text-align: left;
-                width: 300px;
-                display: inline-block;
-            }
+    .recipient-info,
+    .sender-info {
+        display: inline-block;
+        width: 45%;
+    }
 
-            .product-name {
-                padding: 5px 40px;
-            }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
 
-            .product-info {
-                position: relative;
-            }
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
 
-            .product-img {
-                width: 200px;
-                height: 200px;
-                position: absolute;
-                right: 10%;
-                top: 20%;
-            }
+    th {
+        background-color: #2c3e50;
+        color: #fff;
+    }
 
-            .product-img img {
-                box-shadow: 0 0 20px grey;
+    .total {
+        margin-top: 20px;
+        text-align: right;
+    }
 
-            }
-        </style>
-                </div>           
-        <?
-        include 'app/View/admin/include/footer.php';
-        ?>
+    .thank-you {
+        margin-top: 20px;
+        color: #777;
+    }
+</style>
