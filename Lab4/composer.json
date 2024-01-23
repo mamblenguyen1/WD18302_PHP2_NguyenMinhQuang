@@ -1,6 +1,6 @@
 {
     "name": "php/oop",
-    "description": "bài lab 4",
+    "description": "lab 4",
     "autoload": {
         "psr-4": {
             "app\\": "app/"
