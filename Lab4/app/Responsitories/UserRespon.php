@@ -22,9 +22,19 @@ class UserRespon
 
         ) {
             $user = new UserFunction();
-            $user->AddUser($user_name, $user_adress, $user_phone, $user_password, $role_id);
-            echo '<script>alert("Tạo tài khoản thành công ")</script>';
-            echo '<script>window.location.href="/?pages=UserController/list/"</script>';
+            $regexPhone = '/^\+?[0-9]{1,4}-?[0-9]{6,}$/';
+            $regexPass = '/^(?=.*[a-z])(?=.*[A-Z]).{8,}$/';
+            if (preg_match($regexPhone, $user_phone)) {
+                if (preg_match($regexPass, $user_password)) {
+                    $user->AddUser($user_name, $user_adress, $user_phone, $user_password, $role_id);
+                    echo '<script>alert("Tạo tài khoản thành công ")</script>';
+                    echo '<script>window.location.href="/?pages=UserController/list/"</script>';
+                } else {
+                    echo '<script>alert("Sai định dạng mật khẩu ")</script>';
+                }
+            } else {
+                echo '<script>alert("Sai định dạng số điện thoại ")</script>';
+            }
         } else {
             echo '<script>alert("Xin vui lòng điền đầy đủ thông tin")</script>';
         }
@@ -47,7 +57,7 @@ class UserRespon
             $user = new UserFunction();
             $user->UpdateUser($user_name, $user_adress, $user_phone,  $user_id, $role_id);
             echo '<script>alert("Cập nhật tài khoản thành công ")</script>';
-            echo '<script>window.location.href="/?pages=UserController/details/&id='.$user_id.'"</script>';
+            echo '<script>window.location.href="/?pages=UserController/details/&id=' . $user_id . '"</script>';
         } else {
             echo 'Xin vui lòng điền đầy đủ thông tin';
         }
