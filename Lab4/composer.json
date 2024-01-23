@@ -1,8 +1,9 @@
 {
     "name": "php/oop",
+    "description": "bài lab 4",
     "autoload": {
         "psr-4": {
-            "src\\": "src/"
+            "app\\": "app/"
         }
     },
     "authors": [
