@@ -1,9 +1,8 @@
     <?php
     require_once 'vendor/autoload.php';
     use app\Core\Route;
-    new Route;
+   $id =  new Route;
     define("ROOT_URL", "http://php2.local/ASM/");
-
 
     ?>
 

@@ -4,18 +4,18 @@ namespace app\Controller;
 
 use app\Core\RenderBase;
 
-class ProductController extends BaseController
+class InvoiceController extends BaseController
 {
 
     private $_renderBase;
-    private $data ; 
+
     /**
      * Thuốc trị đau lưng
      * Copy lại là hết đau lưng
      * 
      */
     function __construct()
-    {   
+    {
         parent::__construct();
         $this->_renderBase = new RenderBase();
         // $this->list();
@@ -48,7 +48,7 @@ class ProductController extends BaseController
     {
         $this->_renderBase->renderHeader();
         $this->load->render('admin/include/sidebar');
-        $this->load->render('admin/Pages/Product/ProductList');
+        $this->load->render('admin/Pages/Invoices/InvoicesList');
         $this->_renderBase->renderFooter();
     }
 

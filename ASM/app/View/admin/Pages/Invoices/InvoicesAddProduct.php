@@ -52,6 +52,9 @@ if (isset($_POST['pay'])) {
                                     <input type="text" name="quantity<?= $index ?>" id="quantity<?= $index ?>" value="<?= $InvoiceDetail['product_quantity'] ?>" oninput="updateTotalPrice(<?= $index ?>)">
                                     <span class="quantity-control" onclick="increaseQuantity(<?= $index ?>)">+</span>
                                 </div>
+                                <button type="button" class="btn btn-outline-secondary btn-rounded btn-icon  close">
+                                    <i class="mdi mdi-close text-primary"></i>
+                                </button>
                             </div>
                         <?php }
                         ?>
@@ -61,6 +64,7 @@ if (isset($_POST['pay'])) {
 
                     <script>
                         updateTotalPriceForAllProducts();
+
                         function decreaseQuantity(index) {
                             var quantityInput = document.getElementById('quantity' + index);
                             var currentQuantity = parseInt(quantityInput.value);
@@ -136,7 +140,7 @@ if (isset($_POST['pay'])) {
                 </ul>
             </div>
             <style>
-                #totalPriceContainer{
+                #totalPriceContainer {
                     position: absolute;
                     bottom: 130px;
                     right: 30px;
@@ -144,6 +148,7 @@ if (isset($_POST['pay'])) {
                     color: green;
                     font-weight: bold;
                 }
+
                 .products-container {
                     display: grid;
                     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -151,9 +156,16 @@ if (isset($_POST['pay'])) {
                 }
 
                 .product {
+                    position: relative;
                     border: 1px solid #ddd;
                     padding: 10px;
                     text-align: center;
+                }
+
+                .close {
+                    position: absolute;
+                    top: 10px;
+                    right: 5px;
                 }
 
                 .product img {

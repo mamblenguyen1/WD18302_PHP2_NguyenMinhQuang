@@ -8,14 +8,14 @@ class ProductController extends BaseController
 {
 
     private $_renderBase;
-    private $data ; 
+
     /**
      * Thuốc trị đau lưng
      * Copy lại là hết đau lưng
      * 
      */
     function __construct()
-    {   
+    {
         parent::__construct();
         $this->_renderBase = new RenderBase();
         // $this->list();

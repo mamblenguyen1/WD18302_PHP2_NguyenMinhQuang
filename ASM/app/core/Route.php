@@ -1,7 +1,8 @@
 <?php
 
 
-    namespace app\Core;
+namespace app\Core;
+
 class Route
 {
     public $url;
@@ -40,10 +41,9 @@ class Route
             $className        = preg_replace("~\/~", "\\", $className);
             $this->controller = new $className;
             $this->controller->HomeController();
-            
         } else {
             $this->nameController = $this->url[0];
-            $file                 = __DIR__. '/../Controller/'. $this->nameController . '.php';
+            $file                 = __DIR__ . '/../Controller/' . $this->nameController . '.php';
             // var_dump( $file);
             // die;
             if (file_exists($file)) {
@@ -61,7 +61,7 @@ class Route
                     header('Location:' . ROOT_URL . 'HomeController/Error');
                 }
             } else {
-           
+
                 header('Location:' . ROOT_URL . 'HomeController/Error');
             }
         }
@@ -75,6 +75,9 @@ class Route
             // Kiểm tra xem có tồn tại method vừa gán
             if (method_exists($this->controller, $this->nameMethod)) {
                 $this->controller->{$this->nameMethod}($this->url[2]);
+                // var_dump($this->controller->{$this->nameMethod}($this->url[2]));
+                // echo  $this->url[2];
+                // die;
             } else {
                 header('Location:' . ROOT_URL . 'HomeController/Error');
             }
@@ -85,6 +88,7 @@ class Route
                 // Kiểm tra xem có tồn tại method vừa gán
                 if (method_exists($this->controller, $this->nameMethod)) {
                     $this->controller->{$this->nameMethod}();
+                    
                 } else {
                     header('Location:' . ROOT_URL . 'HomeController/Error');
                 }
