@@ -14,10 +14,25 @@ class HomeController extends BaseController
      * Copy lại là hết đau lưng
      * 
      */
+    // function __construct()
+    // {
+    //     parent::__construct();
+    //     $this->_renderBase = new RenderBase();
+    // }
+
+
     function __construct()
     {
-        parent::__construct();
-        $this->_renderBase = new RenderBase();
+        if (!isset($_COOKIE['userID'])) {
+            parent::__construct();
+            $this->_renderBase = new RenderBase();
+            $this->_renderBase->renderLogin();
+            die;
+        }else{
+            parent::__construct();
+            $this->_renderBase = new RenderBase();
+        }
+        
     }
 
     function HomeController()

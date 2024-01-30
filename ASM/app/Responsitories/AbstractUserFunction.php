@@ -10,7 +10,5 @@ abstract class AbstractUserFunction{
    abstract function AddUser($user_name, $user_email, $user_phone, $user_password , $role_id);
    abstract function UpdateUser($user_name, $user_email, $user_phone,  $user_id, $role_id);
    abstract function DeleteUser($user_id, $status);
-   abstract function CheckPass($user_id, $column);
-   abstract function ChangePassFunc($user_password , $user_id);
 }
 

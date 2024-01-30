@@ -16,9 +16,16 @@ class ProductController extends BaseController
      */
     function __construct()
     {   
-        parent::__construct();
-        $this->_renderBase = new RenderBase();
-        // $this->list();
+        if (!isset($_COOKIE['userID'])) {
+            parent::__construct();
+            $this->_renderBase = new RenderBase();
+            $this->_renderBase->renderLogin();
+            die;
+        }else{
+            parent::__construct();
+            $this->_renderBase = new RenderBase();
+        }
+        
     }
 
     // function Controller()
@@ -61,15 +68,12 @@ class ProductController extends BaseController
     }
 
 
-    function details()
+    function details($id)
     {
-        if (isset($_GET['id'])) {
-            $userId = $_GET['id'];
-        } 
         $data = [
             "product" => [
                 [
-                    "id" => $userId,
+                    "id" => $id,
                 ]
             ]
         ];
@@ -79,15 +83,12 @@ class ProductController extends BaseController
         $this->_renderBase->renderFooter();
     }
 
-    function edit()
+    function edit($id)
     {
-        if (isset($_GET['id'])) {
-            $userId = $_GET['id'];
-        } 
         $data = [
             "product" => [
                 [
-                    "id" => $userId,
+                    "id" => $id,
                 ]
             ]
         ];

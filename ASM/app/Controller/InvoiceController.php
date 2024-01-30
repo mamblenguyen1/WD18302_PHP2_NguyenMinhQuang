@@ -16,9 +16,16 @@ class InvoiceController extends BaseController
      */
     function __construct()
     {
-        parent::__construct();
-        $this->_renderBase = new RenderBase();
-        // $this->list();
+        if (!isset($_COOKIE['userID'])) {
+            parent::__construct();
+            $this->_renderBase = new RenderBase();
+            $this->_renderBase->renderLogin();
+            die;
+        }else{
+            parent::__construct();
+            $this->_renderBase = new RenderBase();
+        }
+        
     }
 
     function list()

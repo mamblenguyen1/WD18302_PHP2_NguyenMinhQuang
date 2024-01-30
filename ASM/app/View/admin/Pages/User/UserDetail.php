@@ -7,11 +7,9 @@ use app\Helpers\status;
 
 <?php
 $user_id = $data['user'][0]['id'];
-// echo $user_id;
 ?>
 <div class="main-panel">
     <div class="content-wrapper">
-
         <div class="card">
             <div class="card-body" style="padding: 20px 20px;">
                 <div class="product-info">
@@ -25,7 +23,7 @@ $user_id = $data['user'][0]['id'];
                             <span style="font-weight: bold;">Địa chỉ</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoUser($user_id, 'user_adress'); ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Số điện thoại</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoUser($user_id, 'user_phone'); ?></span>
+                            <span style="font-weight: bold;">Email</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoUser($user_id, 'user_email'); ?></span>
                         </div>
                         <div class="product-name">
                             <span style="font-weight: bold;">Cấp quyền </span> <span class="info" style="margin-left: 3%;">

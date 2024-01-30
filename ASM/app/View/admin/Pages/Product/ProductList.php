@@ -58,11 +58,11 @@ $product = new ProductFunction();
                                     ?>
                                 </td>
                             <td>
-                                <a href="/?pages=ProductController/details/&id=<?= $product['product_id']?>">
+                                <a href="/?pages=ProductController/details/<?= $product['product_id']?>">
                                     <button type="button" class="btn btn-outline-success btn-icon-text" fdprocessedid="zlcdq9"><i class="mdi mdi-alert btn-icon-prepend"></i> Chi tiết </button>
 
                                 </a>
-                                <a href="/?pages=ProductController/edit/&id=<?= $product['product_id']?>">
+                                <a href="/?pages=ProductController/edit/<?= $product['product_id']?>">
 
                                 <button type="button" class="btn btn-outline-info btn-icon-text"> Sửa <i class="mdi mdi-settings btn-icon-append"></i></button>
                                 </a>

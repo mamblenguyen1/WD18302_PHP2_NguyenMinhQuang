@@ -29,21 +29,19 @@ if (isset($_POST['editUser'])) {
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail3">Địa chỉ :</label>
-                        <input type="text" name="user_adress" class="form-control" value="<?= $user->getInfoUser($user_id, 'user_adress') ?>" placeholder="Nhập Email">
+                        <input type="text" name="user_adress" class="form-control" value="<?= $user->getInfoUser($user_id, 'user_adress') ?>" placeholder="Nhập địa chỉ">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword4">Số điện thoại :</label>
-                        <input type="number" name="user_phone" class="form-control" value="<?= $user->getInfoUser($user_id, 'user_phone') ?>" placeholder="Nhập số điện thoại">
+                        <input type="number" name="user_phone" class="form-control" value="<?= $user->getInfoUser($user_id, 'user_email') ?>" placeholder="Nhập email nhận hàng">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword4">Cấp quyền :</label>
                         <select name="role_id" id="role" class="form-control select2" style="width: 100%;">
                             <option selected="selected" value="<?= $user->getInfoUser($user_id, 'role_id') ?>"><?= $user->getInfoUser($user_id, 'role_id') == 1 ?  'Người quản trị' : 'Khách hàng' ?></option>
                             <option value="<?= $user->getInfoUser($user_id, 'role_id') == 2 ?  '1' : '2' ?>"><?= $user->getInfoUser($user_id, 'role_id') == 2 ?  'Người quản trị' : 'Khách hàng' ?></option>
-
                         </select>
                     </div>
-
                     <button type="submit" name="editUser" class="btn btn-gradient-primary me-2">Cập nhật</button>
                     <a href="/?pages=UserController/list">Quay lại</a>
                 </form>

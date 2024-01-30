@@ -18,7 +18,7 @@ $user = new UserFunction();
                     </div>
                     <div class="nav-profile-text d-flex flex-column">
                         <span class="font-weight-bold mb-2">
-                            <?= $user->getInfoUser(1 , 'user_name')?>
+                            <?= $user->getInfoUser($_COOKIE['userID'] , 'user_name')?>
                         </span>
                         <span class="text-secondary text-small">
                         <?

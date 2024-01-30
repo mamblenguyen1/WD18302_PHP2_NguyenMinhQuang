@@ -9,7 +9,6 @@ $user = new UserFunction();
 $product = new ProductFunction();
 
 $product_id = $data['product'][0]['id'];
-echo $product_id;  
 
 ?>
 <div class="main-panel">

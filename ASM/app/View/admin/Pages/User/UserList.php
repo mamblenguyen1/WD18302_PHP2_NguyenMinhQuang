@@ -62,11 +62,11 @@ if (isset($_POST['recovery'])) {
                                     ?>
                                 </td>
                                 <td>
-                                    <a href="/?pages=UserController/details/&id=<?= $users['user_id'] ?>">
+                                    <a href="/?pages=UserController/details/<?= $users['user_id'] ?>">
                                         <button type="button" class="btn btn-outline-success btn-icon-text" fdprocessedid="zlcdq9"><i class="mdi mdi-alert btn-icon-prepend"></i> Chi tiết </button>
 
                                     </a>
-                                    <a href="/?pages=UserController/edit/&id=<?= $users['user_id'] ?>">
+                                    <a href="/?pages=UserController/edit/<?= $users['user_id'] ?>">
 
                                         <button type="button" class="btn btn-outline-info btn-icon-text"> Sửa <i class="mdi mdi-settings btn-icon-append"></i></button>
                                     </a>
