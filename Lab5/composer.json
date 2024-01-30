@@ -1,0 +1,16 @@
+{
+    "name": "php/oop",
+    "description": "Bài lab 5 môn PHP2",
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mamblenguyen1",
+            "email": "quangnmpc07626@fpt.edu.vn"
+        }
+    ],
+    "require": {}
+}
