@@ -167,7 +167,7 @@ if (isset($_POST['logout'])) {
             </div> -->
         </li>
         <li class="nav-item nav-logout d-none d-lg-block">
-          <a class="nav-link" href="/?pages=LoginController/logIn">
+          <a class="nav-link" href="/?pages=LoginController/logOut">
             <i class="mdi mdi-power"></i>
           </a>
         </li>
