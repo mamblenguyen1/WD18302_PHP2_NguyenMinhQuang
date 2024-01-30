@@ -33,7 +33,7 @@ if (isset($_POST['Register'])) {
         </div>
         <div class="form-field">
             <label for="surname">Mật khẩu</label>
-            <input type="text" id="surname" name="userpass" />
+            <input type="password" id="surname" name="userpass" />
         </div>
         <div>
             <input type="submit" name="Login" class="btn" />

@@ -44,8 +44,8 @@ class UserFunction extends AbstractUserFunction
     function Register($user_name, $user_email, $user_password)
     {
         $db = new Database();
-        $sql = "INSERT INTO `user` (`user_id`, `user_name`, `user_email`,  `is_deleted`, `created_at`, `updated_at`, `deleted_at`, `user_created`, `user_updated`, `user_deleted`, `user_password`, `role_id`)
-         VALUES (NULL, '$user_name', '$user_email', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, NULL, NULL, '$user_password', 1);";
+        $sql = "INSERT INTO `user` (`user_id`, `user_name`, `user_email`,  `is_deleted`, `created_at`, `updated_at`, `deleted_at`, `user_created`, `user_updated`, `user_deleted`, `user_password`, `role_id`,`user_adress`)
+         VALUES (NULL, '$user_name', '$user_email', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, NULL, NULL, '$user_password', 1 , NULL);";
         return $db->pdo_execute1($sql);
     }
     function UpdateUser($user_name, $user_adress, $user_phone,  $user_id, $role_id)

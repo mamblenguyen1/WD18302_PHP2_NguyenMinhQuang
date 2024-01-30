@@ -3,6 +3,7 @@
 namespace app\Controller;
 
 use app\Core\RenderBase;
+use app\Responsitories\LoginRespositoies;
 
 class LoginController extends BaseController
 {
@@ -23,7 +24,6 @@ class LoginController extends BaseController
     }
 
 
-
     function LoginController()
     {
         $this->logIn();
@@ -31,6 +31,22 @@ class LoginController extends BaseController
 
     function logIn()
     {
+        $LoginRespositoies = new LoginRespositoies();
+        if (isset($_POST['login'])) {
+            if ($LoginRespositoies->Login()) {
+                echo '<script>window.location.href="/?pages=LoginController/logIn/"</script>';
+            } else {
+                $this->load->render('admin/Pages/Login/Login');
+            };
+        }else{
+            $this->load->render('admin/Pages/Login/Login');
+        }
+    }
+
+    function logOut()
+    {   
+        unset($_SESSION['user_id']);
+        unset($_SESSION['user_name']);
         setcookie("userID", '', time() + 1, "/");
         $this->load->render('admin/Pages/Login/Login');
     }

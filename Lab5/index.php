@@ -2,7 +2,7 @@
 <?php
 require_once 'vendor/autoload.php';
 define("ROOT_URL", "http://lab5.local/");
-
+session_start();
 use app\Core\Route;
 
 
@@ -10,9 +10,6 @@ if (!isset($_COOKIE['userID'])) {
     echo '<script>window.location.href="/?pages=LoginController/"</script>';
 } 
 new Route;
-
-
-
 
 
 

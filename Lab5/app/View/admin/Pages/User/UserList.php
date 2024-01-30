@@ -23,9 +23,9 @@ if (isset($_POST['recovery'])) {
     $user_id = $_POST['user_id'];
     $user->DeleteUser($user_id, 0);
 }
-if (isset($_POST['logout'])) {
-    setcookie("userID", '', time() + 1, "/");
-}
+// if (isset($_POST['logout'])) {
+//     setcookie("userID", '', time() + 1, "/");
+// }
 
 ?>
 <div class="content-wrapper">
@@ -35,7 +35,7 @@ if (isset($_POST['logout'])) {
             <a href="/?pages=UserController/add/">
                 <button type="button" class="btn btn-outline-primary" style="width: 200px; margin: 10px 30px;">Thêm tài khoản</button>
             </a>
-            <a href="/?pages=LoginController/logIn">
+            <a href="/?pages=LoginController/logOut">
             <button type="button" name="logout" class="btn btn-outline-primary" style="width: 200px; margin: 10px 30px;">Đăng xuất</button>
 
             </a>

@@ -30,11 +30,11 @@ if (isset($_POST['Register'])) {
         </div>
         <div class="form-field">
             <label for="surname">Mật khẩu</label>
-            <input type="text" id="surname" name="userpass" />
+            <input type="password" id="surname" name="userpass" />
         </div>
         <div class="form-field">
             <label for="name">Nhập lại mật khẩu</label>
-            <input type="text" id="name" name="confirmPass" />
+            <input type="password" id="name" name="confirmPass" />
         </div>
         <div style="margin: 10px 0;">
             <input type="submit" name="Register" class="btn" />
