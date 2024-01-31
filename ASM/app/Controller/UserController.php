@@ -4,6 +4,8 @@ namespace app\Controller;
 
 use app\Core\RenderBase;
 
+use app\Responsitories\UserRespon;
+
 class UserController extends BaseController
 {
 
@@ -21,11 +23,10 @@ class UserController extends BaseController
             $this->_renderBase = new RenderBase();
             $this->_renderBase->renderLogin();
             die;
-        }else{
+        } else {
             parent::__construct();
             $this->_renderBase = new RenderBase();
         }
-        
     }
 
     // function Controller()
@@ -61,10 +62,14 @@ class UserController extends BaseController
 
     function add()
     {
+        $UserRespon = new UserRespon();
         $this->_renderBase->renderHeader();
         $this->load->render('admin/include/sidebar');
         $this->load->render('admin/Pages/User/UserAdd');
         $this->_renderBase->renderFooter();
+        if (isset($_POST['addUser'])) {
+            $UserRespon->AddUserResponse();
+        }
     }
 
 
@@ -85,6 +90,8 @@ class UserController extends BaseController
 
     function edit($id)
     {
+        $UserRespon = new UserRespon();
+
         $data = [
             "user" => [
                 [
@@ -96,5 +103,9 @@ class UserController extends BaseController
         $this->load->render('admin/include/sidebar');
         $this->load->render('admin/Pages/User/UserEdit', $data);
         $this->_renderBase->renderFooter();
+        $user_id = $data['user'][0]['id'];
+        if (isset($_POST['editUser'])) {
+            $UserRespon->UpdateUserResponse($user_id);
+        }
     }
 }

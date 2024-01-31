@@ -5,12 +5,13 @@
 
     define("ROOT_URL", "http://php2.local/ASM/");
 
+    session_start();
 
 
     // if (!isset($_COOKIE['userID'])) {
     //     echo '<script>window.location.href="/?pages=LoginController/logIn"</script>';
     // }
-    $id =  new Route;
+      new Route;
 
     // use app\Model\ProductFunction;
     // use app\Responsitories\ProductRespon;

@@ -24,7 +24,9 @@ class LoginRespositoies
                 } else {
                     if ($user->checkAccount($_POST["username"], $_POST["userpass"])) {
                         $userid = $user->getInfoUserName($_POST["username"], 'user_id');
-                        echo $userid;
+                        // echo $userid;
+                        $_SESSION['username'] = $user->getInfoUserName($_POST["username"], 'user_name');
+                        $_SESSION['user_id'] = $userid;
                         setcookie("userID", $userid, time() + 3600, "/");
                         return true;
                     } else {

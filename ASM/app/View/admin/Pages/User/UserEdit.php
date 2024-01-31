@@ -1,20 +1,8 @@
 <?php
 
-
 use app\Model\UserFunction;
-use app\Responsitories\UserRespon;
-
-$userRespon = new UserRespon();
-
 $user = new UserFunction();
-?>
-
-
-<?
 $user_id = $data['user'][0]['id'];
-if (isset($_POST['editUser'])) {
-    $userRespon->UpdateUserResponse($user_id);
-}
 
 ?>
 <div class="content-wrapper">
@@ -33,7 +21,7 @@ if (isset($_POST['editUser'])) {
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword4">Số điện thoại :</label>
-                        <input type="number" name="user_phone" class="form-control" value="<?= $user->getInfoUser($user_id, 'user_email') ?>" placeholder="Nhập email nhận hàng">
+                        <input type="number" name="user_phone" class="form-control" value="<?= $user->getInfoUser($user_id, 'user_phone') ?>" placeholder="Nhập email nhận hàng">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword4">Cấp quyền :</label>

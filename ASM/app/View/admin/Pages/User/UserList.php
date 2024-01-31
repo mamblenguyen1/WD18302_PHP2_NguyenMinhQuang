@@ -5,13 +5,18 @@ $user = new UserFunction();
 ?>
 
 <?php
+ if(isset($_SESSION['user_id'])){
+    $user_deleted = $_SESSION['user_id'];
+}else{
+    echo 'không tìm thấy user id';
+}
 if (isset($_POST['delete'])) {
     $user_id = $_POST['user_id'];
-    $user->DeleteUser($user_id, 1);
+    $user->DeleteUser($user_id, 1 , $user_deleted);
 }
 if (isset($_POST['recovery'])) {
     $user_id = $_POST['user_id'];
-    $user->DeleteUser($user_id, 0);
+    $user->DeleteUser($user_id, 0 , $user_deleted);
 }
 ?>
 <div class="content-wrapper">

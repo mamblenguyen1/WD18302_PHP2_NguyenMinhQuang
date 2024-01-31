@@ -6,11 +6,6 @@ $userRespon = new UserRespon();
 ?>
 <?php
 
-if (isset($_POST['addUser'])) {
-    $userRespon->AddUserResponse();
-}
-
-
 ?>
 <div class="content-wrapper">
     <div class="col-12 grid-margin stretch-card">
@@ -25,6 +20,10 @@ if (isset($_POST['addUser'])) {
                     <div class="form-group">
                         <label for="exampleInputEmail3">Địa chỉ :</label>
                         <input type="text" name="user_adress" class="form-control" id="exampleInputEmail3" placeholder="Nhập Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail3">Email :</label>
+                        <input type="text" name="user_email" class="form-control" id="exampleInputEmail3" placeholder="Nhập Email">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword4">Số điện thoại :</label>

@@ -38,11 +38,11 @@ class UserFunction extends AbstractUserFunction
         }
     }
    
-    function AddUser($user_name, $user_adress, $user_phone, $user_password, $role_id)
+    function AddUser($user_name, $user_adress, $user_phone,$user_email, $user_password, $role_id, $user_created)
     {
         $db = new Database();
-        $sql = "INSERT INTO `user` (`user_id`, `user_name`, `user_adress`, `user_phone`, `is_deleted`, `created_at`, `updated_at`, `deleted_at`, `user_created`, `user_updated`, `user_deleted`, `user_password`, `role_id`)
-         VALUES (NULL, '$user_name', '$user_adress', '$user_phone', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, NULL, NULL, '$user_password', $role_id);";
+        $sql = "INSERT INTO `user` (`user_id`, `user_name`,`user_email`, `user_phone`,`user_adress`,  `is_deleted`, `created_at`, `updated_at`, `deleted_at`, `user_created`, `user_updated`, `user_deleted`, `user_password`, `role_id`)
+         VALUES (NULL, '$user_name', '$user_email', '$user_phone','$user_adress', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, $user_created, NULL, NULL, '$user_password', $role_id);";
         return $db->pdo_execute($sql);
     }
     function Register($user_name, $user_email, $user_password)
@@ -52,17 +52,17 @@ class UserFunction extends AbstractUserFunction
          VALUES (NULL, '$user_name', '$user_email', 0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, NULL, NULL, '$user_password', 1);";
         return $db->pdo_execute1($sql);
     }
-    function UpdateUser($user_name, $user_adress, $user_phone,  $user_id, $role_id)
+    function UpdateUser($user_name, $user_adress, $user_phone,  $user_id, $role_id, $user_updated)
     {
         $db = new Database();
-        $sql = "UPDATE `user` SET `user_name` = '$user_name', `user_adress` = '$user_adress', `user_phone` = '$user_phone' , `role_id` = $role_id WHERE `user`.`user_id` = $user_id;";
+        $sql = "UPDATE `user` SET `user_name` = '$user_name', `user_adress` = '$user_adress', `user_phone` = '$user_phone' , `role_id` = $role_id , `user_updated` = $user_updated WHERE `user`.`user_id` = $user_id;";
         return $db->pdo_execute($sql);
     }
 
-    function DeleteUser($user_id, $status)
+    function DeleteUser($user_id, $status, $user_deleted)
     {
         $db = new Database();
-        $sql = "UPDATE `user` SET user.is_deleted = $status WHERE `user`.`user_id` = $user_id;";
+        $sql = "UPDATE `user` SET user.is_deleted = $status , user.user_deleted = $user_deleted WHERE `user`.`user_id` = $user_id;";
         $result = $db->pdo_execute($sql);
         return $result;
     }
