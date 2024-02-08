@@ -5,30 +5,17 @@ namespace app\Model;
 use app\Model\CrudInterface;
 use app\Model\Database;
 use PDO;
+use Exception;
+use app\Model\QueryBuilder;
 
 abstract class BaseModel implements CrudInterface
 {
+    use QueryBuilder;
 
-
-    public $tableName = '';
-    public $selectField = '*';
-    public $limit = '';
-    public $orderBy = '';
-    public $innerJoin = '';
-    public $insert = '';
-    public $leftJoin = '';
-    public $groupBy = '';
-
-
-
-
-    protected $table;
-
-    public $where = '';
-    public $operator = '';
-
+    
     private $_connection;
 
+    // protected $name ="BaseModel";
     private $_query;
 
     public function __construct()
@@ -36,92 +23,93 @@ abstract class BaseModel implements CrudInterface
         $this->_connection = new Database();
     }
 
- 
+    abstract public function getAllWithPaginate(int $limit,int  $offset);
 
     public function getAll()
     {
-        $this->_query = "SELECT * FROM $this->table ";
+        $this->_query = "SELECT * FROM $this->tableName";
 
-        return $this;
-    }
-
-    public function select($field = "*")
-    {
-        $this->selectField = $field;
-        return $this;
-    }
-
-    public function where($field, $compare, $value)
-    {
-        $this->operator = " WHERE";
-        if (!empty($this->where)) {
-            $this->operator = " AND ";
-            $this->where .= "$this->operator $field $compare $value";
-        } else {
-            // Kiểm tra nếu giá trị $value là một biểu thức SQL, không cần thêm dấu nháy đơn
-            if (strpos($value, ' ') !== false) {
-                $this->where .= "$this->operator $field $compare $value";
-            } else {
-                $this->where .= "$this->operator $field $compare '$value'";
-            }
-        }
         return $this;
     }
     
-    public function orderBy(string $order = 'ASC')
-    {
-        $this->_query = $this->_query . "order by " . $order;
+    // public function orderBy(string $order = 'ASC')
+    // {
+    //     $this->_query = $this->_query . "order by " . $order;
 
-        return $this;
-    }
+    //     return $this;
+    // }
+    
 
     // public function get()
     // {
-    //     $stmt   = $this->_connection->pdo_execute($this->_query);
-    //     // return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //     return $stmt ;
+    //     $stmt   = $this->_connection->PDO()->prepare($this->_query);
+    //     $stmt->execute();
+
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
     // }
 
-    public function get()
-    {
-        // echo $this->innerJoin;
-        $sqlQuery = "SELECT $this->selectField FROM $this->table $this->innerJoin $this->leftJoin $this->where $this->groupBy  $this->orderBy  $this->limit";                                                                                                           
-        $stmt   = $this->_connection->pdo_execute($sqlQuery);
-        // return $stmt ;
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        // if (!empty($query)) return $query->fetchAll(PDO::FETCH_ASSOC);
-        // return false;
+
+    public function getOne($id){
+        return [];
     }
 
-    public function getInfo($column){
-        $sqlQuery = "SELECT $this->selectField FROM $this->table $this->innerJoin $this->leftJoin $this->where $this->groupBy  $this->orderBy  $this->limit";                                                                                                           
-        $result = $this->_connection->pdo_query($sqlQuery);
-        foreach ($result as $row) {
-            return $row[$column];
-        }
-    }
 
     public function limit(int $limit = 10)
     {
-        $stmt   = $this->_connection->pdo_execute($this->_query);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt   = $this->_connection->PDO()->prepare($this->_query);
+        $result = $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-    public function getOne(int $id)
-    {
-        return [];
-    }
-    public function create(array $data)
-    {
-    }
-    public function update(int $id, array $data)
-    {
-    }
     public function remove(int $id): bool
     {
         return true;
     }
+    // public function updateData($table, $data, $condition = '')
+    // {
+    //     if (!empty($data)) {
+    //         $updateStr = '';
+    //         foreach ($data as $key => $value) {
+    //             if (strpos($value, ' ') !== false) {
+    //                 $updateStr .= "$key=$value,";
+    //             } else if($value === '' || $value === null) {
+    //                 $updateStr .= "$key=NULL,";
+    //             }else {
+    //                 $updateStr .= "$key='$value',";
+    //             }
+    //         }
+    //         $updateStr = rtrim($updateStr, ',');
+    //         $sql = "UPDATE $table SET $updateStr";
+    //         if (!empty($condition)) {
+    //             $sql = "UPDATE $table SET $updateStr WHERE $condition";
+    //         }
+    //         $status = $this->query($sql);
+    //         if (!$status) return false;
+    //     }
+    //     return true;
+    // }
 
-
+    public function deleteData($table, $condition = ''): bool
+    {
+        $sql = 'DELETE FROM ' . $table;
+        if (!empty($condition)) {
+            $sql = 'DELETE FROM ' . $table . ' WHERE ' . $condition;
+        }
+        $status = $this->query($sql);
+        if (!$status) return false;
+        return true;
+    }
+    public function query($sql)
+    {
+        try {
+            $statement =  $this->_connection->PDO()->prepare($sql);
+            $statement->execute();
+            return $statement;
+        } catch (Exception $ex) {
+            $mess = $ex->getMessage();
+            echo $mess;
+            die();
+        }
+    }
 }

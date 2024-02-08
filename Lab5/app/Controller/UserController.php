@@ -21,11 +21,11 @@ class UserController extends BaseController
             $this->_renderBase = new RenderBase();
             $this->_renderBase->renderLogin();
             die;
-        }else{
+        } else {
             parent::__construct();
             $this->_renderBase = new RenderBase();
         }
-        
+
         // $this->list();
     }
 

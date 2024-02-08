@@ -26,7 +26,7 @@ if (isset($_POST['recovery'])) {
 // if (isset($_POST['logout'])) {
 //     setcookie("userID", '', time() + 1, "/");
 // }
-
+// echo $_SESSION['user_name'];
 ?>
 <div class="content-wrapper">
     <div class="col-lg-12 grid-margin stretch-card">

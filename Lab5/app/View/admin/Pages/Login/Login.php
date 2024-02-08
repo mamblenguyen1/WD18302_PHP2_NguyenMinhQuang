@@ -5,66 +5,24 @@ use app\Responsitories\LoginRespositoies;
 $LoginRespositoies = new LoginRespositoies();
 ?>
 <title>Login</title>
-<?php
-
-
-if (isset($_POST['Login'])) {
-    if ($LoginRespositoies->Login()) {
-        echo '<script>window.location.href="/?pages=UserController/list/"</script>';
-    } else {
-    };
-}
-if (isset($_POST['Register'])) {
-    if ($LoginRespositoies->register()) {
-        echo '<script>window.location.href="/?pages=UserController/list/"</script>';
-    } else {
-    };
-}
-
-
-?>
 <main class="page-content">
     <h1 class="page-title">Minh Quang Store</h1>
-    <form id="loginForm" class="contact-form" method="post">
+    <form id="loginForm" class="contact-form" action="/?pages=LoginController/HandleLogin" method="post">
         <h2 class="form-title">Đăng nhập</h2>
         <div class="form-field">
             <label for="name">Tên đăng nhập</label>
-            <input type="text" id="name" name="username" />
+            <input type="text" id="name" name="user_name" />
         </div>
         <div class="form-field">
             <label for="surname">Mật khẩu</label>
-            <input type="password" id="surname" name="userpass" />
+            <input type="password" id="surname" name="user_password" />
         </div>
         <div>
-            <input type="submit" name="Login" class="btn" />
+            <input type="submit" class="btn" />
         </div>
         <a href="/?pages=LoginController/register">Tạo tài khoản</a>
         <a style="margin-left: 30px;" href="/?pages=LoginController/forgot">Quên mật khẩu</a>
     </form>
-
-    <!-- <form id="registerForm" class="contact-form register" method="post" style="display: none;">
-        <h2 class="form-title">Đăng kí</h2>
-        <div class="form-field">
-            <label for="name">Tên đăng nhập</label>
-            <input type="text" id="name" name="username" />
-        </div>
-        <div class="form-field">
-            <label for="name">Số điện thoại</label>
-            <input type="text" id="name" name="phone" />
-        </div>
-        <div class="form-field">
-            <label for="surname">Mật khẩu</label>
-            <input type="text" id="surname" name="userpass" />
-        </div>
-        <div class="form-field">
-            <label for="name">Nhập lại mật khẩu</label>
-            <input type="text" id="name" name="confirmPass" />
-        </div>
-        <div style="margin: 10px 0;">
-            <input type="submit" name="Register" class="btn" />
-        </div>
-        <a href="/?pages=LoginController/login">Đăng nhập</a>
-    </form> -->
 </main>
 
 

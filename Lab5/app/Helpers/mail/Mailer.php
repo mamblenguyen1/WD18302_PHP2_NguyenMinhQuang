@@ -1,13 +1,16 @@
-<?php
+<?
 
 namespace app\Helpers\mail;
-
-require "PHPMailer/src/PHPMailer.php";
-require "PHPMailer/src/SMTP.php";
+use Exception;
+use app\Helpers\mail\PHPMailer\src\PHPMailer;
+use app\Helpers\mail\PHPMailer\src\SMTP;
+new SMTP;
+// require "PHPMailer/src/PHPMailer.php";
+// require "PHPMailer/src/SMTP.php";
 require 'PHPMailer/src/Exception.php';
 
-use PHPMailer\PHPMailer\PHPMailer as Email ;
-use Exception;
+
+
 
 
 
@@ -17,7 +20,7 @@ class Mailer
 
   public function sendEmail($content, $addressMail)
   {
-    $mail = new Email(true); //true:enables exceptions
+    $mail = new PHPMailer(true); //true:enables exceptions
     try {
       $mail->SMTPDebug = 0; //0,1,2: chế độ debug
       $mail->isSMTP();
@@ -52,7 +55,7 @@ class Mailer
 
   public function Forgot($newPassword, $addressMail)
   {
-    $mail = new Email(true); //true:enables exceptions
+    $mail = new PHPMailer(true); //true:enables exceptions
     try {
       $mail->SMTPDebug = 0; //0,1,2: chế độ debug
       $mail->isSMTP();
@@ -68,7 +71,7 @@ class Mailer
       $mail->isHTML(true);
       $mail->Subject = 'Cập nhật mật khẩu mới';
       $noidungthu = '
-            Mật khẩu của bạn là : '.$newPassword.'
+            Mật khẩu của bạn là : ' . $newPassword . '
         ';
       $mail->Body = $noidungthu;
       $mail->smtpConnect(
@@ -86,8 +89,4 @@ class Mailer
       echo 'Error: ', $mail->ErrorInfo;
     }
   }
-
- 
-
-   
 }

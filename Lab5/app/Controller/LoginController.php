@@ -2,6 +2,7 @@
 
 namespace app\Controller;
 
+use app\Model\UserModel;
 use app\Core\RenderBase;
 use app\Responsitories\LoginRespositoies;
 
@@ -29,6 +30,20 @@ class LoginController extends BaseController
         $this->logIn();
     }
 
+
+
+    function HandleLogin()
+    {
+        $LoginRespositoies = new LoginRespositoies();
+        if ($LoginRespositoies->Login()) {
+            header('location: ?pages=UserController/list');
+        }else{
+            $this->logIn();            
+        }
+    }
+
+
+
     function logIn()
     {
         $LoginRespositoies = new LoginRespositoies();
@@ -38,13 +53,13 @@ class LoginController extends BaseController
             } else {
                 $this->load->render('admin/Pages/Login/Login');
             };
-        }else{
+        } else {
             $this->load->render('admin/Pages/Login/Login');
         }
     }
 
     function logOut()
-    {   
+    {
         unset($_SESSION['user_id']);
         unset($_SESSION['user_name']);
         setcookie("userID", '', time() + 1, "/");
@@ -54,25 +69,20 @@ class LoginController extends BaseController
     {
         $this->load->render('admin/Pages/Login/Register');
     }
+    function HandleRegister()
+    {
+        $LoginRespositoies = new LoginRespositoies();
+        if ($LoginRespositoies->register()) {
+            header('location: ?pages=UserController/list');
+        }else{
+            $this->register();            
+        }
+    }
 
     function forgot()
     {
         $this->load->render('admin/Pages/Login/forgot');
     }
 
-
-    // function logOut()
-    // {
-    //     setcookie("userID", '', time() + 1, "/");
-    // }
-    // function list()
-    // {
-    //     $this->load->render('admin/Pages/User/UserList');
-    // }
-
-    // function add()
-    // {
-    //     $this->load->render('admin/Pages/User/UserAdd');
-    // }
 
 }
