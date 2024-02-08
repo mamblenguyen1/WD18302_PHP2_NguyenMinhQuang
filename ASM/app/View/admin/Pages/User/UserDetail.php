@@ -1,20 +1,22 @@
 <?php
 
-use app\Model\UserFunction;
+// use app\Model\UserFunction;
 
-$user = new UserFunction();
+// $user = new UserFunction();
 
 use app\Model\UserModel;
+$user = new UserModel();
 
-$userModel = new UserModel();
 
 use app\Helpers\status;
 ?>
 
 <?php
 $user_id = $data['user'][0]['id'];
-// var_dump($userModel->where('user_id', '=', 3)->getInfo('user_name')) ;
+// // echo $user_created = $user->getInfoById($user_id , 'user_created');
+// echo $user->getInfoById(($user->getInfoById($user_id , 'user_created')) , 'user_name');
 // die;
+
 ?>
 <div class="main-panel">
     <div class="content-wrapper">
@@ -23,23 +25,23 @@ $user_id = $data['user'][0]['id'];
                 <div class="product-info">
                     <div class="info">
                         <h4 class="card-title" style="padding: 0;">Thông tin chi tiết khách hàng
-                            : <?= $user->getInfoUser($user_id, 'user_name'); ?></h4>
+                            : <?= $user->getInfoById($user_id , 'user_name') ?></h4>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Tên tài khoản</span> <span class="info" style="margin-left: 3%;"><?= $userModel->where('user_id', ' = ', $user_id)->getInfo('user_name') ?></span>
+                            <span style="font-weight: bold;">Tên tài khoản</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoById($user_id , 'user_name') ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Địa chỉ</span> <span class="info" style="margin-left: 3%;"><?= $userModel->where('user_id', ' = ', $user_id)->getInfo('user_adress') ?></span>
+                            <span style="font-weight: bold;">Địa chỉ</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoById($user_id , 'user_adress') ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Email</span> <span class="info" style="margin-left: 3%;"><?= $userModel->where('user_id', ' = ', $user_id)->getInfo('user_email') ?></span>
+                            <span style="font-weight: bold;">Email</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoById($user_id , 'user_email') ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Số điện thoại</span> <span class="info" style="margin-left: 3%;"><?= $userModel->where('user_id', ' = ', $user_id)->getInfo('user_phone') ?></span>
+                            <span style="font-weight: bold;">Số điện thoại</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoById($user_id , 'user_phone') ?></span>
                         </div>
                         <div class="product-name">
                             <span style="font-weight: bold;">Cấp quyền </span> <span class="info" style="margin-left: 3%;">
                                 <?
-                                if (($userModel->where('user_id', ' = ', $user_id)->getInfo('role_id')) == 1) {
+                                if (($user->getInfoById($user_id , 'role_id') == 1)) {
                                     echo '<label class="badge badge-primary">' . status::getRole()[status::ADMIN] . '</label>';
                                 } else {
                                     echo '<label class="badge badge-danger">' . status::getRole()[status::USER] . '</label>';
@@ -49,9 +51,9 @@ $user_id = $data['user'][0]['id'];
                         </div>
                         <div class="product-name">
                             <span style="font-weight: bold;">Người tạo</span> <span class="info" style="margin-left: 3%;"><?
-                                                                                                                            $user_created = $user->getInfoUser($user_id, 'user_created');
+                                                                                                                            $user_created = $user->getInfoUser($user_id , 'user_created');
                                                                                                                             if ($user_created > 0) {
-                                                                                                                                echo $user->getInfoUser($user_created, 'user_name');
+                                                                                                                                echo $user->getInfoUser($user_created , 'user_name');
                                                                                                                             } else {
                                                                                                                                 echo '';
                                                                                                                             }

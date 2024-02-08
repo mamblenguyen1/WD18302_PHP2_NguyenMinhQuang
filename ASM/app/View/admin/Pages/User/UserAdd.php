@@ -1,18 +1,10 @@
-<?php
-
-use app\Responsitories\UserRespon;
-
-$userRespon = new UserRespon();
-?>
-<?php
-
-?>
 <div class="content-wrapper">
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Thêm tài khoản</h4>
-                <form class="forms-sample" method="post">
+                <form class="forms-sample" method="post" action="?pages=UserController/handleCreate/">
+                    <input type="hidden" name="user_created" value="<?= $_SESSION['user_id']?>">
                     <div class="form-group">
                         <label for="exampleInputName1">Tên tài khoản :</label>
                         <input type="text" name="user_name" class="form-control" id="exampleInputName1" placeholder="Nhập tên tài khoản">
@@ -41,7 +33,7 @@ $userRespon = new UserRespon();
                         </select>
                     </div>
 
-                    <button type="submit" name="addUser" class="btn btn-gradient-primary me-2">Thêm</button>
+                    <button type="submit" class="btn btn-gradient-primary me-2">Thêm</button>
                     <a href="/?pages=UserController/list">Quay lại</a>
                 </form>
             </div>

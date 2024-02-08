@@ -57,6 +57,7 @@ class LoginController extends BaseController
         $this->load->render('admin/Pages/Login/forgot');
     }
 
+  
 
     // function logOut()
     // {

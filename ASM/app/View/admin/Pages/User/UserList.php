@@ -1,7 +1,8 @@
 <?php
-use app\Model\UserFunction;
+// use app\Model\UserFunction;
 use app\Helpers\status;
-$user = new UserFunction();
+use app\Model\UserModel;
+$user = new UserModel();
 ?>
 
 <?php
@@ -10,14 +11,14 @@ $user = new UserFunction();
 }else{
     echo 'không tìm thấy user id';
 }
-if (isset($_POST['delete'])) {
-    $user_id = $_POST['user_id'];
-    $user->DeleteUser($user_id, 1 , $user_deleted);
-}
-if (isset($_POST['recovery'])) {
-    $user_id = $_POST['user_id'];
-    $user->DeleteUser($user_id, 0 , $user_deleted);
-}
+// if (isset($_POST['delete'])) {
+//     $user_id = $_POST['user_id'];
+//     $user->DeleteUser($user_id, 1 , $user_deleted);
+// }
+// if (isset($_POST['recovery'])) {
+//     $user_id = $_POST['user_id'];
+//     $user->DeleteUser($user_id, 0 , $user_deleted);
+// }
 ?>
 <div class="content-wrapper">
     <div class="col-lg-12 grid-margin stretch-card">
@@ -42,7 +43,7 @@ if (isset($_POST['recovery'])) {
                     </thead>
                     <tbody>
                         <?
-                        $usersAll = $user->Get_User_DB();
+                        $usersAll = $user->getAllUser();
                         foreach ($usersAll as $users) {
                         ?>
                             <tr>

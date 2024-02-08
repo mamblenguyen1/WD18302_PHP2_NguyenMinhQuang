@@ -4,6 +4,8 @@ namespace app\Controller;
 
 use app\Core\RenderBase;
 
+// use app\Model\UserModel;
+
 use app\Responsitories\UserRespon;
 
 class UserController extends BaseController
@@ -62,13 +64,21 @@ class UserController extends BaseController
 
     function add()
     {
-        $UserRespon = new UserRespon();
         $this->_renderBase->renderHeader();
         $this->load->render('admin/include/sidebar');
         $this->load->render('admin/Pages/User/UserAdd');
         $this->_renderBase->renderFooter();
-        if (isset($_POST['addUser'])) {
-            $UserRespon->AddUserResponse();
+    }
+    public function handleCreate()
+    {
+        $UserRespon = new UserRespon();
+        if($UserRespon->AddUserResponse($_POST)){
+            $UserRespon->AddUserResponse($_POST);
+        }else{
+            $this->_renderBase->renderHeader();
+            $this->load->render('admin/include/sidebar');
+            $this->load->render('admin/Pages/User/UserAdd');
+            $this->_renderBase->renderFooter();
         }
     }
 
@@ -90,8 +100,7 @@ class UserController extends BaseController
 
     function edit($id)
     {
-        $UserRespon = new UserRespon();
-
+        // $UserRespon = new UserRespon();
         $data = [
             "user" => [
                 [
@@ -103,9 +112,31 @@ class UserController extends BaseController
         $this->load->render('admin/include/sidebar');
         $this->load->render('admin/Pages/User/UserEdit', $data);
         $this->_renderBase->renderFooter();
-        $user_id = $data['user'][0]['id'];
-        if (isset($_POST['editUser'])) {
-            $UserRespon->UpdateUserResponse($user_id);
+        // $user_id = $data['user'][0]['id'];
+        // if (isset($_POST['editUser'])) {
+        //     $UserRespon->UpdateUserResponse($user_id);
+        // }
+    }
+
+    public function handleUpdate($data)
+    {
+        // $user_id = $data['user'][0]['id'];
+
+        $UserRespon = new UserRespon();
+        if($UserRespon->UpdateUserResponse($_POST)){
+            $UserRespon->UpdateUserResponse($_POST);
+        }else{
+            $this->_renderBase->renderHeader();
+        $this->load->render('admin/include/sidebar');
+        $this->load->render('admin/Pages/User/UserEdit', $data);
+        $this->_renderBase->renderFooter();
         }
+
+
+
+
+       
+        // var_dump($user_id);
+       
     }
 }

@@ -2,13 +2,14 @@
 
 namespace app\Model;
 
+
+//injection constructor
 interface CrudInterface{
     
     /**
      * Phương thức getAll() dùng để lấy tất cả records
     */
     public function getAll();
-
     /**
      * Phương thức getOne() dùng để lấy một record
      * @param int $id
@@ -23,7 +24,7 @@ interface CrudInterface{
     public function create(array $data);
 
 
-    public function update(int $id, array $data);
+    public function update($data, $tableName,$id);
 
     public function remove(int $id): bool;
 }
