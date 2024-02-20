@@ -3,6 +3,7 @@
 namespace app\Responsitories;
 
 use app\Model\ProductFunction;
+use app\Model\ProductModel;
 
 class ProductRespon
 {
@@ -14,6 +15,7 @@ class ProductRespon
         $product_quantity = $_POST['product_quantity'];
         $product_description = $_POST['product_description'];
         $product_img = $_FILES['product_img']['name'];
+        $_POST['product_img'] = $_FILES['product_img']['name'];
 
         if (
             !$product_name == '' &&
@@ -23,11 +25,12 @@ class ProductRespon
             !$product_img == ''
 
         ) {
-            $product = new ProductFunction();
-            $product->AddProduct($product_name, $product_price, $product_quantity, $product_description, $product_img);
+            $ProductModel = new ProductModel();
+            $ProductModel->CreateItem($_POST, '');
             $anhne = $_FILES['product_img']['tmp_name'];
             $error = $_FILES['product_img']['error'];
             $path = 'assets/images/product/' . $product_img;
+
             if (
                 $error === 0
             ) {
@@ -36,18 +39,24 @@ class ProductRespon
             echo '<script>alert("Tạo sản phẩm thành công ")</script>';
             echo '<script>window.location.href="/?pages=ProductController/list"</script>';
         } else {
-            echo 'Xin vui lòng điền đầy đủ thông tin';
+            echo '<script>alert("Xin vui lòng điền đầy đủ thông tin ")</script>';
+            return false;
+
+            // echo '';
         }
     }
-    function UpdateUserResponse($product_id)
+    function UpdateProductResponse($product_id)
     {
+        $ProductModel = new ProductModel();
+
         $product = new ProductFunction();
         $product_name = $_POST['product_name'];
         $product_price = $_POST['product_price'];
         $product_quantity = $_POST['product_quantity'];
         $product_description = $_POST['product_description'];
         $product_img = $_FILES['product_img']['name'];
-        $old_product_img = $product->getInfoProduct($product_id, 'product_img');
+        $old_product_img = $product->getInfoProduct($_POST['product_id'], 'product_img');
+
         if (
             !$product_name == '' &&
             !$product_price == '' &&
@@ -55,7 +64,14 @@ class ProductRespon
             !$product_description == ''
         ) {
             if (!$product_img == '') {
-                $product->UpdateProduct($product_name, $product_price, $product_quantity,  $product_description, $product_img, $product_id);
+
+                $_POST['product_img'] = $_FILES['product_img']['name'];
+                // var_dump($_POST);
+                // die;
+
+                $ProductModel->updateItem($_POST, 'product_id', '=', $_POST['product_id']);
+
+                // $product->UpdateProduct($product_name, $product_price, $product_quantity,  $product_description, $product_img, $product_id);
                 $anhne = $_FILES['product_img']['tmp_name'];
                 $error = $_FILES['product_img']['error'];
                 $path = 'assets/images/product/' . $product_img;
@@ -68,17 +84,47 @@ class ProductRespon
                     }
                 }
                 echo '<script>alert("Cập nhật sản phẩm thành công ")</script>';
-                echo '<script>window.location.href="/?pages=ProductController/details/&id='.$product_id.'"</script>';
+                echo '<script>window.location.href="/?pages=ProductController/details/' . $_POST['product_id'] . '"</script>';
             } else {
-                $product->UpdateProduct($product_name, $product_price, $product_quantity,  $product_description, $old_product_img, $product_id);
+                $_POST['product_img'] = $product->getInfoProduct($_POST['product_id'], 'product_img');
+                $ProductModel->updateItem($_POST, 'product_id', '=', $_POST['product_id']);
                 echo '<script>alert("Cập nhật sản phẩm thành công ")</script>';
-                echo '<script>window.location.href="/?pages=ProductController/details/&id='.$product_id.'"</script>';
+                echo '<script>window.location.href="/?pages=ProductController/details/' . $_POST['product_id'] . '"</script>';
             }
         } else {
             echo 'Xin vui lòng điền đầy đủ thông tin';
         }
     }
+    function HiddenProductResponse()
+    {
+        if (
+            !$_POST['product_id'] == '' &&
+            !$_POST['is_deleted'] == ''
+        ) {
+            $ProductModel = new ProductModel();
+            $ProductModel->updateItem($_POST, 'product_id', '=', $_POST['product_id']);
+            echo '<script>alert("Cập nhật tài khoản thành công ")</script>';
+            echo '<script>window.location.href="/?pages=ProductController/list"</script>';
+            return true;
+        } else {
+            echo 'Xin vui lòng điền đầy đủ thông tin';
+        }
+    }
+    function RecoveryProductResponse()
+    {
 
+        if (
+            !$_POST['product_id'] == ''
+        ) {
+            $ProductModel = new ProductModel();
+            $ProductModel->updateItem($_POST, 'product_id', '=', $_POST['product_id']);
+            echo '<script>alert("Cập nhật tài khoản thành công ")</script>';
+            echo '<script>window.location.href="/?pages=ProductController/list"</script>';
+            return true;
+        } else {
+            echo 'Xin vui lòng điền đầy đủ thông tin';
+        }
+    }
     // function UpdateUserResponse($user_name, $user_email,  $user_phone, $user_id)
     // {
 

@@ -4,7 +4,7 @@
             <div class="card-body">
                 <h4 class="card-title">Thêm tài khoản</h4>
                 <form class="forms-sample" method="post" action="?pages=UserController/handleCreate/">
-                    <input type="hidden" name="user_created" value="<?= $_SESSION['user_id']?>">
+                    <input type="hidden" name="user_created" value="<?= $_COOKIE['userID']?>">
                     <div class="form-group">
                         <label for="exampleInputName1">Tên tài khoản :</label>
                         <input type="text" name="user_name" class="form-control" id="exampleInputName1" placeholder="Nhập tên tài khoản">

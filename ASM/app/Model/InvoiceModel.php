@@ -4,10 +4,9 @@ namespace app\Model;
 
 
 
-class UserModel extends BaseModel
+class InvoiceModel extends BaseModel
 {
-    protected $name = "UserModel";
-    public $tableName = 'user';
+    public $tableName = 'invoices';
     public $id = '';
 
     public function getAllUser()
@@ -21,7 +20,7 @@ class UserModel extends BaseModel
     }
     public function getLatestId()
     {
-        return $this->select('MAX(user_id) as id')->first();
+        return $this->select('MAX(invoice_id) as id')->first();
     }
 
     public function checkUserExist($user_name, $user_password)
@@ -37,10 +36,13 @@ class UserModel extends BaseModel
         return $this->select()->whereLike('user_email',  $user_email)->first();
     }
 
-    public function getInfoUserName($user_name, $column)
+    
+    public function getInfoUserName($invoice_id, $column)
     {
-        return $this->select($column)->where('user_name', '=', $user_name)->first();
+        return $this->select($column)->where('invoice_id', '=', $invoice_id)->first();
     }
+
+
     public function checkActive($user_name, $user_password)
     {
         return $this->select()->whereLike('user_name', $user_name)->select()->whereLike('user_password', $user_password)->where('is_deleted', '=', 0)->first();

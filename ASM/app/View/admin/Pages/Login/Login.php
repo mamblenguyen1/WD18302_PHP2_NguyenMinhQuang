@@ -4,14 +4,6 @@
 use app\Responsitories\LoginRespositoies;
 
 $LoginRespositoies = new LoginRespositoies();
-
-// if (isset($_POST['login'])) {
-  // if ($LoginRespositoies->Login()) {
-  //   echo '<script>window.location.href="/?pages=UserController/list/"</script>';
-  // } else {
-  // };
-// }
-
 ?>
 <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
@@ -30,22 +22,22 @@ $LoginRespositoies = new LoginRespositoies();
                 <img src="../../../../../assets/images//logo.png">
               </div>
               <h6 class="font-weight-light">Xin vui lòng đăng nhập để tiếp tục</h6>
-              <form class="pt-3" method="post" action="?pages=LoginController/logIn">
+              <form class="pt-3" method="post" action="?pages=LoginController/HandleLogin">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" name="username" placeholder="Tên tài khoản">
+                  <input type="text" class="form-control form-control-lg" name="user_name" placeholder="Tên tài khoản">
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" name="userpass" placeholder="Mật khẩu">
+                  <input type="password" class="form-control form-control-lg" name="user_password" placeholder="Mật khẩu">
                 </div>
                 <div class="mt-3">
-                  <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" type="submit" name="login">
+                  <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" type="submit">
                     Đăng nhập
                   </button>
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
-                  <a href="#" class="auth-link text-black">Forgot password?</a>
+                  <a href="#" class="auth-link text-black">Quên mật khẩu ?</a>
                 </div>
-                <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="register.html" class="text-primary">Create</a>
+                <div class="text-center mt-4 font-weight-light"> Bạn chưa có tài khoản? <a href="?pages=LoginController/register" class="text-primary">Đăng ký</a>
                 </div>
               </form>
             </div>

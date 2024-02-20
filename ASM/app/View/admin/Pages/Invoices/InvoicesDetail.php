@@ -45,8 +45,8 @@ $invoice_id = $data['Invoice'][0]['id'];
                                 <tr>
                                     <td><?= $InvoiceDetail['product_name']?></td>
                                     <td><?= $InvoiceDetail['product_quantity']?></td>
-                                    <td><?= $InvoiceDetail['product_price']?> VNĐ</td>
-                                    <td><?= $InvoiceDetail['product_quantity'] * $InvoiceDetail['product_price']?> VNĐ</td>
+                                    <td><?= number_format($InvoiceDetail['product_price'])?> VNĐ</td>
+                                    <td><?= number_format($InvoiceDetail['product_quantity'] * $InvoiceDetail['product_price'])?> VNĐ</td>
                                 </tr>
                             <? 
                         $totalPrice = $totalPrice + ($InvoiceDetail['product_quantity'] * $InvoiceDetail['product_price']);
@@ -54,7 +54,7 @@ $invoice_id = $data['Invoice'][0]['id'];
                         </tbody>
                     </table>
                     <div class="total">
-                        <p><strong>Tổng Cộng:</strong> <?= $totalPrice?> VND</p>
+                        <p><strong>Tổng Cộng:</strong> <?= number_format($totalPrice)?> VND</p>
                     </div>
                     <div class="thank-you">
                         <p>Cảm ơn quý khách đã mua hàng!</p>

@@ -1,47 +1,36 @@
 <?
-include 'app/View/admin/include/header.php';
-include 'app/View/admin/include/sidebar.php';
+
+use app\Model\InvoiceModel;
+
+$InvoiceModel = new InvoiceModel();
+$invoice_id = $data['product'][0]['id'];
+
+// echo($InvoiceModel->getInfoUserName($invoice_id, 'user_name')['user_name']);
+// die;
 ?>
 <div class="content-wrapper">
     <div class="col-12 grid-margin stretch-card">
-        <div class="card">
+    <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Cập nhật sản phẩm</h4>
-                <form class="forms-sample">
-                    <div class="form-group">
-                        <label for="exampleInputName1">Tên sản phẩm :</label>
-                        <input type="text" name="product_name" class="form-control" id="exampleInputName1" placeholder="Nhập tên sản phẩm">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail3">Giá sản phẩm :</label>
-                        <input type="number" name="product_price" class="form-control" id="exampleInputEmail3" placeholder="Nhập giá">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword4">Số lượng nhập :</label>
-                        <input type="number" name="product_quantity" class="form-control" id="exampleInputPassword4" placeholder="Nhập số lượng">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword4">Mô tả :</label>
-                        <input type="text" name="product_description" class="form-control" id="exampleInputPassword4" placeholder="Nhập mô tả sản phẩm">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Ảnh cũ</label>
-                        <img class="images" src="" alt="">
-                    </div>
-                    <div class="form-group">
-                        <label>File upload</label>
-                        <input type="file" name="product_img" class="file-upload-default">
-                        <div class="input-group col-xs-12">
-                            <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                            <span class="input-group-append">
-                                <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
-                            </span>
+                <h4 class="card-title">Cập nhật hóa đơn</h4>
+                <div class="popup-container" id="popup">
+                <form action="/?pages=InvoiceController/editProduct/<?= $invoice_id?>" method="post">
+                        <div class="form-group">
+                            <label for="exampleInputName1">Tên khách hàng :</label>
+                            <input type="text" name="user_name" class="form-control" value="<?= $InvoiceModel->getInfoUserName($invoice_id, 'user_name')['user_name'] ?>">
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
-                    <a href="index.php?pages=product&action=list">Quay lại</a>
-                </form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail3">Địa chỉ :</label>
+                            <input type="text" name="user_adress" class="form-control" value="<?= $InvoiceModel->getInfoUserName($invoice_id, 'user_adress')['user_adress'] ?>" placeholder="Nhập giá">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword4">Số điện thoại :</label>
+                            <input type="text" name="user_phone" class="form-control" value="<?= $InvoiceModel->getInfoUserName($invoice_id, 'user_phone')['user_phone'] ?>" placeholder="Nhập số lượng">
+                        </div>
+                        <button type="submit" class="btn btn-gradient-primary me-2">Tiếp Theo</button>
+                        <a href="/?pages=InvoiceController/choose">Quay lại</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -49,9 +38,6 @@ include 'app/View/admin/include/sidebar.php';
 </div>
 </div>
 
-<?
-include 'app/View/admin/include/footer.php';
-?>
 <style>
     .images{
         box-shadow: 0 0 5px gray;

@@ -4,10 +4,10 @@ namespace app\Model;
 
 
 
-class UserModel extends BaseModel
+class ProductModel extends BaseModel
 {
     protected $name = "UserModel";
-    public $tableName = 'user';
+    public $tableName = 'products';
     public $id = '';
 
     public function getAllUser()
@@ -21,7 +21,7 @@ class UserModel extends BaseModel
     }
     public function getLatestId()
     {
-        return $this->select('MAX(user_id) as id')->first();
+        return $this->select('MAX(product_id) as id')->first();
     }
 
     public function checkUserExist($user_name, $user_password)

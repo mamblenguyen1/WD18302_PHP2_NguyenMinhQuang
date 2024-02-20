@@ -62,7 +62,7 @@ $InvoiceFunction = new InvoiceFunction();
                                         <button type="button" class="btn btn-outline-success btn-icon-text"><i class="mdi mdi-alert btn-icon-prepend"></i> Chi tiết </button>
 
                                     </a>
-                                    <a href="?pages=product&action=edit">
+                                    <a href="/?pages=InvoiceController/edit/<?= $invoice['Invoice_id'] ?>">
 
                                         <button type="button" class="btn btn-outline-info btn-icon-text"> Sửa <i class="mdi mdi-settings btn-icon-append"></i></button>
                                     </a>

@@ -10,9 +10,8 @@ class UserRespon
 
     function AddUserResponse()
     {
-       
         if (empty($_POST['user_name']) && empty($_POST['user_adress']) && empty($_POST['user_email']) && empty($_POST['user_phone']) && empty($_POST['user_password']) && empty($_POST['role_id'])) {
-            echo "<script>alert('Vui lòng nhập Email và mật khẩu!')</script>";
+            echo "<script>alert('Vui lòng nhập đầy đủ thông tin!')</script>";
         } else {
             $Regex = new ValidateRegex();
             if (!$Regex->validatePassword($_POST['user_password'])) {
@@ -33,7 +32,7 @@ class UserRespon
                             } else {
                                 // $user->AddUser($user_name, $user_adress, $user_phone, $user_email, $user_password, $role_id , $user_created);
                                 $userModel = new UserModel();
-                                $userModel->CreateItem($_POST);
+                                $userModel->CreateItem($_POST, '');
                                 header('location: /?pages=UserController/list/');
                                 return true;
                             }
@@ -48,18 +47,6 @@ class UserRespon
     function UpdateUserResponse()
     {
 
-        // var_dump($_POST);
-        // die;
-        // if (isset($_SESSION['user_id'])) {
-        //     $user_updated = $_SESSION['user_id'];
-        // } else {
-        //     echo 'không tìm thấy user id';
-        // }
-        // die;
-        // $user_name = $_POST['user_name'];
-        // $user_adress = $_POST['user_adress'];
-        // $user_phone = $_POST['user_phone'];
-        // $role_id = $_POST['role_id'];
         if (
             !$_POST['user_name'] == '' &&
             !$_POST['user_adress'] == '' &&
@@ -79,7 +66,46 @@ class UserRespon
             echo 'Xin vui lòng điền đầy đủ thông tin';
         }
     }
+
+
+    function HiddenUserResponse()
+    {
+        if (
+            !$_POST['user_id'] == '' &&
+            !$_POST['is_deleted'] == ''
+        ) {
+            // $user = new UserFunction();
+            // $user->UpdateUser($_POST['user_name'], $_POST['user_adress'], $_POST['user_phone'],  $_POST['role_id'], $_POST['role_id'], $_POST['user_updated']);
+            $userModel = new UserModel();
+            // var_dump($userModel->updateItem($_POST, 'user_id', '=', 3));
+            // die;
+            $userModel->updateItem($_POST, 'user_id', '=', $_POST['user_id']);
+            echo '<script>alert("Cập nhật tài khoản thành công ")</script>';
+            echo '<script>window.location.href="/?pages=UserController/list"</script>';
+            return true;
+        } else {
+            echo 'Xin vui lòng điền đầy đủ thông tin';
+        }
+    }
+    function RecoveryUserResponse()
+    {
+       
+        if (
+            !$_POST['user_id'] == ''
+        ) {
+            
+            $userModel = new UserModel();
+            $userModel->updateItem($_POST, 'user_id', '=', $_POST['user_id']);
+            echo '<script>alert("Cập nhật tài khoản thành công ")</script>';
+            echo '<script>window.location.href="/?pages=UserController/list"</script>';
+            return true;
+        } else {
+            echo 'Xin vui lòng điền đầy đủ thông tin';
+        }
+    }
 }
+
+
 //     function ChangePass($oldPass, $newPass, $rePass, $user_id)
 //     {
 //         $user = new UserFunction();

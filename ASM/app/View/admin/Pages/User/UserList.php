@@ -2,23 +2,19 @@
 // use app\Model\UserFunction;
 use app\Helpers\status;
 use app\Model\UserModel;
+
 $user = new UserModel();
 ?>
 
 <?php
- if(isset($_SESSION['user_id'])){
-    $user_deleted = $_SESSION['user_id'];
-}else{
+if (isset($_COOKIE['userID'])) {
+    $user_deleted = $_COOKIE['userID'];
+} else {
     echo 'không tìm thấy user id';
 }
-// if (isset($_POST['delete'])) {
-//     $user_id = $_POST['user_id'];
-//     $user->DeleteUser($user_id, 1 , $user_deleted);
-// }
-// if (isset($_POST['recovery'])) {
-//     $user_id = $_POST['user_id'];
-//     $user->DeleteUser($user_id, 0 , $user_deleted);
-// }
+
+// $user->updateItem($_POST, 'user_id', ' = ', $_POST['user_id']);
+
 ?>
 <div class="content-wrapper">
     <div class="col-lg-12 grid-margin stretch-card">
@@ -76,22 +72,24 @@ $user = new UserModel();
 
                                         <button type="button" class="btn btn-outline-info btn-icon-text"> Sửa <i class="mdi mdi-settings btn-icon-append"></i></button>
                                     </a>
-                                    <form action="" method="post" style="display: inline-block;">
-                                        <input type="hidden" name="user_id" value="<?= $users['user_id'] ?>">
-                                        <?
-                                        if ($users['is_deleted'] == 0) {
-                                            echo ' <form action="" method="post">
+                                    <input type="hidden" name="user_id" value="<?= $users['user_id'] ?>">
+                                    <?
+                                    if ($users['is_deleted'] == 0) {
+                                        echo ' 
+                                            <form style="display : inline-block" action="/?pages=UserController/handleDelete" method="post">
                                             <input type="hidden" name="user_id" value="' . $users['user_id'] . '">
-                                            <button style="width: 100%" type="submit" class="btn btn-danger" name="delete"> Xóa
-                                        </form>';
-                                        } else {
-                                            echo '<form action="" method="post">
+                                            <input type="hidden" name="is_deleted" value="1">
+                                            <button  type="submit" class="btn btn-danger"> Xóa</button>
+                                              </form>';
+                                    } else {
+                                        echo '
+                                            <form style="display : inline-block" action="/?pages=UserController/handleRecovery" method="post">
+                                            <input type="hidden" name="is_deleted" value="0">
                                             <input type="hidden" name="user_id" value="' . $users['user_id'] . '">
-                                            <button style="width: 100% " type="submit" class="btn btn-success" name="recovery"> Khôi phục
-                                        </form>';
-                                        }
-                                        ?>
-                                    </form>
+                                            <button  type="submit" class="btn btn-success" > Khôi phục</button>
+                                              </form>';
+                                    }
+                                    ?>
                                 </td>
                             </tr>
 

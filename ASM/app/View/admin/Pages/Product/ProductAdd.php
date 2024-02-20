@@ -1,11 +1,11 @@
 <?php
 
-use app\Responsitories\ProductRespon;
+// use app\Responsitories\ProductRespon;
 
-$ProductRespon = new ProductRespon();
-if (isset($_POST['addProduct'])) {
-    $ProductRespon->AddProductResponse();
-}
+// $ProductRespon = new ProductRespon();
+// if (isset($_POST['addProduct'])) {
+//     $ProductRespon->AddProductResponse();
+// }
 
 ?>
 <div class="content-wrapper">
@@ -13,7 +13,9 @@ if (isset($_POST['addProduct'])) {
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Thêm sản phẩm</h4>
-                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                <form class="forms-sample" method="post" action="?pages=ProductController/handleCreate/" enctype="multipart/form-data">
+                <input type="hidden" name="created_user" value="<?= $_COOKIE['userID']?>">
+
                     <div class="form-group">
                         <label for="exampleInputName1">Tên sản phẩm :</label>
                         <input type="text" name="product_name" class="form-control" id="exampleInputName1" placeholder="Nhập tên sản phẩm">
@@ -38,7 +40,7 @@ if (isset($_POST['addProduct'])) {
                             <label class="input-group-text btn btn-primary" for="input1" id="input1">Upload</label>
                         </div>
                     </div>
-                    <button type="submit" name="addProduct" class="btn btn-gradient-primary me-2">Submit</button>
+                    <button type="submit" class="btn btn-gradient-primary me-2">Submit</button>
                     <a href="/?pages=ProductController/list">Quay lại</a>
                 </form>
             </div>

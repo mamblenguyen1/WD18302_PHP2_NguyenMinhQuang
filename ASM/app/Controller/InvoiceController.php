@@ -88,23 +88,34 @@ class InvoiceController extends BaseController
         $this->load->render('admin/Pages/Invoices/InvoicesAddProduct');
         $this->_renderBase->renderFooter();
     }
-
-
-    function edit()
+    function editProduct($id)
     {
-        if (isset($_GET['id'])) {
-            $userId = $_GET['id'];
-        }
         $data = [
             "product" => [
                 [
-                    "id" => $userId,
+                    "id" => $id,
                 ]
             ]
         ];
         $this->_renderBase->renderHeader();
         $this->load->render('admin/include/sidebar');
-        $this->load->render('admin/Pages/Product/ProductEdit', $data);
+        $this->load->render('admin/Pages/Invoices/InvoicesEditProduct', $data);
+        $this->_renderBase->renderFooter();
+    }
+
+    function edit($id)
+    {
+        
+        $data = [
+            "product" => [
+                [
+                    "id" => $id,
+                ]
+            ]
+        ];
+        $this->_renderBase->renderHeader();
+        $this->load->render('admin/include/sidebar');
+        $this->load->render('admin/Pages/Invoices/InvoicesEdit', $data);
         $this->_renderBase->renderFooter();
     }
 }

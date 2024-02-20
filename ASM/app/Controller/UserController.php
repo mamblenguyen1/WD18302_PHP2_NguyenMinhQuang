@@ -117,11 +117,47 @@ class UserController extends BaseController
         //     $UserRespon->UpdateUserResponse($user_id);
         // }
     }
+    function handleDelete()
+    {
+        $UserRespon = new UserRespon();
+        if($UserRespon->HiddenUserResponse($_POST)){
+            $UserRespon->HiddenUserResponse($_POST);
+        }else{
+         $this->_renderBase->renderHeader();
+        $this->load->render('admin/include/sidebar');
+        $this->load->render('admin/Pages/User/UserList');
+        $this->_renderBase->renderFooter();
+        }
+        // $UserRespon = new UserRespon();
 
+        // $user_id = $data['user'][0]['id'];
+        // if (isset($_POST['editUser'])) {
+        //     $UserRespon->UpdateUserResponse($user_id);
+        // }
+    }
+    function handleRecovery()
+    {
+        $UserRespon = new UserRespon();
+        if($UserRespon->RecoveryUserResponse($_POST)){
+            $UserRespon->RecoveryUserResponse($_POST);
+        }else{
+            $this->_renderBase->renderHeader();
+        $this->load->render('admin/include/sidebar');
+        $this->load->render('admin/Pages/User/UserList');
+        $this->_renderBase->renderFooter();
+        }
+        // $UserRespon = new UserRespon();
+
+        // $user_id = $data['user'][0]['id'];
+        // if (isset($_POST['editUser'])) {
+        //     $UserRespon->UpdateUserResponse($user_id);
+        // }
+    }
+
+
+    
     public function handleUpdate($data)
     {
-        // $user_id = $data['user'][0]['id'];
-
         $UserRespon = new UserRespon();
         if($UserRespon->UpdateUserResponse($_POST)){
             $UserRespon->UpdateUserResponse($_POST);
@@ -131,12 +167,5 @@ class UserController extends BaseController
         $this->load->render('admin/Pages/User/UserEdit', $data);
         $this->_renderBase->renderFooter();
         }
-
-
-
-
-       
-        // var_dump($user_id);
-       
     }
 }

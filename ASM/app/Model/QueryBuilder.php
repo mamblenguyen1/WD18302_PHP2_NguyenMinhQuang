@@ -113,37 +113,32 @@ trait QueryBuilder
 
 
     //
-    // public function updateData($table, $data, $condition = '')
-    // {
-    //     var_dump($data);
-    //     die;
-    //     if (!empty($data)) {
-    //         $updateStr = '';
-    //         foreach ($data as $key => $value) {
-    //             if (strpos($value, ' ') !== false) {
-    //                 $updateStr .= "$key= $value ,";
-    //             } else if ($value === '' || $value === null) {
-    //                 $updateStr .= "$key=NULL,";
-    //             } else {
-    //                 $updateStr .= "$key='$value',";
-    //             }
-                
-    //         }
-    //         // die;
-
-    //         // echo $updateStr;
-    //         // die;
-    //         $updateStr = rtrim($updateStr, ',');
-    //         $sql = "UPDATE $table SET $updateStr";
-    //         echo $sql;  
-    //         if (!empty($condition)) {
-    //             $sql = "UPDATE $table SET $updateStr WHERE $condition";
-    //         }
-    //         $status = $this->query($sql);
-    //         if (!$status) return false;
-    //     }
-    //     return true;
-    // }
+    public function updateData($table, $data, $condition = '')
+    {
+        // var_dump($data);
+        // die;
+        if (!empty($data)) {
+            $updateStr = '';
+            foreach ($data as $key => $value) {
+                if (strpos($value, ' ') !== false) {
+                    $updateStr .= "$key= $value ,";
+                } else if ($value === '' || $value === null) {
+                    $updateStr .= "$key=NULL,";
+                } else {
+                    $updateStr .= "$key='$value',";
+                }
+            }
+            $updateStr = rtrim($updateStr, ',');
+            $sql = "UPDATE $table SET $updateStr";
+            echo $sql;  
+            if (!empty($condition)) {
+                $sql = "UPDATE $table SET $updateStr WHERE $condition";
+            }
+            $status = $this->query($sql);
+            if (!$status) return false;
+        }
+        return true;
+    }
 
 
     public function deleteData($table, $condition = ''): bool
@@ -155,31 +150,58 @@ trait QueryBuilder
         //thêm return
         return $status = $this->query($sql);
     }
-    public function insertData($table, $data)
+    // public function insertData($table, $data)
+    // {
+
+    //     if (!empty($data)) {
+    //         $fielStr = '';
+    //         $valueStr = '';
+    //         foreach ($data as $key => $value) {
+    //             $fielStr .= $key . ',';
+    //             $valueStr .= "'" . $value . "',";
+    //         }
+
+    //         $fielStr = rtrim($fielStr, ',');
+    //         $valueStr = rtrim($valueStr, ',');
+    //         $sql = "INSERT INTO  $table($fielStr) VALUES ($valueStr)";
+
+    //         $status = $this->query($sql);
+    //         if (!$status) return false;
+    //     }
+    //     return true;
+    // }
+
+    public function insertData($table, $data, $column)
     {
 
         if (!empty($data)) {
             $fielStr = '';
             $valueStr = '';
             foreach ($data as $key => $value) {
-                $fielStr .= $key . ',';
-                $valueStr .= "'" . $value . "',";
+
+                if ($key === $column) {
+                    $fielStr;
+                    $valueStr;
+                } else {
+                    $fielStr .= $key . ',';
+                    $valueStr .= "'" . $value . "',";
+                }
             }
 
             $fielStr = rtrim($fielStr, ',');
             $valueStr = rtrim($valueStr, ',');
             $sql = "INSERT INTO  $table($fielStr) VALUES ($valueStr)";
-
             $status = $this->query($sql);
             if (!$status) return false;
         }
         return true;
     }
-    public function insert($data, $tableName)
+
+    public function insert($data, $tableName, $column)
     {
 
         $tableName    = $this->tableName;
-        $insertStatus = $this->insertData($tableName, $data);
+        $insertStatus = $this->insertData($tableName, $data, $column);
         return $insertStatus;
     }
 
@@ -195,6 +217,18 @@ trait QueryBuilder
         return $updateStatus;
     }
 
+
+    public function updateOne($tableName, $data,  $whereUpdate)
+    {
+        
+        // $where = $this->$whereUpdate;
+        $whereUpdate  = str_replace('WHERE', '', $this->where);
+        $whereUpdate  = trim($whereUpdate);
+        $tableName    = $this->tableName;
+        $updateStatus = $this->updateData($tableName, $data, $whereUpdate);
+    
+        return $updateStatus;
+    }
     public function delete()
     {
         $whereDelete  = str_replace('WHERE', '', $this->where);
@@ -213,7 +247,7 @@ trait QueryBuilder
     {
         $sqlQuery = "SELECT $this->selectField FROM $this->tableName $this->innerJoin $this->leftJoin $this->where $this->groupBy $this->orderBy $this->limit";
         $query    = $this->query($sqlQuery);
-        $this->resetQuery();
+        // $this->resetQuery();
         if (!empty($query))
             return $query->fetch(PDO::FETCH_ASSOC);
         return false;
@@ -224,7 +258,7 @@ trait QueryBuilder
         // echo $this->innerJoin;
         $sqlQuery = "SELECT $this->selectField FROM $this->tableName $this->innerJoin $this->leftJoin $this->where $this->groupBy  $this->orderBy  $this->limit";
         $query    = $this->query($sqlQuery);
-        $this->resetQuery();
+        // $this->resetQuery();
         if (!empty($query))
             return $query->fetchAll(PDO::FETCH_ASSOC);
         return false;

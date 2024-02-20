@@ -47,7 +47,7 @@ $product = new ProductFunction();
                             </td>
                             <td> <img src="assets/images/product/<?= $product['product_img']?>" alt="image" /> </td>
                             <td>
-                            <?= $product['product_price']?> $
+                            <?= number_format($product['product_price']) ?> đ
                             </td>
                             <td>
                                     <? if ($product['is_deleted'] == 0) {
@@ -66,23 +66,25 @@ $product = new ProductFunction();
 
                                 <button type="button" class="btn btn-outline-info btn-icon-text"> Sửa <i class="mdi mdi-settings btn-icon-append"></i></button>
                                 </a>
-
-                                <form action="" method="post" style="display: inline-block;">
-                                        <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
-                                        <?
-                                        if ($product['is_deleted'] == 0) {
-                                            echo ' <form action="" method="post">
+                                <?
+                                    if ($product['is_deleted'] == 0) {
+                                        echo ' 
+                                            <form style="display : inline-block" action="/?pages=ProductController/handleDelete" method="post">
                                             <input type="hidden" name="product_id" value="' . $product['product_id'] . '">
-                                            <button style="width: 100%" type="submit" class="btn btn-danger" name="delete"> Xóa
-                                        </form>';
-                                        } else {
-                                            echo '<form action="" method="post">
+                                            <input type="hidden" name="deleted_user" value="'. $_COOKIE['userID'].'">
+                                            <input type="hidden" name="is_deleted" value="1">
+                                            <button  type="submit" class="btn btn-danger"> Xóa</button>
+                                              </form>';
+                                    } else {
+                                        echo '
+                                            <form style="display : inline-block" action="/?pages=ProductController/handleRecovery" method="post">
+                                            <input type="hidden" name="is_deleted" value="0">
+                                            <input type="hidden" name="deleted_user" value="'. $_COOKIE['userID'].'">
                                             <input type="hidden" name="product_id" value="' . $product['product_id'] . '">
-                                            <button style="width: 100% " type="submit" class="btn btn-success" name="recovery"> Khôi phục
-                                        </form>';
-                                        }
-                                        ?>
-                                    </form>
+                                            <button  type="submit" class="btn btn-success" > Khôi phục</button>
+                                              </form>';
+                                    }
+                                    ?>
                             </td>
                         </tr>
 

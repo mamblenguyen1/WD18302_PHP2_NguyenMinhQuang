@@ -7,9 +7,9 @@ $product = new ProductFunction();
 
 
 $product_id = $data['product'][0]['id'];
-if (isset($_POST['editProduct'])) {
-    $ProductRespon->UpdateUserResponse($product_id);
-}
+// if (isset($_POST['editProduct'])) {
+//     $ProductRespon->UpdateUserResponse($product_id);
+// }
 
 ?>
 <div class="content-wrapper">
@@ -17,7 +17,10 @@ if (isset($_POST['editProduct'])) {
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Cập nhật sản phẩm</h4>
-                <form class="forms-sample" method="post" enctype="multipart/form-data">
+                <form class="forms-sample" method="post" action="?pages=ProductController/handleUpdate/"  enctype="multipart/form-data">
+                <input type="hidden" name="updated_user" value="<?= $_COOKIE['userID']?>">
+
+                <input type="hidden" name="product_id" class="form-control" value="<?= $product->getInfoProduct($product_id, 'product_id') ?>">
                     <div class="form-group">
                         <label for="exampleInputName1">Tên sản phẩm :</label>
                         <input type="text" name="product_name" class="form-control" value="<?= $product->getInfoProduct($product_id, 'product_name') ?>">
@@ -47,7 +50,7 @@ if (isset($_POST['editProduct'])) {
                             <label class="input-group-text btn btn-primary" for="input1" id="input1">Upload</label>
                         </div>
                     </div>
-                    <button type="submit" name="editProduct" class="btn btn-gradient-primary me-2">Submit</button>
+                    <button type="submit"  class="btn btn-gradient-primary me-2">Submit</button>
                     <a href="/?pages=ProductController/list">Quay lại</a>
                 </form>
             </div>
