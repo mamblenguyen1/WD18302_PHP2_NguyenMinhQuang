@@ -29,11 +29,11 @@ trait QueryBuilder
         $this->operator = " WHERE";
         if (!empty($this->where)) {
             $this->operator = " AND ";
-            $this->where .= "$this->operator $field $compare $value";
+            $this->where .= "$this->operator $field $compare '$value' ";
         } else {
             // Kiểm tra nếu giá trị $value là một biểu thức SQL, không cần thêm dấu nháy đơn
             if (strpos($value, ' ') !== false) {
-                $this->where .= "$this->operator $field $compare $value";
+                $this->where .= "$this->operator $field $compare '$value'";
             } else {
                 $this->where .= "$this->operator $field $compare '$value'";
             }
@@ -205,14 +205,14 @@ trait QueryBuilder
         return $insertStatus;
     }
 
-    public function update($tableName, $data,  $whereUpdate)
+    public function update($tableName, $data,  $whereUpdate, $column)
     {
         
         // $where = $this->$whereUpdate;
         $whereUpdate  = str_replace('WHERE', '', $this->where);
         $whereUpdate  = trim($whereUpdate);
         $tableName    = $this->tableName;
-        $updateStatus = $this->updateData($tableName, $data, $whereUpdate);
+        $updateStatus = $this->updateData($tableName, $data, $whereUpdate, $column);
     
         return $updateStatus;
     }

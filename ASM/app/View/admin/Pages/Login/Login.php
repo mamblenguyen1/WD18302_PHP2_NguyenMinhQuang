@@ -1,9 +1,19 @@
 <?php
 
+use app\Helpers\UserValidator;
 
-use app\Responsitories\LoginRespositoies;
 
-$LoginRespositoies = new LoginRespositoies();
+if(isset($_POST['login'])){
+    $UserValidator = new UserValidator($_POST);
+    $errors = $UserValidator->validateLogin();
+    // var_dump($errors);
+    // die;
+    $data[] = $_POST;
+    if($errors == null){
+        $data = base64_encode(json_encode($_POST));
+        echo '<script>window.location.href="?pages=LoginController/HandleLogin&data=' . $data . '"</script>';
+    }
+}
 ?>
 <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
@@ -22,15 +32,21 @@ $LoginRespositoies = new LoginRespositoies();
                 <img src="../../../../../assets/images//logo.png">
               </div>
               <h6 class="font-weight-light">Xin vui lòng đăng nhập để tiếp tục</h6>
-              <form class="pt-3" method="post" action="?pages=LoginController/HandleLogin">
+              <form class="pt-3" method="post" action="">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" name="user_name" placeholder="Tên tài khoản">
+                  <input type="text" class="form-control form-control-lg" name="user_name" value="<? echo htmlspecialchars($_POST['user_name'] ?? '') ?>" placeholder="Tên tài khoản">
+                  <span style="color: red;" class="error">
+                            <? echo $errors['user_name'] ?? ''?>
+                        </span>
                 </div>
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" name="user_password" placeholder="Mật khẩu">
+                  <input type="password" class="form-control form-control-lg" name="user_password" value="<? echo htmlspecialchars($_POST['user_password'] ?? '') ?>" placeholder="Mật khẩu">
+                  <span style="color: red;" class="error">
+                            <? echo $errors['user_password'] ?? ''?>
+                        </span>
                 </div>
                 <div class="mt-3">
-                  <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" type="submit">
+                  <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" type="submit" name="login">
                     Đăng nhập
                   </button>
                 </div>

@@ -38,7 +38,7 @@ $product = new ProductFunction();
                     </thead>
                     <tbody>
                     <?
-                        $productAll = $product->Get_Product_DB();
+                        $productAll = $product->Get_Product_DB_Page();
                         foreach ($productAll as $product) {
                         ?>
                         <tr>
@@ -71,7 +71,7 @@ $product = new ProductFunction();
                                         echo ' 
                                             <form style="display : inline-block" action="/?pages=ProductController/handleDelete" method="post">
                                             <input type="hidden" name="product_id" value="' . $product['product_id'] . '">
-                                            <input type="hidden" name="deleted_user" value="'. $_COOKIE['userID'].'">
+                                            <input type="hidden" name="deleted_user" value="'. $_SESSION['user_id'].'">
                                             <input type="hidden" name="is_deleted" value="1">
                                             <button  type="submit" class="btn btn-danger"> Xóa</button>
                                               </form>';
@@ -79,7 +79,7 @@ $product = new ProductFunction();
                                         echo '
                                             <form style="display : inline-block" action="/?pages=ProductController/handleRecovery" method="post">
                                             <input type="hidden" name="is_deleted" value="0">
-                                            <input type="hidden" name="deleted_user" value="'. $_COOKIE['userID'].'">
+                                            <input type="hidden" name="deleted_user" value="'. $_SESSION['user_id'].'">
                                             <input type="hidden" name="product_id" value="' . $product['product_id'] . '">
                                             <button  type="submit" class="btn btn-success" > Khôi phục</button>
                                               </form>';

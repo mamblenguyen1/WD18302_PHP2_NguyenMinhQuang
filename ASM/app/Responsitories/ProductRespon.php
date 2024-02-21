@@ -8,95 +8,78 @@ use app\Model\ProductModel;
 class ProductRespon
 {
 
-    function AddProductResponse()
+    function AddProductResponse($data)
     {
-        $product_name = $_POST['product_name'];
-        $product_price = $_POST['product_price'];
-        $product_quantity = $_POST['product_quantity'];
-        $product_description = $_POST['product_description'];
-        $product_img = $_FILES['product_img']['name'];
-        $_POST['product_img'] = $_FILES['product_img']['name'];
-
-        if (
-            !$product_name == '' &&
-            !$product_price == '' &&
-            !$product_quantity == '' &&
-            !$product_description == '' &&
-            !$product_img == ''
-
-        ) {
-            $ProductModel = new ProductModel();
-            $ProductModel->CreateItem($_POST, '');
-            $anhne = $_FILES['product_img']['tmp_name'];
-            $error = $_FILES['product_img']['error'];
-            $path = 'assets/images/product/' . $product_img;
-
-            if (
-                $error === 0
-            ) {
-                move_uploaded_file($anhne, $path);
-            }
-            echo '<script>alert("Tạo sản phẩm thành công ")</script>';
-            echo '<script>window.location.href="/?pages=ProductController/list"</script>';
-        } else {
-            echo '<script>alert("Xin vui lòng điền đầy đủ thông tin ")</script>';
-            return false;
-
-            // echo '';
-        }
-    }
-    function UpdateProductResponse($product_id)
-    {
+        $data['product_price'] = intval($data['product_price']);
+        $data['product_quantity'] = intval($data['product_quantity']);
         $ProductModel = new ProductModel();
-
-        $product = new ProductFunction();
-        $product_name = $_POST['product_name'];
-        $product_price = $_POST['product_price'];
-        $product_quantity = $_POST['product_quantity'];
-        $product_description = $_POST['product_description'];
-        $product_img = $_FILES['product_img']['name'];
-        $old_product_img = $product->getInfoProduct($_POST['product_id'], 'product_img');
-
-        if (
-            !$product_name == '' &&
-            !$product_price == '' &&
-            !$product_quantity == '' &&
-            !$product_description == ''
-        ) {
-            if (!$product_img == '') {
-
-                $_POST['product_img'] = $_FILES['product_img']['name'];
-                // var_dump($_POST);
-                // die;
-
-                $ProductModel->updateItem($_POST, 'product_id', '=', $_POST['product_id']);
-
-                // $product->UpdateProduct($product_name, $product_price, $product_quantity,  $product_description, $product_img, $product_id);
-                $anhne = $_FILES['product_img']['tmp_name'];
-                $error = $_FILES['product_img']['error'];
-                $path = 'assets/images/product/' . $product_img;
-                if (
-                    $error === 0
-                ) {
-                    move_uploaded_file($anhne, $path);
-                    if (file_exists("assets/images/product/$old_product_img")) {
-                        unlink("assets/images/product/$old_product_img");
-                    }
-                }
-                echo '<script>alert("Cập nhật sản phẩm thành công ")</script>';
-                echo '<script>window.location.href="/?pages=ProductController/details/' . $_POST['product_id'] . '"</script>';
-            } else {
-                $_POST['product_img'] = $product->getInfoProduct($_POST['product_id'], 'product_img');
-                $ProductModel->updateItem($_POST, 'product_id', '=', $_POST['product_id']);
-                echo '<script>alert("Cập nhật sản phẩm thành công ")</script>';
-                echo '<script>window.location.href="/?pages=ProductController/details/' . $_POST['product_id'] . '"</script>';
-            }
-        } else {
-            echo 'Xin vui lòng điền đầy đủ thông tin';
-        }
+        $ProductModel->CreateItem($data, '');
+        return true;
     }
+    function UpdateProductResponse($data)
+    {
+        $data['product_price'] = intval($data['product_price']);
+        $data['product_quantity'] = intval($data['product_quantity']);
+        $ProductModel = new ProductModel();
+        $ProductModel->updateItem($data, 'product_id', '=', $data['product_id']);
+        return true;
+    }
+
+
+    // function UpdateProductResponse($product_id)
+    // {
+    //     $ProductModel = new ProductModel();
+
+    //     $product = new ProductFunction();
+    //     $product_name = $_POST['product_name'];
+    //     $product_price = $_POST['product_price'];
+    //     $product_quantity = $_POST['product_quantity'];
+    //     $product_description = $_POST['product_description'];
+    //     $product_img = $_FILES['product_img']['name'];
+    //     $old_product_img = $product->getInfoProduct($_POST['product_id'], 'product_img');
+
+    //     if (
+    //         !$product_name == '' &&
+    //         !$product_price == '' &&
+    //         !$product_quantity == '' &&
+    //         !$product_description == ''
+    //     ) {
+    //         if (!$product_img == '') {
+
+    //             $_POST['product_img'] = $_FILES['product_img']['name'];
+    //             // var_dump($_POST);
+    //             // die;
+
+    //             $ProductModel->updateItem($_POST, 'product_id', '=', $_POST['product_id']);
+
+    //             // $product->UpdateProduct($product_name, $product_price, $product_quantity,  $product_description, $product_img, $product_id);
+    //             $anhne = $_FILES['product_img']['tmp_name'];
+    //             $error = $_FILES['product_img']['error'];
+    //             $path = 'assets/images/product/' . $product_img;
+    //             if (
+    //                 $error === 0
+    //             ) {
+    //                 move_uploaded_file($anhne, $path);
+    //                 if (file_exists("assets/images/product/$old_product_img")) {
+    //                     unlink("assets/images/product/$old_product_img");
+    //                 }
+    //             }
+    //             echo '<script>alert("Cập nhật sản phẩm thành công ")</script>';
+    //             echo '<script>window.location.href="/?pages=ProductController/details/' . $_POST['product_id'] . '"</script>';
+    //         } else {
+    //             $_POST['product_img'] = $product->getInfoProduct($_POST['product_id'], 'product_img');
+    //             $ProductModel->updateItem($_POST, 'product_id', '=', $_POST['product_id']);
+    //             echo '<script>alert("Cập nhật sản phẩm thành công ")</script>';
+    //             echo '<script>window.location.href="/?pages=ProductController/details/' . $_POST['product_id'] . '"</script>';
+    //         }
+    //     } else {
+    //         echo 'Xin vui lòng điền đầy đủ thông tin';
+    //     }
+    // }
     function HiddenProductResponse()
     {
+        // var_dump($_POST);
+        // die;
         if (
             !$_POST['product_id'] == '' &&
             !$_POST['is_deleted'] == ''

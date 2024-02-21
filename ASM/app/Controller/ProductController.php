@@ -3,7 +3,7 @@
 namespace app\Controller;
 
 use app\Core\RenderBase;
-
+use app\Model\ProductModel;
 use app\Responsitories\ProductRespon;
 class ProductController extends BaseController
 {
@@ -71,12 +71,9 @@ class ProductController extends BaseController
 
     function details($id)
     {
+        $ProductModel = new ProductModel();
         $data = [
-            "product" => [
-                [
-                    "id" => $id,
-                ]
-            ]
+            "product" => $ProductModel->getInfoProductById($id)
         ];
         $this->_renderBase->renderHeader();
         $this->load->render('admin/include/sidebar');
@@ -86,12 +83,9 @@ class ProductController extends BaseController
 
     function edit($id)
     {
+        $ProductModel = new ProductModel();
         $data = [
-            "product" => [
-                [
-                    "id" => $id,
-                ]
-            ]
+            "products" => $ProductModel->getInfoProductById($id)
         ];
         $this->_renderBase->renderHeader();
         $this->load->render('admin/include/sidebar');
@@ -127,9 +121,12 @@ class ProductController extends BaseController
 
     public function handleCreate()
     {
+        $data = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), true) : [];
+        unset($data['create']); 
+
         $ProductRespon = new ProductRespon();
-        if($ProductRespon->AddProductResponse($_POST)){
-            $ProductRespon->AddProductResponse($_POST);
+        if($ProductRespon->AddProductResponse($data)){
+            header('location: /?pages=ProductController/list/');
         }else{
             $this->_renderBase->renderHeader();
             $this->load->render('admin/include/sidebar');
@@ -140,9 +137,12 @@ class ProductController extends BaseController
 
     public function handleUpdate()
     {
+        $data = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), true) : [];
+        unset($data['updatepro']); 
+
         $ProductRespon = new ProductRespon();
-        if($ProductRespon->UpdateProductResponse($_POST)){
-            $ProductRespon->UpdateProductResponse($_POST);
+        if($ProductRespon->UpdateProductResponse($data)){
+            header('location: /?pages=ProductController/list/');
         }else{
             $this->_renderBase->renderHeader();
             $this->load->render('admin/include/sidebar');

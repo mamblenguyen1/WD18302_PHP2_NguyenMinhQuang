@@ -23,15 +23,33 @@ class UserModel extends BaseModel
     {
         return $this->select('MAX(user_id) as id')->first();
     }
-
+    public function getInfoPUserById($user_id)
+    {
+        return $this->select()->where('user_id', '=', $user_id)->first();
+    }
+    
     public function checkUserExist($user_name, $user_password)
     {
         return $this->select()->whereLike('user_name',  $user_name)->whereLike('user_password',  $user_password)->first();
     }
+
+
+
     public function checkDuplicateUserName($user_name)
     {
-        return $this->select()->whereLike('user_name', $user_name)->first();
+        $user_name = strval($user_name);
+        return $this->select()->where('user_name', ' = ' ,  $user_name)->first();
     }
+
+    public function checkDuplicateUserPass($user_password)
+    {
+        return $this->select()->whereLike('user_password',  $user_password)->first();
+    }
+
+
+
+
+
     public function checkDuplicateUserEmail($user_email)
     {
         return $this->select()->whereLike('user_email',  $user_email)->first();
@@ -41,9 +59,9 @@ class UserModel extends BaseModel
     {
         return $this->select($column)->where('user_name', '=', $user_name)->first();
     }
-    public function checkActive($user_name, $user_password)
+    public function checkActive($user_name)
     {
-        return $this->select()->whereLike('user_name', $user_name)->select()->whereLike('user_password', $user_password)->where('is_deleted', '=', 0)->first();
+        return $this->select()->whereLike('user_name', $user_name)->where('is_deleted', '=', 0)->first();
     }
 
     public function registerUser($data, $column)
@@ -51,10 +69,10 @@ class UserModel extends BaseModel
         return $this->insert($data, $this->tableName, $column);
         // var_dump($this->insert($this->tableName ,$data));
     }
-    public function updateUser($data, $field, $compare, $value)
+    public function updateUser($data, $field, $compare, $value, $column)
     {
         $condition = $this->where($field, $compare, $value);
-        return $this->update($data, $this->tableName, $condition);
+        return $this->update($data, $this->tableName, $condition, $column);
     }
     public function getInfoById($id, $column)
     {
@@ -64,10 +82,10 @@ class UserModel extends BaseModel
     {
         // return $this->select()->where('email', '=', $email)->first();
     }
-    public function deleteUser($data, $field, $compare, $value)
+    public function deleteUser($data, $field, $compare, $value, $column)
     {
         $condition = $this->where($field, $compare, $value);
-        return $this->update($this->tableName, $data, $condition);
+        return $this->update($this->tableName, $data, $condition, $column);
     }
 
     
@@ -75,10 +93,10 @@ class UserModel extends BaseModel
     {
         return $this->insert($data, $this->tableName, $column);
     }
-    public function updateItem($data, $field, $compare, $value)
+    public function updateItem($data, $field, $compare, $value, $column)
     {
         $condition = $this->where($field, $compare, $value);
-        return $this->update($this->tableName, $data, $condition);
+        return $this->update($this->tableName, $data, $condition, $column);
     }
     public function create($data)
     {

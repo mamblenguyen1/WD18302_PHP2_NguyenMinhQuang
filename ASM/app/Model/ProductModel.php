@@ -24,23 +24,24 @@ class ProductModel extends BaseModel
         return $this->select('MAX(product_id) as id')->first();
     }
 
-    public function checkUserExist($user_name, $user_password)
+
+
+    public function checkProductExist($product_name)
     {
-        return $this->select()->whereLike('user_name',  $user_name)->whereLike('user_password',  $user_password)->first();
-    }
-    public function checkDuplicateUserName($user_name)
-    {
-        return $this->select()->whereLike('user_name', $user_name)->first();
-    }
-    public function checkDuplicateUserEmail($user_email)
-    {
-        return $this->select()->whereLike('user_email',  $user_email)->first();
+        return $this->select()->whereLike('product_name',  $product_name)->first();
     }
 
-    public function getInfoUserName($user_name, $column)
+
+
+    
+    public function getInfoProductById($product_id)
     {
-        return $this->select($column)->where('user_name', '=', $user_name)->first();
+        return $this->select()->where('product_id', '=', $product_id)->first();
     }
+
+
+
+
     public function checkActive($user_name, $user_password)
     {
         return $this->select()->whereLike('user_name', $user_name)->select()->whereLike('user_password', $user_password)->where('is_deleted', '=', 0)->first();
@@ -51,11 +52,11 @@ class ProductModel extends BaseModel
         return $this->insert($data, $this->tableName, $column);
         // var_dump($this->insert($this->tableName ,$data));
     }
-    public function updateUser($data, $field, $compare, $value)
-    {
-        $condition = $this->where($field, $compare, $value);
-        return $this->update($data, $this->tableName, $condition);
-    }
+    // public function updateUser($data, $field, $compare, $value)
+    // {
+    //     $condition = $this->where($field, $compare, $value);
+    //     return $this->update($data, $this->tableName, $condition);
+    // }
     public function getInfoById($id, $column)
     {
         return $this->where('user_id', ' = ', $id)->getInfo($column);
@@ -64,11 +65,11 @@ class ProductModel extends BaseModel
     {
         // return $this->select()->where('email', '=', $email)->first();
     }
-    public function deleteUser($data, $field, $compare, $value)
-    {
-        $condition = $this->where($field, $compare, $value);
-        return $this->update($this->tableName, $data, $condition);
-    }
+    // public function deleteUser($data, $field, $compare, $value)
+    // {
+    //     $condition = $this->where($field, $compare, $value);
+    //     return $this->update($this->tableName, $data, $condition);
+    // }
 
     
     public function CreateItem($data, $column)
@@ -78,7 +79,7 @@ class ProductModel extends BaseModel
     public function updateItem($data, $field, $compare, $value)
     {
         $condition = $this->where($field, $compare, $value);
-        return $this->update($this->tableName, $data, $condition);
+        return $this->update($this->tableName, $data, $condition , '');
     }
     public function create($data)
     {

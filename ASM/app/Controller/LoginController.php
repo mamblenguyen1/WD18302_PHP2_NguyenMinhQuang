@@ -34,11 +34,13 @@ class LoginController extends BaseController
 
     function HandleLogin()
     {
+        $data = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), true) : [];
+        unset($data['login']);
         $LoginRespositoies = new LoginRespositoies();
-        if ($LoginRespositoies->Login()) {
+        if ($LoginRespositoies->Login($data)) {
             header('location: ?pages=UserController/list');
-        }else{
-            $this->logIn();            
+        } else {
+            $this->logIn();
         }
     }
 
@@ -46,17 +48,15 @@ class LoginController extends BaseController
 
     function logIn()
     {
+        $data = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), true) : [];
         $LoginRespositoies = new LoginRespositoies();
-        if (isset($_POST['login'])) {
-            if ($LoginRespositoies->Login()) {
-                echo '<script>window.location.href="/?pages=LoginController/logIn/"</script>';
-            } else {
-                $this->load->render('admin/Pages/Login/Login');
-            };
+        if ($LoginRespositoies->Login($data)) {
+            echo '<script>window.location.href="/?pages=LoginController/logIn/"</script>';
         } else {
             $this->load->render('admin/Pages/Login/Login');
-        }
+        };
     }
+
 
     function logOut()
     {
@@ -73,11 +73,13 @@ class LoginController extends BaseController
     }
     function HandleRegister()
     {
+        $data = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), true) : [];
+        unset($data['register']);
         $LoginRespositoies = new LoginRespositoies();
-        if ($LoginRespositoies->register()) {
+        if ($LoginRespositoies->register($data)) {
             header('location: ?pages=UserController/list');
-        }else{
-            $this->register();            
+        } else {
+            $this->register();
         }
     }
 
@@ -85,6 +87,4 @@ class LoginController extends BaseController
     {
         $this->load->render('admin/Pages/Login/forgot');
     }
-
-
 }

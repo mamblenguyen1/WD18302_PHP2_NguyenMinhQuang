@@ -10,85 +10,26 @@ use app\Responsitories\ValidateRegex;
 class LoginRespositoies
 {
 
-    function Login()
+    function Login($data)
     {
-        // var_dump($_POST);
-        // die;
-        if (empty($_POST["user_name"]) && empty($_POST["user_password"])) {
-            echo "<script>alert('Vui lòng nhập Email và mật khẩu!')</script>";
-        } else {
-            $Regex = new ValidateRegex();
-            if (!$Regex->validatePassword($_POST["user_password"])) {
-                return false;
-            } else {
-                $UserModel = new UserModel();
-                if (!$UserModel->checkUserExist($_POST["user_name"], $_POST["user_password"])) {
-                    echo '<script>alert("Sai tên hoặc mật khẩu !!")</script>';
-                    return false;
-                } else {
-                    if ($UserModel->checkActive($_POST["user_name"], $_POST["user_password"])) {
-                        $user = $UserModel->checkUserExist($_POST["user_name"], $_POST["user_password"]);
-                        // $userid = $UserModel->getInfoUserName($_POST["user_name"], 'user_id');
-                        $_SESSION['user_name'] = $user['user_name'];
-                        $_SESSION['user_id'] = $user['user_id'];
-                        setcookie("userID", $user['user_id'], time() + 3600, "/");
-                        return true;
-                    } else {
-                        echo '<script>alert("Vô hiệu hóa!!")</script>';
-
-                        return false;
-                    }
-                }
-            }
-        }
+        $UserModel = new UserModel();
+        $user = $UserModel->checkUserExist($data["user_name"], $data["user_password"]);
+        $_SESSION['user_name'] = $user['user_name'];
+        $_SESSION['user_id'] = $user['user_id'];
+        setcookie("userID", $user['user_id'], time() + 3600, "/");
+        return true;
     }
 
-    function register()
+
+
+    function register($data)
     {
-        // echo'123';
-        // $data = $UserModel->checkUserExist($_POST["user_name"] , $_POST["user_email"]);
-        // var_dump($_POST); 
-        // die;
-        $username = $_POST["user_name"];
-        $user_email = $_POST["user_email"];
-        $userpass = $_POST["user_password"];
-        $confirmPass = $_POST["confirmPass"];
-        if (empty($username) && empty($userpass) && empty($user_email) && empty($confirmPass)) {
-            echo "<script>alert('Vui lòng nhập đầy đủ thông tin !!')</script>";
-        } else {
-            $Regex = new ValidateRegex();
-            if (!$Regex->validatePassword($userpass)) {
-                return false;
-            } else {
-                if (!$Regex->validateEmail($user_email)) {
-                    return false;
-                } else {
-                    $UserModel = new UserModel();
-                    $email = $UserModel->checkDuplicateUserEmail($_POST['user_email']);
-                    $name = $UserModel->checkDuplicateUserName($_POST['user_name']);
-                    if (!$email) {
-                        if (!$name) {
-                            if ($userpass === $confirmPass) {
-                                $UserModel->registerUser($_POST, "confirmPass");
-                                $last_user = $UserModel->getLatestId();
-                                echo ($last_user['id']);
-                                setcookie("userID", ($last_user['id']), time() + 3600, "/");
-                                return true;
-                            } else {
-                                echo '<script>alert("Nhập lại mật khẩu sai!!")</script>';
-                                return false;
-                            }
-                        } else {
-                            echo "<script>alert('Tên tài khoản đã tồn tại!!')</script>";
-                            return false;
-                        }
-                    } else {
-                        echo "<script>alert('Email đã được đăng kí!!')</script>";
-                        return false;
-                    }
-                }
-            }
-        }
+        $UserModel = new UserModel();
+        $UserModel->registerUser($data, "confirmPass");
+        $last_user = $UserModel->getLatestId();
+        $_SESSION['user_id'] = $last_user['id'];
+        setcookie("userID", ($last_user['id']), time() + 3600, "/");
+        return true;
     }
     function forgot()
     {

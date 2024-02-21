@@ -5,7 +5,7 @@ namespace app\Controller;
 use app\Core\RenderBase;
 
 // use app\Model\UserModel;
-
+use app\Model\UserModel;
 use app\Responsitories\UserRespon;
 
 class UserController extends BaseController
@@ -31,29 +31,6 @@ class UserController extends BaseController
         }
     }
 
-    // function Controller()
-    // {
-    //     $this->homePage();
-    // }
-
-    // function homePage()
-    // {
-    //     // dữ liệu ở đây lấy từ responsitories hoặc model
-    //     $data = [
-    //         "products" => [
-    //             [
-    //                 "id" => 1,
-    //                 "name" => "Sản phẩm"
-    //             ]
-    //         ]
-    //     ];
-
-    //     $this->_renderBase->renderHeader();
-    //     $this->load->render('admin/include/sidebar');
-    //     $this->load->render('admin/Pages/Dashboard');
-    //     $this->_renderBase->renderFooter();
-    // }
-
     function list()
     {
         $this->_renderBase->renderHeader();
@@ -71,9 +48,10 @@ class UserController extends BaseController
     }
     public function handleCreate()
     {
+        $data = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), true) : [];
         $UserRespon = new UserRespon();
-        if($UserRespon->AddUserResponse($_POST)){
-            $UserRespon->AddUserResponse($_POST);
+        if($UserRespon->AddUserResponse($data)){
+            header('location: /?pages=UserController/list/');
         }else{
             $this->_renderBase->renderHeader();
             $this->load->render('admin/include/sidebar');
@@ -100,22 +78,14 @@ class UserController extends BaseController
 
     function edit($id)
     {
-        // $UserRespon = new UserRespon();
+        $UserModel = new UserModel();
         $data = [
-            "user" => [
-                [
-                    "id" => $id,
-                ]
-            ]
+            "user" => $UserModel->getInfoPUserById($id)
         ];
         $this->_renderBase->renderHeader();
         $this->load->render('admin/include/sidebar');
         $this->load->render('admin/Pages/User/UserEdit', $data);
         $this->_renderBase->renderFooter();
-        // $user_id = $data['user'][0]['id'];
-        // if (isset($_POST['editUser'])) {
-        //     $UserRespon->UpdateUserResponse($user_id);
-        // }
     }
     function handleDelete()
     {
@@ -128,12 +98,6 @@ class UserController extends BaseController
         $this->load->render('admin/Pages/User/UserList');
         $this->_renderBase->renderFooter();
         }
-        // $UserRespon = new UserRespon();
-
-        // $user_id = $data['user'][0]['id'];
-        // if (isset($_POST['editUser'])) {
-        //     $UserRespon->UpdateUserResponse($user_id);
-        // }
     }
     function handleRecovery()
     {
@@ -146,21 +110,16 @@ class UserController extends BaseController
         $this->load->render('admin/Pages/User/UserList');
         $this->_renderBase->renderFooter();
         }
-        // $UserRespon = new UserRespon();
-
-        // $user_id = $data['user'][0]['id'];
-        // if (isset($_POST['editUser'])) {
-        //     $UserRespon->UpdateUserResponse($user_id);
-        // }
     }
 
 
     
-    public function handleUpdate($data)
+    public function handleUpdate()
     {
+        $data = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), true) : [];
         $UserRespon = new UserRespon();
-        if($UserRespon->UpdateUserResponse($_POST)){
-            $UserRespon->UpdateUserResponse($_POST);
+        if($UserRespon->UpdateUserResponse($data)){
+            header('location: /?pages=UserController/list/');
         }else{
             $this->_renderBase->renderHeader();
         $this->load->render('admin/include/sidebar');

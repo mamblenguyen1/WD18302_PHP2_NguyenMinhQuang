@@ -1,15 +1,9 @@
 
 <?php
 
-use app\Helpers\status;
-use app\Model\ProductFunction;
+// use app\Helpers\status;
 use app\Model\UserFunction;
 $user = new UserFunction();
-
-$product = new ProductFunction();
-
-$product_id = $data['product'][0]['id'];
-
 ?>
 <div class="main-panel">
     <div class="content-wrapper">
@@ -19,49 +13,52 @@ $product_id = $data['product'][0]['id'];
                 <div class="product-info">
                     <div class="info">
                         <h4 class="card-title" style="padding: 0;">Thông tin chi tiết sản phẩm
-                            : <?= $product->getInfoProduct($product_id , 'product_name')?></h4>
+                            : <?= $data['product']['product_name']?></h4>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Tên sản phẩm</span> <span class="info" style="margin-left: 3%;"><?= $product->getInfoProduct($product_id , 'product_name')?></span>
+                            <span style="font-weight: bold;">Tên sản phẩm</span> <span class="info" style="margin-left: 3%;"><?= $data['product']['product_name']?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Giá sản phẩm</span> <span class="info" style="margin-left: 3%;"><?= $product->getInfoProduct($product_id , 'product_price')?> VNĐ</span>
+                            <span style="font-weight: bold;">Giá sản phẩm</span> <span class="info" style="margin-left: 3%;"><?= number_format($data['product']['product_price'])?> VNĐ</span>
                         </div>
                         <!-- <div class="product-name">
                             <span style="font-weight: bold;">Phần trăm giảm giá</span> <span class="info" style="margin-left: 3%;">20 %</span>
                         </div> -->
                         <div class="product-name">
-                            <span style="font-weight: bold;">Số lượng </span> <span class="info" style="margin-left: 3%;"><?= $product->getInfoProduct($product_id , 'product_quantity')?></span>
+                            <span style="font-weight: bold;">Số lượng </span> <span class="info" style="margin-left: 3%;"><?= $data['product']['product_quantity']?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold ;vertical-align: top;">Mô tả sản phẩm </span> <span class="info" style="margin-left: 3%;"><?= $product->getInfoProduct($product_id , 'product_description')?></span>
+                            <span style="font-weight: bold ;vertical-align: top;">Mô tả sản phẩm </span> <span class="info" style="margin-left: 3%;"><?= $data['product']['product_description']?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Người tạo</span> <span class="info" style="margin-left: 3%;"><?  $user_created = $product->getInfoProduct($product_id, 'created_user');
-                                                                                                                            if ($user_created > 0) {
-                                                                                                                                echo $user->getInfoUser($user_created, 'user_name');
-                                                                                                                            } else {
-                                                                                                                                echo '';
-                                                                                                                            } ?></span>
+                            <span style="font-weight: bold;">Người tạo</span> <span class="info" style="margin-left: 3%;"><? 
+                                                                                                                            if ($data['product']['created_user'] > 0) {
+                                                                                                                                    echo $user->getInfoUser($data['product']['created_user'], 'user_name');
+                                                                                                                                } else {
+                                                                                                                                    echo '';
+                                                                                                                                } 
+                                                                                                                            ?>
+                                                                                                                            </span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Người sửa</span> <span class="info" style="margin-left: 3%;"><?  $user_created = $product->getInfoProduct($product_id, 'updated_user');
-                                                                                                                            if ($user_created > 0) {
-                                                                                                                                echo $user->getInfoUser($user_created, 'user_name');
-                                                                                                                            } else {
-                                                                                                                                echo '';
-                                                                                                                            } ?></span>
+                            <span style="font-weight: bold;">Người sửa</span> <span class="info" style="margin-left: 3%;"><?   if ($data['product']['updated_user'] > 0) {
+                                                                                                                                    echo $user->getInfoUser($data['product']['updated_user'], 'user_name');
+                                                                                                                                } else {
+                                                                                                                                    echo '';
+                                                                                                                                } 
+                                                                                                                            ?>
+                                                                                                                            </span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Người xóa </span> <span class="info" style="margin-left: 3%;"><?  $user_created = $product->getInfoProduct($product_id, 'deleted_user');
-                                                                                                                            if ($user_created > 0) {
-                                                                                                                                echo $user->getInfoUser($user_created, 'user_name');
-                                                                                                                            } else {
-                                                                                                                                echo '';
-                                                                                                                            } ?></span>
+                            <span style="font-weight: bold;">Người xóa </span> <span class="info" style="margin-left: 3%;"><?   if ($data['product']['deleted_user'] > 0) {
+                                                                                                                                    echo $user->getInfoUser($data['product']['deleted_user'], 'user_name');
+                                                                                                                                } else {
+                                                                                                                                    echo '';
+                                                                                                                                } 
+                                                                                                                            ?></span>
                         </div>
                     </div>
                     <div class="product-img">
-                        <img width="200px" height="200px" src="assets/images/product/<?= $product->getInfoProduct($product_id , 'product_img')?>" alt="">
+                        <img width="200px" height="200px" src="assets/images/product/<?= $data['product']['product_img']?>" alt="">
                     </div>
                 </div>
 

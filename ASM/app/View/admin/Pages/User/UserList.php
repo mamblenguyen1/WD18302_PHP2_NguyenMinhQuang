@@ -78,6 +78,7 @@ if (isset($_COOKIE['userID'])) {
                                         echo ' 
                                             <form style="display : inline-block" action="/?pages=UserController/handleDelete" method="post">
                                             <input type="hidden" name="user_id" value="' . $users['user_id'] . '">
+                                            <input type="hidden" name="user_deleted" value="'. $_SESSION['user_id'].'">
                                             <input type="hidden" name="is_deleted" value="1">
                                             <button  type="submit" class="btn btn-danger"> Xóa</button>
                                               </form>';
@@ -85,6 +86,7 @@ if (isset($_COOKIE['userID'])) {
                                         echo '
                                             <form style="display : inline-block" action="/?pages=UserController/handleRecovery" method="post">
                                             <input type="hidden" name="is_deleted" value="0">
+                                            <input type="hidden" name="user_deleted" value="'. $_SESSION['user_id'].'">
                                             <input type="hidden" name="user_id" value="' . $users['user_id'] . '">
                                             <button  type="submit" class="btn btn-success" > Khôi phục</button>
                                               </form>';

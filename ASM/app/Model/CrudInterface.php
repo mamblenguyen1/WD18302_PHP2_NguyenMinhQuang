@@ -24,7 +24,7 @@ interface CrudInterface{
     public function create(array $data);
 
 
-    public function update($data, $tableName,$id);
+    public function update($data, $tableName,$id,$column);
 
     public function remove(int $id): bool;
 }

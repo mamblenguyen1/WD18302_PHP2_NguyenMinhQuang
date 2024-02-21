@@ -1,3 +1,20 @@
+<?
+
+
+use app\Helpers\UserValidator;
+if(isset($_POST['register'])){
+  $UserValidator = new UserValidator($_POST);
+  $errors = $UserValidator->validateRegister();
+  $data[] = $_POST;
+  if($errors == null){
+      $data = base64_encode(json_encode($_POST));
+      echo '<script>window.location.href="?pages=LoginController/HandleRegister&data=' . $data . '"</script>';
+  }
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,29 +45,32 @@
                 <div class="brand-logo">
                   <img src="../../assets/images/logo.svg">
                 </div>
-                <form class="pt-3" method="POST" action="?pages=LoginController/HandleRegister">
+                <form class="pt-3" method="POST" action="">
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Tên đăng nhập" name="user_name">
+                    <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" value="<? echo htmlspecialchars($_POST['user_name'] ?? '') ?>" placeholder="Tên đăng nhập" name="user_name">
+                    <span style="color: red;" class="error">
+                            <? echo $errors['user_name'] ?? ''?>
+                        </span>
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" name="user_email">
+                    <input type="text" class="form-control form-control-lg" id="exampleInputEmail1" value="<? echo htmlspecialchars($_POST['user_email'] ?? '') ?>" placeholder="Email" name="user_email">
+                    <span style="color: red;" class="error">
+                            <? echo $errors['user_email'] ?? ''?>
+                        </span>
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Mật khẩu" name="user_password">
+                    <input type="password" class="form-control form-control-lg" id="exampleInputEmail1" value="<? echo htmlspecialchars($_POST['user_password'] ?? '') ?>" placeholder="Mật khẩu" name="user_password">
+                    <span style="color: red;" class="error">
+                            <? echo $errors['user_password'] ?? ''?>
+                        </span>
                   </div>
                   <div class="form-group">
-                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Nhập lại mật khẩu" name="confirmPass">
+                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" value="<? echo htmlspecialchars($_POST['confirmPass'] ?? '') ?>" placeholder="Nhập lại mật khẩu" name="confirmPass">
+                    <span style="color: red;" class="error">
+                            <? echo $errors['confirmPass'] ?? ''?>
+                        </span>
                   </div>
-                  <!-- <div class="mb-4">
-                    <div class="form-check">
-                      <label class="form-check-label text-muted">
-                        <input type="checkbox" class="form-check-input"> I agree to all Terms & Conditions </label>
-                    </div>
-                  </div> -->
-                  <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" type="submit"> Đăng ký</button>
-                  <!-- <div class="mt-3"> -->
-                    <!-- <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="../../index.html">SIGN UP</a> -->
-                  <!-- </div> -->
+                  <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" type="submit" name="register"> Đăng ký</button>
                   <div class="text-center mt-4 font-weight-light"> Bạn đã có tài khoản? <a href="?pages=LoginController/logIn" class="text-primary">Đăng nhập</a>
                   </div>
                 </form>
@@ -58,20 +78,11 @@
             </div>
           </div>
         </div>
-        <!-- content-wrapper ends -->
       </div>
-      <!-- page-body-wrapper ends -->
     </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
     <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
     <script src="../../assets/js/off-canvas.js"></script>
     <script src="../../assets/js/hoverable-collapse.js"></script>
     <script src="../../assets/js/misc.js"></script>
-    <!-- endinject -->
   </body>
 </html>

@@ -11,6 +11,12 @@ class ProductFunction extends AbstractProductFunction
         $sql = "SELECT * FROM products WHERE is_deleted = 0";
         return $db->pdo_query($sql);
     }
+    function Get_Product_DB_Page()
+    {
+        $db = new Database();
+        $sql = "SELECT * FROM products";
+        return $db->pdo_query($sql);
+    }
     function Get_Product_DB_limit($limit)
     {
         $db = new Database();

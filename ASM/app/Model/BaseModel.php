@@ -12,7 +12,7 @@ abstract class BaseModel implements CrudInterface
 {
     use QueryBuilder;
 
-    
+
     private $_connection;
 
     // protected $name ="BaseModel";
@@ -23,7 +23,7 @@ abstract class BaseModel implements CrudInterface
         $this->_connection = new Database();
     }
 
-    abstract public function getAllWithPaginate(int $limit,int  $offset);
+    abstract public function getAllWithPaginate(int $limit, int  $offset);
 
     public function getAll()
     {
@@ -31,14 +31,14 @@ abstract class BaseModel implements CrudInterface
 
         return $this;
     }
-    
+
     public function orderBy(string $order = 'ASC')
     {
         $this->_query = $this->_query . "order by " . $order;
 
         return $this;
     }
-    
+
 
     public function get()
     {
@@ -48,15 +48,17 @@ abstract class BaseModel implements CrudInterface
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getInfo($column){
-        $sqlQuery = "SELECT $this->selectField FROM $this->tableName $this->innerJoin $this->leftJoin $this->where $this->groupBy  $this->orderBy  $this->limit";                                                                                                           
+    public function getInfo($column)
+    {
+        $sqlQuery = "SELECT $this->selectField FROM $this->tableName $this->innerJoin $this->leftJoin $this->where $this->groupBy  $this->orderBy  $this->limit";
         $result = $this->_connection->pdo_query($sqlQuery);
         foreach ($result as $row) {
             return $row[$column];
         }
     }
 
-    public function getOne($id){
+    public function getOne($id)
+    {
         return [];
     }
 
@@ -73,14 +75,16 @@ abstract class BaseModel implements CrudInterface
     {
         return true;
     }
-    public function updateData($table, $data, $condition = '')
+    public function updateData($table, $data, $condition = '', $collumn)
     {
         if (!empty($data)) {
             $updateStr = '';
             foreach ($data as $key => $value) {
-                if($value === '' || $value === null) {
+                if ($key === $collumn) {
+                    $updateStr;
+                } else if ($value === '' || $value === null) {
                     $updateStr .= "$key=NULL,";
-                }else {
+                } else {
                     $updateStr .= "$key='$value',";
                 }
             }
