@@ -64,7 +64,7 @@ if (isset($_POST['recovery'])) {
                                 <td class="py-1">
                                     <?= $users['user_name'] ?>
                                 </td>
-                                <td> <?= $users['user_adress'] ?> </td>
+                                <td> <?= $users['user_email'] ?> </td>
                                 <td>
                                     <? if ($users['role_id'] == 1) {
                                         echo '<label class="badge bg-primary">' . status::getRole()[status::ADMIN] . '</label>';

@@ -23,7 +23,10 @@ class UserModel extends BaseModel{
         return $this->select('MAX(user_id) as id')->first();
     }
 
-
+    public function getInfoUserById($id)
+    {
+        return $this->select()->where('user_id' , ' = ',$id)->first();
+    }
 
     public function checkUserExist($user_name , $user_password){
         return $this->select()->where('user_name', '=', $user_name)->where('user_password', '=', $user_password)->first();
@@ -54,5 +57,14 @@ class UserModel extends BaseModel{
     }
     public function create($data){
 
+    }
+    public function CreateItem($data, $column)
+    {
+        return $this->insert($data, $this->tableName, $column);
+    }
+    public function updateItem($data, $field, $compare, $value, $column)
+    {
+        $condition = $this->where($field, $compare, $value);
+        return $this->update( $data,$this->tableName, $condition);
     }
 }

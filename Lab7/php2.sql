@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 08, 2024 at 09:16 AM
+-- Generation Time: Feb 21, 2024 at 02:21 PM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -41,7 +41,8 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`Invoice_id`, `Invoice_date`, `status`, `user_name`, `user_adress`, `user_phone`) VALUES
-(78, '2024-01-31 12:37:16', 1, 'duytp', 'Đắk Nông', '0456789123');
+(85, '2024-02-20 11:18:24', 1, 'hieuvt', 'Hà Giang', '0902345678'),
+(86, '2024-02-20 11:27:37', 1, 'quangmoitao', 'ở vĩnh long nè', '123456987');
 
 -- --------------------------------------------------------
 
@@ -61,9 +62,15 @@ CREATE TABLE `invoice_details` (
 --
 
 INSERT INTO `invoice_details` (`Invoice_detail_id`, `Invoice_id`, `product_id`, `product_quantity`) VALUES
-(92, 78, 2, 2),
-(93, 78, 10, 2),
-(94, 78, 15, 2);
+(102, 85, 2, 2),
+(103, 85, 1, 3),
+(104, 85, 6, 3),
+(105, 85, 10, 2),
+(106, 85, 22, 2),
+(107, 86, 1, 3),
+(108, 86, 2, 2),
+(109, 86, 17, 2),
+(110, 85, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -92,17 +99,17 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `product_price`, `product_quantity`, `product_description`, `product_img`, `created_user`, `created_at`, `updated_user`, `updated_at`, `deleted_user`, `deleted_at`, `is_deleted`) VALUES
-(1, 'Smartphone XYZ', 10000000, 50, 'Smartphone hiện đại với camera chất lượng cao và hiệu suất mạnh mẽ.', 'smartphone_xyz.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(2, 'Laptop ABC', 20000000, 30, 'Laptop siêu mỏng và nhẹ, màn hình cảm ứng và bảo mật vân tay.', 'laptop_abc.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(3, 'Tai nghe Bluetooth QWERTY', 1500000, 80, 'Tai nghe Bluetooth không dây với chất âm sống động và thiết kế thoải mái.', 'bluetooth_headphones_qwerty.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(4, 'Smart TV 4K Ultra HD', 30000000, 40, 'Smart TV với độ phân giải 4K Ultra HD, tích hợp trí tuệ nhân tạo và hệ điều hành thông minh.', 'smart_tv_4k.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(5, 'Máy ảnh Mirrorless XYZ', 15000000, 60, 'Máy ảnh không gương lật với cảm biến lớn và khả năng quay video 4K.', 'mirrorless_camera_xyz.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(6, 'Đồng hồ thông minh ABC', 5000000, 45, 'Đồng hồ thông minh với nhiều tính năng thông minh, đo sức khỏe và theo dõi hoạt động.', 'smartwatch_abc.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(7, 'Loa Bluetooth Mini', 800000, 25, 'Loa di động nhỏ gọn với âm thanh mạnh mẽ và kết nối Bluetooth thuận tiện.', 'bluetooth_speaker_mini.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(8, 'Ổ cứng SSD Ultra-Fast', 1200000, 70, 'Ổ cứng SSD tốc độ cao, giúp tăng tốc độ đọc và ghi dữ liệu.', 'ssd_ultra_fast.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(9, 'Máy in Laser Monochrome', 8000000, 90, 'Máy in laser đen trắng với khả năng in nhanh và chất lượng cao.', 'laser_printer_monochrome.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(10, 'Camera An Ninh IP', 2500000, 20, 'Camera an ninh IP giám sát từ xa với chất lượng hình ảnh sắc nét.', 'security_camera_ip.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(11, 'Tai nghe Gaming RGB', 1200000, 35, 'Tai nghe gaming với đèn RGB đa dạng màu sắc, âm thanh vòm 7.1 và micro chống ồn.', 'gaming_headphones_rgb.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(1, 'mới tạo11111', 12343, 454, 'Smartphone hiện đại với camera chất lượng cao và hiệu suất mạnh mẽ.', 'LanVang3.jpg', 45, NULL, 145, NULL, 145, NULL, 0),
+(2, 'Laptop ABC', 20000000, 30, 'Laptop siêu mỏng và nhẹ, màn hình cảm ứng và bảo mật vân tay.', 'LilyTim2.jpg', NULL, NULL, 145, NULL, 150, NULL, 0),
+(3, 'Tai nghe Bluetooth QWERTY', 1500000, 80, 'Tai nghe Bluetooth không dây với chất âm sống động và thiết kế thoải mái.', 'LilyTrang1.jpg', NULL, NULL, NULL, NULL, 150, NULL, 0),
+(4, 'Smart TV 4K Ultra HD1', 30000000, 40, 'Smart TV với độ phân giải 4K Ultra HD, tích hợp trí tuệ nhân tạo và hệ điều hành thông minh.', 'LilyTim3.jpg', NULL, NULL, 145, NULL, 150, NULL, 0),
+(5, 'Máy ảnh Mirrorless XYZ', 15000000, 60, 'Máy ảnh không gương lật với cảm biến lớn và khả năng quay video 4K.', 'mirrorless_camera_xyz.jpg', NULL, NULL, NULL, NULL, 150, NULL, 0),
+(6, 'Đồng hồ thông minh ABC', 5000000, 45, 'Đồng hồ thông minh với nhiều tính năng thông minh, đo sức khỏe và theo dõi hoạt động.', 'smartwatch_abc.jpg', NULL, NULL, NULL, NULL, 150, NULL, 0),
+(7, 'Loa Bluetooth Mini', 800000, 25, 'Loa di động nhỏ gọn với âm thanh mạnh mẽ và kết nối Bluetooth thuận tiện.', 'bluetooth_speaker_mini.jpg', NULL, NULL, NULL, NULL, 150, NULL, 0),
+(8, 'Ổ cứng SSD Ultra-Fast', 1200000, 70, 'Ổ cứng SSD tốc độ cao, giúp tăng tốc độ đọc và ghi dữ liệu.', 'ssd_ultra_fast.jpg', NULL, NULL, NULL, NULL, 150, NULL, 0),
+(9, 'Máy in Laser Monochrome', 8000000, 90, 'Máy in laser đen trắng với khả năng in nhanh và chất lượng cao.', 'LilyTrang1.jpg', NULL, NULL, 150, NULL, 150, NULL, 0),
+(10, 'Camera An Ninh IP', 2500000, 20, 'Camera an ninh IP giám sát từ xa với chất lượng hình ảnh sắc nét.', 'security_camera_ip.jpg', NULL, NULL, NULL, NULL, 150, NULL, 0),
+(11, 'Tai nghe Gaming RGB', 1200000, 35, 'Tai nghe gaming với đèn RGB đa dạng màu sắc, âm thanh vòm 7.1 và micro chống ồn.', 'gaming_headphones_rgb.jpg', NULL, NULL, NULL, NULL, 150, NULL, 0),
 (12, 'Máy pha cà phê tự động', 16000000, 28, 'Máy pha cà phê tự động với nhiều chế độ pha cà phê và thiết kế sang trọng.', 'automatic_coffee_maker.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (13, 'Loa Soundbar 2.1 Channel', 3500000, 75, 'Soundbar với hệ thống loa 2.1 kênh, tạo ra âm thanh vòm chất lượng cao.', 'soundbar_2.1_channel.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (14, 'Bàn là làm tóc Ceramic', 1800000, 60, 'Bàn là làm tóc với lớp phủ ceramic, nhiệt độ điều chỉnh và thiết kế chống tóc.', 'ceramic_hair_straightener.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
@@ -121,7 +128,9 @@ INSERT INTO `products` (`product_id`, `product_name`, `product_price`, `product_
 (27, 'Máy làm sữa hạt', 3500000, 60, 'Máy làm sữa hạt tự động với nhiều lựa chọn hạt và độ mịn.', 'automatic_soy_milk_maker.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (28, 'Máy xay cà phê Espresso', 6000000, 45, 'Máy xay cà phê Espresso với nhiều cấp độ xay và tính năng tự động.', 'espresso_coffee_grinder.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
 (29, 'Máy lọc nước RO', 8000000, 55, 'Máy lọc nước RO loại bỏ tạp chất và vi khuẩn, cung cấp nước sạch và an toàn.', 'ro_water_purifier.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
-(30, 'Máy hút bụi Robot', 12000000, 40, 'Máy hút bụi tự động với công nghệ AI, lên lịch hút và tránh vật cản.', 'robot_vacuum_cleaner.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0);
+(30, 'Máy hút bụi Robot', 12000000, 40, 'Máy hút bụi tự động với công nghệ AI, lên lịch hút và tránh vật cản.', 'robot_vacuum_cleaner.jpg', NULL, NULL, NULL, NULL, NULL, NULL, 0),
+(57, 'samsung', 123123, 123, 'rất đẹp', 'DaoDo1.jpg', 145, NULL, NULL, NULL, 145, NULL, 0),
+(58, '32323', 1323, 3, '123123', 'TulipHong3.jpg', 145, NULL, 145, NULL, 145, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -151,8 +160,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_name`, `user_adress`, `user_email`, `is_deleted`, `created_at`, `updated_at`, `deleted_at`, `user_created`, `user_updated`, `user_deleted`, `user_password`, `role_id`, `user_phone`) VALUES
-(45, 'quangmoi1', 'ởđây', 'nguyenvana@example.com', 0, '2024-01-31 12:35:46', '2024-01-31 12:35:46', '2024-01-31 12:35:46', 46, 73, 1, 'Abcd1234', 2, '0123456789'),
-(46, 'trantuanb', 'Hồ  Chí   Minh', 'trantuanb@example.com', 0, '2024-01-31 12:35:46', '2024-01-31 12:35:46', '2024-01-31 12:35:46', 1, 73, 1, 'Efgh5678', 1, '0234567891'),
+(46, 'trantuanbc', 'Hồ  Chí   Minh', 'trantuanb@example.com', 0, '2024-01-31 12:35:46', '2024-01-31 12:35:46', '2024-01-31 12:35:46', 1, 145, 1, 'Efgh5678', 2, '0234567891'),
 (47, 'lethih', 'Đà Nẵng', 'lethih@example.com', 0, '2024-01-31 12:35:46', '2024-01-31 12:35:46', '2024-01-31 12:35:46', 1, 73, 1, 'Ijkl9012', 1, '0345678912'),
 (48, 'phamquangc', 'Hải Phòng', 'phamquangc@example.com', 0, '2024-01-31 12:35:46', '2024-01-31 12:35:46', '2024-01-31 12:35:46', 1, 73, 1, 'Mnop3456', 1, '0456789123'),
 (49, 'vuvand', 'Cần Thơ', 'vuvand@example.com', 0, '2024-01-31 12:35:46', '2024-01-31 12:35:46', '2024-01-31 12:35:46', 1, 73, 1, 'Qrst7890', 1, '0567891234'),
@@ -179,10 +187,9 @@ INSERT INTO `user` (`user_id`, `user_name`, `user_adress`, `user_email`, `is_del
 (70, 'nhungnn', 'Đồng Tháp', 'nhungnn@example.com', 0, '2024-01-31 12:35:46', '2024-01-31 12:35:46', '2024-01-31 12:35:46', 1, 73, 1, 'Wxyz1234', 1, '0789123456'),
 (71, 'quynht', 'Gia Lai', 'quynht@example.com', 0, '2024-01-31 12:35:46', '2024-01-31 12:35:46', '2024-01-31 12:35:46', 1, 73, 1, 'Abcd5678', 1, '0891234567'),
 (72, 'hieuvt', 'Hà Giang', 'hieuvt@example.com', 0, '2024-01-31 12:35:46', '2024-01-31 12:35:46', '2024-01-31 12:35:46', 1, 73, 1, 'Efgh9012', 1, '0902345678'),
-(73, 'quang', 'Vĩnh Long', 'quangnmpc07626@fpt.edu.vn', 0, '2024-01-31 12:36:30', '2024-01-31 12:36:30', '2024-01-31 12:36:30', 34, 73, NULL, 'Quang123', 1, '0769628651'),
-(141, 'quang1', NULL, 'nmquang1997@gmail.com', 0, '2024-02-08 16:03:23', '2024-02-08 16:03:23', '2024-02-08 16:03:23', NULL, NULL, NULL, 'Quang123', 1, NULL),
-(142, 'quang43', NULL, 'quand3@gamil.com', 0, '2024-02-08 16:12:02', '2024-02-08 16:12:02', '2024-02-08 16:12:02', NULL, NULL, NULL, 'Quang123', 1, NULL),
-(143, 'quang213123', NULL, 'Quang44@gamil.com', 0, '2024-02-08 16:12:42', '2024-02-08 16:12:42', '2024-02-08 16:12:42', NULL, NULL, NULL, 'Quang123', 1, NULL);
+(145, 'quang', NULL, 'nmquang1997@gmail.com', 0, '2024-02-19 13:52:35', '2024-02-19 13:52:35', '2024-02-19 13:52:35', NULL, NULL, NULL, 'Quang123', 1, NULL),
+(168, 'quang3333', 'nmquang1997@gmail.com', 'nmquang19397@gmail.com', 0, '2024-02-21 20:56:41', '2024-02-21 20:56:41', '2024-02-21 20:56:41', NULL, 145, NULL, 'Quang123', 1, '0123456789'),
+(169, 'nmquang1997@gmail.com', NULL, 'nmquang193397@gmail.com', 0, '2024-02-21 21:18:13', '2024-02-21 21:18:13', '2024-02-21 21:18:13', NULL, NULL, NULL, 'Quang123', 1, NULL);
 
 --
 -- Indexes for dumped tables
@@ -222,25 +229,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `Invoice_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `Invoice_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `invoice_details`
 --
 ALTER TABLE `invoice_details`
-  MODIFY `Invoice_detail_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `Invoice_detail_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `product_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `user_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
 
 --
 -- Constraints for dumped tables

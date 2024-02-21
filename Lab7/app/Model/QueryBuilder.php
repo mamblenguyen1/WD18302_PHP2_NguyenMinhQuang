@@ -113,12 +113,12 @@ trait QueryBuilder
     //
     public function updateData($table, $data, $condition = '')
     {
+        // var_dump($data);
+        // die;
         if (!empty($data)) {
             $updateStr = '';
             foreach ($data as $key => $value) {
-                if (strpos($value, ' ') !== false) {
-                    $updateStr .= "$key=$value,";
-                } else if ($value === '' || $value === null) {
+                 if ($value === '' || $value === null) {
                     $updateStr .= "$key=NULL,";
                 } else {
                     $updateStr .= "$key='$value',";
@@ -126,14 +126,17 @@ trait QueryBuilder
             }
             $updateStr = rtrim($updateStr, ',');
             $sql = "UPDATE $table SET $updateStr";
+            
             if (!empty($condition)) {
                 $sql = "UPDATE $table SET $updateStr WHERE $condition";
+              
             }
             $status = $this->query($sql);
             if (!$status) return false;
         }
         return true;
     }
+
 
     public function deleteData($table, $condition = ''): bool
     {
@@ -202,7 +205,7 @@ trait QueryBuilder
         return $insertStatus;
     }
 
-    public function update($data, $tableName, $id)
+    public function update($data, $tableName, $whereUpdate)
     {
         // $where = $this->$whereUpdate;
         $whereUpdate  = str_replace('WHERE', '', $this->where);

@@ -1,6 +1,6 @@
 {
     "name": "php/oop",
-    "description": "Bài lab 5 môn PHP2",
+    "description": "Bài lab 7 môn PHP2",
     "autoload": {
         "psr-4": {
             "app\\": "app/"

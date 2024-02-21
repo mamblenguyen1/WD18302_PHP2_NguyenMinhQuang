@@ -8,8 +8,8 @@ use app\Helpers\status;
 ?>
 
 <?php
-$user_id = $data['user'][0]['id'];
-echo ($userModel->where('user_id' , ' = ' , $user_id)->getInfo('user_name'));
+
+// $user_id = $data['user'][0]['id'];
 // $result = $userModel->getAll()->select('user_name')->where('user_id' , ' = ' , $user_id)->get();
 // foreach($result as $item){
 //     echo $item
@@ -25,20 +25,20 @@ echo ($userModel->where('user_id' , ' = ' , $user_id)->getInfo('user_name'));
                 <div class="product-info">
                     <div class="info">
                         <h4 class="card-title" style="padding: 0;">Thông tin chi tiết khách hàng
-                            : <?= $userModel->where('user_id' , ' = ' , $user_id)->getInfo('user_name')?></h4>
+                            : <?= $data['user']['user_name']?></h4>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Tên tài khoản</span> <span class="info" style="margin-left: 3%;"> <?=$userModel->where('user_id' , ' = ' , $user_id)->getInfo('user_name') ?></span>
+                            <span style="font-weight: bold;">Tên tài khoản</span> <span class="info" style="margin-left: 3%;"> <?=$data['user']['user_name'] ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Địa chỉ</span> <span class="info" style="margin-left: 3%;"> <?=$userModel->where('user_id' , ' = ' , $user_id)->getInfo('user_adress') ?></span>
+                            <span style="font-weight: bold;">Địa chỉ</span> <span class="info" style="margin-left: 3%;"> <?=$data['user']['user_adress'] ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Email</span> <span class="info" style="margin-left: 3%;"> <?=$userModel->where('user_id' , ' = ' , $user_id)->getInfo('user_email') ?></span>
+                            <span style="font-weight: bold;">Email</span> <span class="info" style="margin-left: 3%;"> <?=$data['user']['user_email'] ?></span>
                         </div>
                         <div class="product-name">
                             <span style="font-weight: bold;">Cấp quyền </span> <span class="info" style="margin-left: 3%;">
                                 <?
-                                if ($userModel->getAll()->select('role_id')->where('user_id' , ' = ' , $user_id)->get() == 1) {
+                                if ($data['user']['role_id'] == 1) {
                                     echo '<label class="badge bg-primary">' . status::getRole()[status::ADMIN] . '</label>';
                                 } else {
                                     echo '<label class="badge bg-danger">' . status::getRole()[status::USER] . '</label>';
@@ -47,7 +47,7 @@ echo ($userModel->where('user_id' , ' = ' , $user_id)->getInfo('user_name'));
                             </span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Người tạo</span> <span class="info" style="margin-left: 3%;"><? $user_created = $user->getInfoUser($user_id, 'user_created');
+                            <span style="font-weight: bold;">Người tạo</span> <span class="info" style="margin-left: 3%;"><? $user_created = $data['user']['user_created'];
                                                                                                                             if ($user_created > 0) {
                                                                                                                                 echo $user->getInfoUser($user_created, 'user_name');
                                                                                                                             } else {
@@ -55,7 +55,7 @@ echo ($userModel->where('user_id' , ' = ' , $user_id)->getInfo('user_name'));
                                                                                                                             } ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Người sửa</span> <span class="info" style="margin-left: 3%;"><? $user_updated = $user->getInfoUser($user_id, 'user_updated');
+                            <span style="font-weight: bold;">Người sửa</span> <span class="info" style="margin-left: 3%;"><? $user_updated = $data['user']['user_updated'];
                                                                                                                             if ($user_updated > 0) {
                                                                                                                                 echo $user->getInfoUser($user_updated, 'user_name');
                                                                                                                             } else {
@@ -63,7 +63,7 @@ echo ($userModel->where('user_id' , ' = ' , $user_id)->getInfo('user_name'));
                                                                                                                             } ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Người xóa </span> <span class="info" style="margin-left: 3%;"><? $user_deleted = $user->getInfoUser($user_id, 'user_deleted');
+                            <span style="font-weight: bold;">Người xóa </span> <span class="info" style="margin-left: 3%;"><? $user_deleted = $data['user']['user_deleted'];
                                                                                                                             if ($user_deleted > 0) {
                                                                                                                                 echo $user->getInfoUser($user_deleted, 'user_name');
                                                                                                                             } else {
