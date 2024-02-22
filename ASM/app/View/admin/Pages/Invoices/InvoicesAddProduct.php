@@ -27,6 +27,11 @@ if (isset($_POST['addProduct'])) {
 if (isset($_POST['pay'])) {
     $InvoicesRespon->UpdateInvoicesDetails($id);
 }
+
+if(isset($_POST['remove'])) {
+        $Invoice_detail_id = $_POST['Invoice_detail_id'];
+        $InvoicesRespon->RemoveInvoicesDetails($Invoice_detail_id);
+}
 ?>
 <div class="content-wrapper">
     <div class="col-12 grid-margin stretch-card">
@@ -42,6 +47,7 @@ if (isset($_POST['pay'])) {
                         foreach ($InvoiceDetails as $index => $InvoiceDetail) {
                         ?>
                             <div class="product" id="product<?= $index ?>">
+                                <input type="hidden" name="Invoice_detail_id" id="" value="<?= $InvoiceDetail['Invoice_detail_id']?>">
                                 <img width="100px" height="80px" src="assets/images/product/<?= $InvoiceDetail['product_img'] ?>" alt="Product 1">
                                 <div class="product-info">
                                     <p><?= $InvoiceDetail['product_name'] ?></p>
@@ -52,7 +58,7 @@ if (isset($_POST['pay'])) {
                                     <input type="text" name="quantity<?= $index ?>" id="quantity<?= $index ?>" value="<?= $InvoiceDetail['product_quantity'] ?>" oninput="updateTotalPrice(<?= $index ?>)">
                                     <span class="quantity-control" onclick="increaseQuantity(<?= $index ?>)">+</span>
                                 </div>
-                                <button type="button" class="btn btn-outline-secondary btn-rounded btn-icon  close">
+                                <button type="submit" name="remove" class="btn btn-outline-secondary btn-rounded btn-icon  close">
                                     <i class="mdi mdi-close text-primary"></i>
                                 </button>
                             </div>

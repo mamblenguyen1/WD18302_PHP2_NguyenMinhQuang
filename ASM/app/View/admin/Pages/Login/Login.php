@@ -6,8 +6,6 @@ use app\Helpers\UserValidator;
 if(isset($_POST['login'])){
     $UserValidator = new UserValidator($_POST);
     $errors = $UserValidator->validateLogin();
-    // var_dump($errors);
-    // die;
     $data[] = $_POST;
     if($errors == null){
         $data = base64_encode(json_encode($_POST));
@@ -51,7 +49,7 @@ if(isset($_POST['login'])){
                   </button>
                 </div>
                 <div class="my-2 d-flex justify-content-between align-items-center">
-                  <a href="#" class="auth-link text-black">Quên mật khẩu ?</a>
+                  <a href="?pages=LoginController/forgot" class="auth-link text-black">Quên mật khẩu ?</a>
                 </div>
                 <div class="text-center mt-4 font-weight-light"> Bạn chưa có tài khoản? <a href="?pages=LoginController/register" class="text-primary">Đăng ký</a>
                 </div>

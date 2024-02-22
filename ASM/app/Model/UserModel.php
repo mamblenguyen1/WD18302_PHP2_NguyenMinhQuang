@@ -63,7 +63,10 @@ class UserModel extends BaseModel
     {
         return $this->select()->whereLike('user_name', $user_name)->where('is_deleted', '=', 0)->first();
     }
-
+    public function checkUserRole($user_name)
+    {
+        return $this->select()->whereLike('user_name', $user_name)->where('role_id', '=', 1)->first();
+    }
     public function registerUser($data, $column)
     {
         return $this->insert($data, $this->tableName, $column);

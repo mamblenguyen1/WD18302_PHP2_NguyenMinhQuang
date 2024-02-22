@@ -14,6 +14,18 @@ class InvoiceModel extends BaseModel
         return $this->getAll()->get();
     }
 
+    public function getIdFormInvoiceDetail($Invoice_id)
+    {
+        // $this->select('Invoice_detail_id')->table('invoice_details')->where('Invoice_id' , '=', $Invoice_id)->get();
+        return $this->select('Invoice_detail_id')->table('invoice_details')->where('Invoice_id' , '=', $Invoice_id)->get();
+    }
+
+    public function CountInvoiceDetailById($Invoice_id)
+    {
+        // $this->select('Invoice_detail_id')->table('invoice_details')->where('Invoice_id' , '=', $Invoice_id)->get();
+        return $this->select('COUNT(Invoice_detail_id)')->table('invoice_details')->where('Invoice_id' , '=', $Invoice_id)->first();
+    }
+
     public function getInfoOneUserByName()
     {
         return $this->getAll()->get();
@@ -72,7 +84,13 @@ class InvoiceModel extends BaseModel
         return $this->update($this->tableName, $data, $condition);
     }
 
-    
+    public function removeItem($Invoice_detail_id){
+        return $this->deleteData('invoice_details', "Invoice_detail_id = $Invoice_detail_id");
+    }
+
+    public function removeInvoice($Invoice_id){
+        return $this->deleteData('invoices', "Invoice_id = $Invoice_id");
+    }
     public function CreateItem($data, $column)
     {
         return $this->insert($data, $this->tableName, $column);

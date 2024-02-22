@@ -23,6 +23,9 @@ if (isset($_COOKIE['userID'])) {
             <a href="/?pages=UserController/add/">
                 <button type="button" class="btn btn-outline-primary" style="width: 200px; margin: 10px 30px;">Thêm tài khoản</button>
             </a>
+            <a style="position: absolute; top : 20px ; right: 5%;" href="/?pages=UserController/change/">
+                <button onclick="confirm('Khi thay đổi thông tin bạn cần phải có sự xác nhận của khách hàng , bạn đã chắc chắn muốn dổi không')" name="detail" class="btn btn-primary mr-2">Đổi mật khẩu khách hàng</button>
+            </a>
 
             <div class="card-body">
 
@@ -78,7 +81,7 @@ if (isset($_COOKIE['userID'])) {
                                         echo ' 
                                             <form style="display : inline-block" action="/?pages=UserController/handleDelete" method="post">
                                             <input type="hidden" name="user_id" value="' . $users['user_id'] . '">
-                                            <input type="hidden" name="user_deleted" value="'. $_SESSION['user_id'].'">
+                                            <input type="hidden" name="user_deleted" value="' . $_SESSION['user_id'] . '">
                                             <input type="hidden" name="is_deleted" value="1">
                                             <button  type="submit" class="btn btn-danger"> Xóa</button>
                                               </form>';
@@ -86,7 +89,7 @@ if (isset($_COOKIE['userID'])) {
                                         echo '
                                             <form style="display : inline-block" action="/?pages=UserController/handleRecovery" method="post">
                                             <input type="hidden" name="is_deleted" value="0">
-                                            <input type="hidden" name="user_deleted" value="'. $_SESSION['user_id'].'">
+                                            <input type="hidden" name="user_deleted" value="' . $_SESSION['user_id'] . '">
                                             <input type="hidden" name="user_id" value="' . $users['user_id'] . '">
                                             <button  type="submit" class="btn btn-success" > Khôi phục</button>
                                               </form>';

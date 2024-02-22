@@ -40,13 +40,13 @@ abstract class BaseModel implements CrudInterface
     }
 
 
-    public function get()
-    {
-        $stmt   = $this->_connection->pdo_get_connection()->prepare($this->_query);
-        $stmt->execute();
+    // public function get()
+    // {
+    //     $stmt   = $this->_connection->pdo_get_connection()->prepare($this->_query);
+    //     $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // }
 
     public function getInfo($column)
     {

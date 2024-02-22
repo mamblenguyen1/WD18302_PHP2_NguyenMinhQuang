@@ -60,15 +60,46 @@ class UserController extends BaseController
         }
     }
 
+    public function handleChange()
+    {
+        $data = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), true) : [];
+        $UserRespon = new UserRespon();
+        if($UserRespon->changePass($data)){
+            header('location: /?pages=UserController/list/');
+        }else{
+            $this->_renderBase->renderHeader();
+            $this->load->render('admin/include/sidebar');
+            $this->load->render('admin/Pages/User/UserAdd');
+            $this->_renderBase->renderFooter();
+        }
+    }
+    function change()
+    {
+
+        $this->_renderBase->renderHeader();
+        $this->load->render('admin/include/sidebar');
+        $this->load->render('admin/Pages/User/ChangPass');
+        $this->_renderBase->renderFooter();
+    }
+    function changeOne($id)
+    {
+        $UserModel = new UserModel();
+        $data = [
+            "user" => $UserModel->getInfoPUserById($id)
+        ];
+        $this->_renderBase->renderHeader();
+        $this->load->render('admin/include/sidebar');
+        $this->load->render('admin/Pages/User/ChangeOneUser', $data);
+        $this->_renderBase->renderFooter();
+    }
+
+
 
     function details($id)
     {
+        $UserModel = new UserModel();
         $data = [
-            "user" => [
-                [
-                    "id" => $id,
-                ]
-            ]
+            "user" => $UserModel->getInfoPUserById($id)
         ];
         $this->_renderBase->renderHeader();
         $this->load->render('admin/include/sidebar');
@@ -76,6 +107,7 @@ class UserController extends BaseController
         $this->_renderBase->renderFooter();
     }
 
+    
     function edit($id)
     {
         $UserModel = new UserModel();

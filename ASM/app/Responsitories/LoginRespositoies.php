@@ -3,9 +3,7 @@
 namespace app\Responsitories;
 
 use app\Model\UserModel;
-use app\Model\UserFunction;
 use app\Helpers\mail\Mailer;
-use app\Responsitories\ValidateRegex;
 
 class LoginRespositoies
 {
@@ -17,6 +15,29 @@ class LoginRespositoies
         $_SESSION['user_name'] = $user['user_name'];
         $_SESSION['user_id'] = $user['user_id'];
         setcookie("userID", $user['user_id'], time() + 3600, "/");
+        return true;
+    }
+    function forget($data)
+    {
+        unset($data['user_name']);
+        $UserModel = new UserModel();
+        $mailer = new Mailer();
+        $randomNumber = rand(100000, 999999);
+        $data['code'] = $randomNumber;
+        $DataJson = $UserModel->checkDuplicateUserEmail($data['user_email']);
+        $dataUser = base64_encode(json_encode($DataJson));
+        $url = "http://asm.local/?pages=LoginController/Verification&data=$dataUser . '";
+        $mailer->Forgot($randomNumber, $url, $data['user_email']);
+        $UserModel->updateItem($data, 'user_email', '=', $data['user_email'], 'send');
+        return true;
+    }
+    function UpdateUserResponse($data)
+    {
+        $data['user_password'] = $data['new_pass'];
+        unset($data['new_pass']);
+        unset($data['confirmPass']);
+        $userModel = new UserModel();
+        $userModel->updateItem($data, 'user_name', '=', $data['user_name'], 'login');
         return true;
     }
 
@@ -31,28 +52,28 @@ class LoginRespositoies
         setcookie("userID", ($last_user['id']), time() + 3600, "/");
         return true;
     }
-    function forgot()
-    {
-        // $mailer = new Mailer();
-        $user = new UserFunction();
-        $username = $_POST["username"];
-        $user_email = $_POST["user_email"];
+    // function forgot()
+    // {
+    //     // $mailer = new Mailer();
+    //     $user = new UserFunction();
+    //     $username = $_POST["username"];
+    //     $user_email = $_POST["user_email"];
 
-        if (empty($username) && empty($userpass) && empty($user_email)) {
-            echo "<script>alert('Vui lòng nhập đầy đủ thông tin !!')</script>";
-        } else {
-            if ($user->checkDuplicateUser('user', 'user_name', $username)) {
-                if ($user->checkDuplicateUser('user', 'user_email', $user_email)) {
-                    // $mailer->Forgot($user->getInfoUserName($username, 'user_password'), $user_email);
-                    echo "<script>alert('Mật khâu của bạn đã được gửi đến email,  xin vui lòng kiểm tra lại!!')</script>";
-                } else {
-                    echo "<script>alert('Email bạn vừa nhập không chính xác!!')</script>";
-                }
-            } else {
-                echo "<script>alert('Tên đăng nhập bạn vừa nhập không chính xác!!')</script>";
-            }
-        }
-    }
+    //     if (empty($username) && empty($userpass) && empty($user_email)) {
+    //         echo "<script>alert('Vui lòng nhập đầy đủ thông tin !!')</script>";
+    //     } else {
+    //         if ($user->checkDuplicateUser('user', 'user_name', $username)) {
+    //             if ($user->checkDuplicateUser('user', 'user_email', $user_email)) {
+    //                 // $mailer->Forgot($user->getInfoUserName($username, 'user_password'), $user_email);
+    //                 echo "<script>alert('Mật khâu của bạn đã được gửi đến email,  xin vui lòng kiểm tra lại!!')</script>";
+    //             } else {
+    //                 echo "<script>alert('Email bạn vừa nhập không chính xác!!')</script>";
+    //             }
+    //         } else {
+    //             echo "<script>alert('Tên đăng nhập bạn vừa nhập không chính xác!!')</script>";
+    //         }
+    //     }
+    // }
 
 
 

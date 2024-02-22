@@ -5,18 +5,15 @@
 // $user = new UserFunction();
 
 use app\Model\UserModel;
+
 $user = new UserModel();
+
 
 
 use app\Helpers\status;
 ?>
 
 <?php
-$user_id = $data['user'][0]['id'];
-// // echo $user_created = $user->getInfoById($user_id , 'user_created');
-// echo $user->getInfoById(($user->getInfoById($user_id , 'user_created')) , 'user_name');
-// die;
-
 ?>
 <div class="main-panel">
     <div class="content-wrapper">
@@ -25,23 +22,23 @@ $user_id = $data['user'][0]['id'];
                 <div class="product-info">
                     <div class="info">
                         <h4 class="card-title" style="padding: 0;">Thông tin chi tiết khách hàng
-                            : <?= $user->getInfoById($user_id , 'user_name') ?></h4>
+                            : <?= $data['user']['user_name'] ?></h4>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Tên tài khoản</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoById($user_id , 'user_name') ?></span>
+                            <span style="font-weight: bold;">Tên tài khoản</span> <span class="info" style="margin-left: 3%;"><?= $data['user']['user_name'] ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Địa chỉ</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoById($user_id , 'user_adress') ?></span>
+                            <span style="font-weight: bold;">Địa chỉ</span> <span class="info" style="margin-left: 3%;"><?= $data['user']['user_adress'] ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Email</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoById($user_id , 'user_email') ?></span>
+                            <span style="font-weight: bold;">Email</span> <span class="info" style="margin-left: 3%;"><?= $data['user']['user_email'] ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Số điện thoại</span> <span class="info" style="margin-left: 3%;"><?= $user->getInfoById($user_id , 'user_phone') ?></span>
+                            <span style="font-weight: bold;">Số điện thoại</span> <span class="info" style="margin-left: 3%;"><?= $data['user']['user_phone'] ?></span>
                         </div>
                         <div class="product-name">
                             <span style="font-weight: bold;">Cấp quyền </span> <span class="info" style="margin-left: 3%;">
                                 <?
-                                if (($user->getInfoById($user_id , 'role_id') == 1)) {
+                                if (($data['user']['role_id'] == 1)) {
                                     echo '<label class="badge badge-primary">' . status::getRole()[status::ADMIN] . '</label>';
                                 } else {
                                     echo '<label class="badge badge-danger">' . status::getRole()[status::USER] . '</label>';
@@ -51,9 +48,9 @@ $user_id = $data['user'][0]['id'];
                         </div>
                         <div class="product-name">
                             <span style="font-weight: bold;">Người tạo</span> <span class="info" style="margin-left: 3%;"><?
-                                                                                                                            $user_created = $user->getInfoUser($user_id , 'user_created');
+                                                                                                                            $user_created = $data['user']['user_created'];
                                                                                                                             if ($user_created > 0) {
-                                                                                                                                echo $user->getInfoUser($user_created , 'user_name');
+                                                                                                                                echo $user->getInfoUser($user_created, 'user_name');
                                                                                                                             } else {
                                                                                                                                 echo '';
                                                                                                                             }
@@ -61,7 +58,7 @@ $user_id = $data['user'][0]['id'];
                                                                                                                             ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Người sửa</span> <span class="info" style="margin-left: 3%;"><? $user_updated = $user->getInfoUser($user_id, 'user_updated');
+                            <span style="font-weight: bold;">Người sửa</span> <span class="info" style="margin-left: 3%;"><? $user_updated = $data['user']['user_updated'];
                                                                                                                             if ($user_updated > 0) {
                                                                                                                                 echo $user->getInfoUser($user_updated, 'user_name');
                                                                                                                             } else {
@@ -69,7 +66,7 @@ $user_id = $data['user'][0]['id'];
                                                                                                                             } ?></span>
                         </div>
                         <div class="product-name">
-                            <span style="font-weight: bold;">Người xóa </span> <span class="info" style="margin-left: 3%;"><? $user_deleted = $user->getInfoUser($user_id, 'user_deleted');
+                            <span style="font-weight: bold;">Người xóa </span> <span class="info" style="margin-left: 3%;"><? $user_deleted = $data['user']['user_deleted'];
                                                                                                                             if ($user_deleted > 0) {
                                                                                                                                 echo $user->getInfoUser($user_deleted, 'user_name');
                                                                                                                             } else {
@@ -77,9 +74,9 @@ $user_id = $data['user'][0]['id'];
                                                                                                                             } ?></span>
                         </div>
                     </div>
-                    <div class="product-img">
+                    <div class="product-img" >
                         <?php
-                        if ($user->getInfoUser($user_id, 'role_id') == 1) {
+                        if ($data['user']['role_id'] == 1) {
                             echo '
                         <img width="200px" height="200px" src="assets/images/user_avatar/admin_avatar.png" alt="">
                                 ';
@@ -88,16 +85,19 @@ $user_id = $data['user'][0]['id'];
                                 <img width="200px" height="200px" src="assets/images/user_avatar/user_avatar.jpg" alt="">
                                 ';
                         }
-
                         ?>
+                          <a style="padding: 20px 30px; display:inline-block;" href="/?pages=UserController/changeOne/<?= $data['user']['user_id']?>">
+                <button type="submit" name="detail" class="btn btn-primary mr-2">Change Password</button>
+            </a>
                     </div>
                 </div>
 
             </div>
 
-            <a style="padding: 20px 30px;" href="/?pages=UserController/list">
+            <a style="padding: 20px 30px; display:inline-block;" href="/?pages=UserController/list">
                 <button type="submit" name="detail" class="btn btn-primary mr-2">Quay lại</button>
             </a>
+
         </div>
 
     </div>

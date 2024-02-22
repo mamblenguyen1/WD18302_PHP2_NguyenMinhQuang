@@ -2,13 +2,9 @@
 
 use app\Helpers\status;
 use app\Model\InvoiceFunction;
-
+use app\Model\InvoiceModel;
 $InvoiceFunction = new InvoiceFunction();
-
 ?>
-
-
-
 <div class="content-wrapper">
     <div class="col-lg-12 grid-margin stretch-card">
 
@@ -34,6 +30,8 @@ $InvoiceFunction = new InvoiceFunction();
                         <?
                         $invoices = $InvoiceFunction->Get_All_Invoice();
                         foreach ($invoices as $invoice) {
+                            $id = $invoice['Invoice_id'];
+
                         ?>
                             <tr>
                                 <td class="py-1">
@@ -41,7 +39,9 @@ $InvoiceFunction = new InvoiceFunction();
                                 </td>
                                 <td> <?= $invoice['user_name'] ?> </td>
                                 <td>
-                                    <?= 6 ?>
+                                    <?
+                                    $InvoiceModel = new InvoiceModel();
+                                   echo $InvoiceModel->CountInvoiceDetailById($id)['COUNT(Invoice_detail_id)'] ?>
                                 </td>
                                 <td>
                                     <? if ($invoice['status'] == 1) {
@@ -66,8 +66,9 @@ $InvoiceFunction = new InvoiceFunction();
 
                                         <button type="button" class="btn btn-outline-info btn-icon-text"> Sửa <i class="mdi mdi-settings btn-icon-append"></i></button>
                                     </a>
-
-                                    <button type="button" class="btn btn-outline-danger btn-icon-text"> Xóa <i class="mdi mdi-alert btn-icon-prepend"></i></button>
+                                    <form style="display: inline-block;" action="/?pages=InvoiceController/RemoveInvoice/<?= $invoice['Invoice_id'] ?>" method="post">
+                                        <button type="submit" name="remove" class="btn btn-outline-danger btn-icon-text"> Xóa <i class="mdi mdi-alert btn-icon-prepend"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         <? } ?>

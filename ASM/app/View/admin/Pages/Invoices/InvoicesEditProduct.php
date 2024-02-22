@@ -26,20 +26,23 @@ if (isset($_POST['addProduct'])) {
 if (isset($_POST['pay'])) {
     $InvoicesRespon->UpdateInvoicesDetails($invoice_id);
 }
+if (isset($_POST['remove'])) {
+    $Invoice_detail_id = $_POST['Invoice_detail_id'];
+    $InvoicesRespon->RemoveInvoicesDetails($Invoice_detail_id);
+}
 ?>
 <div class="content-wrapper">
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <h2 style="text-align: center; margin: 30px auto; box-shadow: 0 0 5px gray; padding: 20px 30px;">Danh sách trong hóa đơn</h2>
-
                 <form action="" method="post">
                     <div class="products-container">
-
                         <?php
                         $InvoiceDetails = $InvoiceFunction->Get_Invoice_Details($invoice_id);
                         foreach ($InvoiceDetails as $index => $InvoiceDetail) {
                         ?>
+                            <input type="hidden" name="Invoice_detail_id" id="" value="<?= $InvoiceDetail['Invoice_detail_id'] ?>">
                             <div class="product" id="product<?= $index ?>">
                                 <img width="100px" height="80px" src="assets/images/product/<?= $InvoiceDetail['product_img'] ?>" alt="Product 1">
                                 <div class="product-info">
@@ -51,7 +54,7 @@ if (isset($_POST['pay'])) {
                                     <input type="text" name="quantity<?= $index ?>" id="quantity<?= $index ?>" value="<?= $InvoiceDetail['product_quantity'] ?>" oninput="updateTotalPrice(<?= $index ?>)">
                                     <span class="quantity-control" onclick="increaseQuantity(<?= $index ?>)">+</span>
                                 </div>
-                                <button type="button" class="btn btn-outline-secondary btn-rounded btn-icon  close">
+                                <button type="submit" name="remove" class="btn btn-outline-secondary btn-rounded btn-icon  close">
                                     <i class="mdi mdi-close text-primary"></i>
                                 </button>
                             </div>
@@ -63,6 +66,7 @@ if (isset($_POST['pay'])) {
 
                     <script>
                         updateTotalPriceForAllProducts();
+
                         function decreaseQuantity(index) {
                             var quantityInput = document.getElementById('quantity' + index);
                             var currentQuantity = parseInt(quantityInput.value);

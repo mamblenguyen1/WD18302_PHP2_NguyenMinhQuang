@@ -10,48 +10,18 @@ class UserRespon
 
     function AddUserResponse($data)
     {
-
-
         $userModel = new UserModel();
-        // var_dump($data);
-        // die;
         $userModel->CreateItem($data, 'create');
         return true;
-        
-
-        // var_dump($_POST);
-        // die;
-        // if (empty($_POST['user_name']) && empty($_POST['user_adress']) && empty($_POST['user_email']) && empty($_POST['user_phone']) && empty($_POST['user_password']) && empty($_POST['role_id'])) {
-        //     echo "<script>alert('Vui lòng nhập đầy đủ thông tin!')</script>";
-        // } else {
-        //     $Regex = new ValidateRegex();
-        //     if (!$Regex->validatePassword($_POST['user_password'])) {
-        //         return false;
-        //     } else {
-        //         if (!$Regex->validateEmail($_POST['user_email'])) {
-        //             return false;
-        //         } else {
-        //             if (!$Regex->validatePhoneNumber($_POST['user_phone'])) {
-        //                 return false;
-        //             } else {
-        //                 $user = new UserFunction();
-        //                 if ($user->checkDuplicateUser('user', 'user_name', $_POST['user_name'])) {
-        //                     echo "<script>alert('Tên tài khoản đã tồn tại!!')</script>";
-        //                 } else {
-        //                     if ($user->checkDuplicateUser('user', 'user_email', $_POST['user_email'])) {
-        //                         echo "<script>alert('Email đc được đăng kí!!')</script>";
-        //                     } else {
-        //                         // $user->AddUser($user_name, $user_adress, $user_phone, $user_email, $user_password, $role_id , $user_created);
-        //                         $userModel = new UserModel();
-        //                         $userModel->CreateItem($_POST, '');
-        //                         header('location: /?pages=UserController/list/');
-        //                         return true;
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+    }
+    function changePass($data)
+    {
+        unset($data['confirmPass']);
+        $data['user_password'] =  $data['new_pass'];
+        unset($data['new_pass']);
+        $userModel = new UserModel();
+        $userModel->updateItem($data, 'user_name', '=' , $data['user_name'] , 'change');
+        return true;
     }
 
 

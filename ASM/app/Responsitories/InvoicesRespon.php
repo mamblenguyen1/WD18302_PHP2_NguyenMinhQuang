@@ -3,7 +3,7 @@
 namespace app\Responsitories;
 
 use app\Model\InvoiceFunction;
-
+use app\Model\InvoiceModel;
 
 class InvoicesRespon
 {
@@ -47,6 +47,24 @@ class InvoicesRespon
         }
     }
 
+    function RemoveInvoicesDetails($Invoice_detail_id)
+    {
+            $InvoiceModel = new InvoiceModel();
+            $InvoiceModel->removeItem($Invoice_detail_id);
+       
+    }
+    function RemoveInvoices($Invoice_detail_id)
+    {
+            $InvoiceModel = new InvoiceModel();
+            
+           $invoice_id =  $InvoiceModel->getIdFormInvoiceDetail($Invoice_detail_id) ;
+            foreach($invoice_id as $id){
+                 $this->RemoveInvoicesDetails($id['Invoice_detail_id']);
+            }
+            $InvoiceModel->removeInvoice($Invoice_detail_id);
+            return true;
+       
+    }
 
     function UpdateInvoicesDetails($id)
     {

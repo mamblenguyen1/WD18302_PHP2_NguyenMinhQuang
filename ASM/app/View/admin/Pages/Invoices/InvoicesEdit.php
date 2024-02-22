@@ -4,9 +4,6 @@ use app\Model\InvoiceModel;
 
 $InvoiceModel = new InvoiceModel();
 $invoice_id = $data['product'][0]['id'];
-
-// echo($InvoiceModel->getInfoUserName($invoice_id, 'user_name')['user_name']);
-// die;
 ?>
 <div class="content-wrapper">
     <div class="col-12 grid-margin stretch-card">
@@ -28,7 +25,7 @@ $invoice_id = $data['product'][0]['id'];
                             <input type="text" name="user_phone" class="form-control" value="<?= $InvoiceModel->getInfoUserName($invoice_id, 'user_phone')['user_phone'] ?>" placeholder="Nhập số lượng">
                         </div>
                         <button type="submit" class="btn btn-gradient-primary me-2">Tiếp Theo</button>
-                        <a href="/?pages=InvoiceController/choose">Quay lại</a>
+                        <a href="/?pages=InvoiceController/list">Quay lại</a>
                     </form>
                 </div>
             </div>

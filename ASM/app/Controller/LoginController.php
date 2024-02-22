@@ -56,7 +56,7 @@ class LoginController extends BaseController
             $this->load->render('admin/Pages/Login/Login');
         };
     }
-
+ 
 
     function logOut()
     {
@@ -85,6 +85,36 @@ class LoginController extends BaseController
 
     function forgot()
     {
-        $this->load->render('admin/Pages/Login/forgot');
+        $this->load->render('admin/Pages/Login/ForgotPass');
+    }
+    function Verification()
+    {
+        $this->load->render('admin/Pages/Login/Verification');
+    }
+    function ChangePass()
+    {
+        $this->load->render('admin/Pages/Login/ChangePass');
+    }
+
+    function HandleForget()
+    {
+        $data = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), true) : [];
+        $LoginRespositoies = new LoginRespositoies();
+        if ($LoginRespositoies->forget($data)) {
+           
+            header('location: ?pages=UserController/list');
+        } else {
+            $this->logIn();
+        }
+    }
+    public function HandleChangeForgetPass()
+    {
+        $data = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), true) : [];
+        $LoginRespositoies = new LoginRespositoies();
+        if($LoginRespositoies->UpdateUserResponse($data)){
+            $this->load->render('admin/Pages/Login/Login');
+        }else{
+            $this->load->render('admin/Pages/Login/Login');
+        }
     }
 }

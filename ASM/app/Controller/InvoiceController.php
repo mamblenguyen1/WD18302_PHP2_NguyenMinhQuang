@@ -3,7 +3,7 @@
 namespace app\Controller;
 
 use app\Core\RenderBase;
-
+use app\Responsitories\InvoicesRespon;
 class InvoiceController extends BaseController
 {
 
@@ -117,5 +117,13 @@ class InvoiceController extends BaseController
         $this->load->render('admin/include/sidebar');
         $this->load->render('admin/Pages/Invoices/InvoicesEdit', $data);
         $this->_renderBase->renderFooter();
+    }
+    function  RemoveInvoice($id)
+    {
+        $InvoicesRespon = new InvoicesRespon();
+        // $InvoicesRespon->RemoveInvoices($id);
+       if( $InvoicesRespon->RemoveInvoices($id)){
+        $this->redirect('?pages=InvoiceController/list');
+       }
     }
 }
