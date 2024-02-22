@@ -9,9 +9,9 @@ class InvoiceModel extends BaseModel
     public $tableName = 'invoices';
     public $id = '';
 
-    public function getAllUser()
+    public function getAllInvoiceToDay($day , $month , $year)
     {
-        return $this->getAll()->get();
+        return $this->getAll()->where('DAY(Invoice_date)', '=', $day)->where('MONTH(Invoice_date)', '=', $month)->where('YEAR(Invoice_date)', '=', $year)->get();
     }
 
     public function getIdFormInvoiceDetail($Invoice_id)

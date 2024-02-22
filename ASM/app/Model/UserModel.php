@@ -27,7 +27,19 @@ class UserModel extends BaseModel
     {
         return $this->select()->where('user_id', '=', $user_id)->first();
     }
-    
+
+    public function CountUserAccount()
+    {
+        return $this->select('COUNT(user_id)')->where('role_id', '=', 2)->first();
+    }
+    public function CountUserAdmin()
+    {
+        return $this->select('COUNT(user_id)')->where('role_id', '=', 1)->first();
+    }
+    public function CountUserInvoices($month , $year)
+    {
+        return $this->select('COUNT(Invoice_id)')->table('invoices')->where('MONTH(Invoice_date)', '=', $month)->where('YEAR(Invoice_date)', '=', $year)->first();
+    }
     public function checkUserExist($user_name, $user_password)
     {
         return $this->select()->whereLike('user_name',  $user_name)->whereLike('user_password',  $user_password)->first();
@@ -38,7 +50,7 @@ class UserModel extends BaseModel
     public function checkDuplicateUserName($user_name)
     {
         $user_name = strval($user_name);
-        return $this->select()->where('user_name', ' = ' ,  $user_name)->first();
+        return $this->select()->where('user_name', ' = ',  $user_name)->first();
     }
 
     public function checkDuplicateUserPass($user_password)
@@ -91,7 +103,7 @@ class UserModel extends BaseModel
         return $this->update($this->tableName, $data, $condition, $column);
     }
 
-    
+
     public function CreateItem($data, $column)
     {
         return $this->insert($data, $this->tableName, $column);

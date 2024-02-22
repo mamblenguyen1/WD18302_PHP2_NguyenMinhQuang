@@ -1,3 +1,22 @@
+<?php
+
+
+use app\Model\UserModel;
+use  app\Model\ProductModel;
+use app\Model\InvoiceModel;
+
+$InvoiceModel = new InvoiceModel();
+$UserModel =  new UserModel();
+$ProductModel = new ProductModel();
+$currentDay = date('d');
+$currentMonth = date('m');
+$currentYear = date('Y');
+
+?>
+
+
+
+
 <div class="col-lg-12 grid-margin stretch-card">
   <div class="main-panel">
     <div class="content-wrapper">
@@ -22,8 +41,7 @@
               <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
               <h4 class="font-weight-normal mb-3">Khách hàng <i class="mdi mdi-chart-line mdi-24px float-right"></i>
               </h4>
-              <h2 class="mb-5">30</h2>
-              <h6 class="card-text">Increased by 60%</h6>
+              <h2 class="mb-5"><?= $UserModel->CountUserAccount()['COUNT(user_id)']; ?></h2>
             </div>
           </div>
         </div>
@@ -31,10 +49,11 @@
           <div class="card bg-gradient-info card-img-holder text-white">
             <div class="card-body">
               <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-              <h4 class="font-weight-normal mb-3">Sản phẩm bán được <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+              <h4 class="font-weight-normal mb-3">Quản trị viên <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
               </h4>
-              <h2 class="mb-5">500</h2>
-              <h6 class="card-text">Decreased by 10%</h6>
+              <h2 class="mb-5"><?
+                                $UserModel =  new UserModel();
+                                echo $UserModel->CountUserAdmin()['COUNT(user_id)']; ?></h2>
             </div>
           </div>
         </div>
@@ -42,15 +61,18 @@
           <div class="card bg-gradient-success card-img-holder text-white">
             <div class="card-body">
               <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-              <h4 class="font-weight-normal mb-3">Tổng số hóa đơn <i class="mdi mdi-diamond mdi-24px float-right"></i>
+              <h4 class="font-weight-normal mb-3">Tổng số hóa đơn tháng <?= $currentMonth . '/' . $currentYear ?> <i class="mdi mdi-diamond mdi-24px float-right"></i>
               </h4>
-              <h2 class="mb-5">95,5741</h2>
-              <h6 class="card-text">Increased by 5%</h6>
+              <h2 class="mb-5">
+                <?
+                $UserModel =  new UserModel();
+                echo $UserModel->CountUserInvoices($currentMonth, $currentYear)['COUNT(Invoice_id)']; ?></h2>
+              </h2>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-7 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
@@ -71,86 +93,39 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="row">
-        
+
       </div>
       <div class="row">
         <div class="col-md-7 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Project Status</h4>
+              <h4 class="card-title">Đơn hàng hôm nay (<?= $currentDay . '/' . $currentMonth . '/' . $currentYear ?>)</h4>
               <div class="table-responsive">
                 <table class="table">
                   <thead>
                     <tr>
                       <th> # </th>
                       <th> Name </th>
-                      <th> Due Date </th>
-                      <th> Progress </th>
+                      <th> Ngày đặt hàng </th>
+                      <th> Địa chỉ </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td> 1 </td>
-                      <td> Herman Beck </td>
-                      <td> May 15, 2015 </td>
-                      <td>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td> 2 </td>
-                      <td> Messsy Adam </td>
-                      <td> Jul 01, 2015 </td>
-                      <td>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td> 3 </td>
-                      <td> John Richards </td>
-                      <td> Apr 12, 2015 </td>
-                      <td>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td> 4 </td>
-                      <td> Peter Meggik </td>
-                      <td> May 15, 2015 </td>
-                      <td>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td> 5 </td>
-                      <td> Edward </td>
-                      <td> May 03, 2015 </td>
-                      <td>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td> 5 </td>
-                      <td> Ronald </td>
-                      <td> Jun 05, 2015 </td>
-                      <td>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-info" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </td>
-                    </tr>
+                    <?
+                    $results = $InvoiceModel->getAllInvoiceToDay($currentDay , $currentMonth  ,$currentYear);
+                    foreach ($results as $result) {
+                    ?>
+                      <tr>
+                        <td> <?  echo $result['Invoice_id']?> </td>
+                        <td> <?  echo $result['user_name']?> </td>
+                        <td> <?  echo $result['Invoice_date']?> </td>
+                        <td> <?  echo $result['user_adress']?> </td>
+                      </tr>
+                    <?
+                    }
+                    ?>
                   </tbody>
                 </table>
               </div>

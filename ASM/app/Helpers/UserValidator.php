@@ -19,7 +19,7 @@ class UserValidator
   private static $fieldsCheckCode = ['user_name', 'code'];
   private static $fieldsChangeForgotPass = ['confirmPass', 'new_pass'];
 
-  
+
   private static $fieldsLogin = ['user_name', 'user_password'];
 
 
@@ -128,7 +128,7 @@ class UserValidator
       $this->addError('user_password', 'Mật khẩu không đc để trống');
     } else {
       if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d@$!%*?&]{8,}$/', $val)) {
-        $this->addError('user_password', 'Định dạng mật khẩu không đúng , ít nhất 8 kí tự và phải có chữ hoa chữ thường và s');
+        $this->addError('user_password', 'Định dạng mật khẩu không đúng , ít nhất 8 kí tự và phải có chữ hoa chữ thường và số');
       }
     }
   }
@@ -139,7 +139,7 @@ class UserValidator
       $this->addError('new_pass', 'Mật khẩu Mới không đc để trống');
     } else {
       if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d@$!%*?&]{8,}$/', $val)) {
-        $this->addError('new_pass', 'Định dạng mật khẩu không đúng , ít nhất 8 kí tự và phải có chữ hoa chữ thường và s');
+        $this->addError('new_pass', 'Định dạng mật khẩu không đúng , ít nhất 8 kí tự và phải có chữ hoa chữ thường và số');
       }
     }
   }

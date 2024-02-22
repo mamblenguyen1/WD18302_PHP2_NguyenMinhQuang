@@ -61,7 +61,7 @@ $user = new UserFunction();
                     <i class="mdi mdi-script menu-icon"></i>
                 </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                     <span class="menu-title">12</span>
                     <i class="menu-arrow"></i>
@@ -73,7 +73,7 @@ $user = new UserFunction();
                         <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
                     </ul>
                 </div>
-            </li>
+            </li> -->
            
             <!-- <li class="nav-item sidebar-actions">
             <span class="nav-link">
