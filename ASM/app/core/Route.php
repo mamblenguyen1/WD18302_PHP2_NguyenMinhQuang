@@ -58,11 +58,11 @@ class Route
                     // var_dump($this->controller);
                     // die;
                 } else {
-                    header('Location:' . ROOT_URL . 'HomeController/Error');
+                    header('Location: ?pages=HomeController/Error');
                 }
             } else {
 
-                header('Location:' . ROOT_URL . 'HomeController/Error');
+                header('Location:?pages=HomeController/Error');
             }
         }
     }
@@ -79,7 +79,7 @@ class Route
                 // echo  $this->url[2];
                 // die;
             } else {
-                header('Location:' . ROOT_URL . 'HomeController/Error');
+                header('Location:?pages=HomeController/Error');
             }
         } else {
             // kiểm tra hàm có tồn tại hàm không có tham số 
@@ -90,7 +90,7 @@ class Route
                     $this->controller->{$this->nameMethod}();
                     
                 } else {
-                    header('Location:' . ROOT_URL . 'HomeController/Error');
+                    header('Location:?pages=HomeController/Error');
                 }
             }
         }

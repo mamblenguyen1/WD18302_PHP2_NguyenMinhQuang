@@ -7,15 +7,17 @@ $user_info  = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), t
 // die;
 // echo $user_info['user_name'];
 // die;
-if(isset($_POST['login'])){
-    $UserValidator = new UserValidator($_POST);
-    $errors = $UserValidator->ChangeForgotPass();
-    $data[] = $_POST;
+if (isset($_POST['login'])) {
+  $UserValidator = new UserValidator($_POST);
+  $errors = $UserValidator->ChangeForgotPass();
+  $data[] = $_POST;
 
-    if($errors == null){
-        $data = base64_encode(json_encode($_POST));
-        echo '<script>window.location.href="?pages=LoginController/HandleChangeForgetPass&data=' . $data . '"</script>';
-    }
+  if ($errors == null) {
+    $randomNumber = rand(100000, 999999);
+    $_POST['code'] = $randomNumber;
+    $data = base64_encode(json_encode($_POST));
+    echo '<script>window.location.href="?pages=LoginController/HandleChangeForgetPass&data=' . $data . '"</script>';
+  }
 }
 ?>
 <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -37,18 +39,18 @@ if(isset($_POST['login'])){
               <h6 class="font-weight-light">Xin vui lòng đổi mật khẩu hiện tại </h6>
               <form class="pt-3" method="post" action="">
                 <div class="form-group">
-                <input type="hidden"  name="user_name"  class="form-control" id="exampleInputName1" value="<?= $user_info['user_name']?>"  placeholder="Nhập tên tài khoản">
+                  <input type="hidden" name="user_name" class="form-control" id="exampleInputName1" value="<?= $user_info['user_name'] ?>" placeholder="Nhập tên tài khoản">
 
                   <input type="password" class="form-control form-control-lg" name="new_pass" value="<? echo htmlspecialchars($_POST['new_pass'] ?? '') ?>" placeholder="Mật khẩu">
                   <span style="color: red;" class="error">
-                            <? echo $errors['new_pass'] ?? ''?>
-                        </span>
+                    <? echo $errors['new_pass'] ?? '' ?>
+                  </span>
                 </div>
                 <div class="form-group">
                   <input type="password" class="form-control form-control-lg" name="confirmPass" value="<? echo htmlspecialchars($_POST['confirmPass'] ?? '') ?>" placeholder="Nhập lại mật khẩu">
                   <span style="color: red;" class="error">
-                            <? echo $errors['confirmPass'] ?? ''?>
-                        </span>
+                    <? echo $errors['confirmPass'] ?? '' ?>
+                  </span>
                 </div>
                 <div class="mt-3">
                   <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" type="submit" name="login">

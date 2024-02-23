@@ -72,8 +72,8 @@ $currentYear = date('Y');
           </div>
         </div>
       </div>
-      <!-- <div class="row">
-        <div class="col-md-7 grid-margin stretch-card">
+      <div class="row">
+        <!-- <div class="col-md-7 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
               <div class="clearfix">
@@ -83,17 +83,117 @@ $currentYear = date('Y');
               <canvas id="visit-sale-chart" class="mt-4"></canvas>
             </div>
           </div>
-        </div>
-        <div class="col-md-5 grid-margin stretch-card">
+        </div> -->
+        <div class="col-lg-6 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Traffic Sources</h4>
-              <canvas id="traffic-chart"></canvas>
-              <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
+              <h4 class="card-title">Bar chart</h4>
+              <canvas id="barChart" style="height:230px"></canvas>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
+      <?php
+       $dataPoints =[];
+     for ($i=1; $i < 13; $i++) { 
+      $UserModel = new UserModel();
+     $data =  $UserModel->CountUserInvoicesEveryMonth($i)['COUNT(Invoice_id)'];
+      $dataPoints[] += $data;
+     }
+      ?>
+      <script>
+        var data = {
+          labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+          datasets: [{
+            label: 'Số lượng đơn hàng',
+            data: <? echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+            fill: false
+          }]
+        };
+
+        if ($("#barChart").length) {
+          var barChartCanvas = $("#barChart").get(0).getContext("2d");
+          var barChart = new Chart(barChartCanvas, {
+            type: 'bar',
+            data: data,
+            options: options
+          });
+        }
+
+        if ($("#barChartDark").length) {
+          var barChartCanvasDark = $("#barChartDark").get(0).getContext("2d");
+          var barChartDark = new Chart(barChartCanvasDark, {
+            type: 'bar',
+            data: dataDark,
+            options: optionsDark
+          });
+        }
+        var options = {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          },
+          legend: {
+            display: false
+          },
+          elements: {
+            point: {
+              radius: 0
+            }
+          }
+
+        };
+        var optionsDark = {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              },
+              gridLines: {
+                color: '#322f2f',
+                zeroLineColor: '#322f2f'
+              }
+            }],
+            xAxes: [{
+              ticks: {
+                beginAtZero: true
+              },
+              gridLines: {
+                color: '#322f2f',
+              }
+            }],
+          },
+          legend: {
+            display: false
+          },
+          elements: {
+            point: {
+              radius: 0
+            }
+          }
+
+        };
+      </script>
       <div class="row">
 
       </div>
@@ -114,14 +214,15 @@ $currentYear = date('Y');
                   </thead>
                   <tbody>
                     <?
-                    $results = $InvoiceModel->getAllInvoiceToDay($currentDay , $currentMonth  ,$currentYear);
+                    // $InvoiceModel = new InvoiceModel();
+                    $results = $InvoiceModel->getAllInvoiceToDay($currentDay, $currentMonth, $currentYear);
                     foreach ($results as $result) {
                     ?>
                       <tr>
-                        <td> <?  echo $result['Invoice_id']?> </td>
-                        <td> <?  echo $result['user_name']?> </td>
-                        <td> <?  echo $result['Invoice_date']?> </td>
-                        <td> <?  echo $result['user_adress']?> </td>
+                        <td> <? echo $result['Invoice_id'] ?> </td>
+                        <td> <? echo $result['user_name'] ?> </td>
+                        <td> <? echo $result['Invoice_date'] ?> </td>
+                        <td> <? echo $result['user_adress'] ?> </td>
                       </tr>
                     <?
                     }
@@ -193,3 +294,5 @@ $currentYear = date('Y');
     </div>
   </div>
 </div>
+
+<!-- <script src="assets/js/chart.js"></script> -->

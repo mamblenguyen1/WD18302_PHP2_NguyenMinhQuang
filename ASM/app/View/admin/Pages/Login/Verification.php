@@ -34,7 +34,7 @@ if(isset($_POST['login'])){
               <form class="pt-3" method="post" action="">
                 <div class="form-group">
                     <input type="hidden" name="user_name" value="<?= $user_info['user_name']?>">
-                  <input type="text" class="form-control form-control-lg" name="code" value="<? echo htmlspecialchars($_POST['code'] ?? '') ?>" placeholder="Mã xác nhận">
+                  <input type="text" class="form-control form-control-lg" name="code" value="<? echo $user_info['code'] ?>" placeholder="Mã xác nhận">
                   <span style="color: red;" class="error">
                             <? echo $errors['code'] ?? ''?>
                         </span>

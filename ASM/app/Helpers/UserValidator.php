@@ -255,6 +255,8 @@ class UserValidator
     }
   }
 
+
+  
   public function validateRegister()
   {
 

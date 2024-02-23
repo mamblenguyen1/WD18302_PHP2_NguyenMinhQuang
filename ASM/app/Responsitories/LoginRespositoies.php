@@ -24,11 +24,12 @@ class LoginRespositoies
         $mailer = new Mailer();
         $randomNumber = rand(100000, 999999);
         $data['code'] = $randomNumber;
+        $UserModel->updateItem($data, 'user_email', '=', $data['user_email'], 'send');
         $DataJson = $UserModel->checkDuplicateUserEmail($data['user_email']);
         $dataUser = base64_encode(json_encode($DataJson));
         $url = "http://asm.local/?pages=LoginController/Verification&data=$dataUser . '";
         $mailer->Forgot($randomNumber, $url, $data['user_email']);
-        $UserModel->updateItem($data, 'user_email', '=', $data['user_email'], 'send');
+        
         return true;
     }
     function UpdateUserResponse($data)

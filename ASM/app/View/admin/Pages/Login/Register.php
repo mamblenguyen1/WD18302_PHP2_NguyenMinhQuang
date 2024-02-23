@@ -43,7 +43,7 @@ if(isset($_POST['register'])){
             <div class="col-lg-4 mx-auto">
               <div class="auth-form-light text-left p-5">
                 <div class="brand-logo">
-                  <img src="../../assets/images/logo.svg">
+                <img src="../../../../../assets/images//logo.png">
                 </div>
                 <form class="pt-3" method="POST" action="">
                   <div class="form-group">
@@ -71,7 +71,7 @@ if(isset($_POST['register'])){
                         </span>
                   </div>
                   <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" type="submit" name="register"> Đăng ký</button>
-                  <div class="text-center mt-4 font-weight-light"> Bạn đã có tài khoản? <a href="?pages=LoginController/logIn" class="text-primary">Đăng nhập</a>
+                  <div class="text-center mt-4 font-weight-light"> Bạn đã có tài khoản? <a href="?pages=LoginController/LoginController" class="text-primary">Đăng nhập</a>
                   </div>
                 </form>
               </div>

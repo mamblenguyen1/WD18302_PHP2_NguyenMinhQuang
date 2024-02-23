@@ -40,6 +40,10 @@ class UserModel extends BaseModel
     {
         return $this->select('COUNT(Invoice_id)')->table('invoices')->where('MONTH(Invoice_date)', '=', $month)->where('YEAR(Invoice_date)', '=', $year)->first();
     }
+    public function CountUserInvoicesEveryMonth($month)
+    {
+        return $this->select('COUNT(Invoice_id)')->table('invoices')->where('MONTH(Invoice_date)', '=', $month)->first();
+    }
     public function checkUserExist($user_name, $user_password)
     {
         return $this->select()->whereLike('user_name',  $user_name)->whereLike('user_password',  $user_password)->first();

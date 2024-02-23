@@ -50,8 +50,9 @@ class HomeController extends BaseController
 
     }
 
-    function detail($id)
-    {        // dữ liệu ở đây lấy từ responsitories hoặc model
-
+    function Error()
+    {      
+        $this->load->render('admin/include/error');
     }
+
 }
