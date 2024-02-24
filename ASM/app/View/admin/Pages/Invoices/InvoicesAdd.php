@@ -1,6 +1,4 @@
 <?php
-
-
 use app\Model\UserFunction;
 $user = new UserFunction();
 $user_id = $data['Invoice'][0]['id'];

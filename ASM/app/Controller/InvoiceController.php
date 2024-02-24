@@ -2,6 +2,7 @@
 
 namespace app\Controller;
 
+use app\Model\InvoiceModel;
 use app\Core\RenderBase;
 use app\Responsitories\InvoicesRespon;
 class InvoiceController extends BaseController
@@ -44,18 +45,14 @@ class InvoiceController extends BaseController
         $this->_renderBase->renderFooter();
     }
 
-    function detail()
+    function detail($id)
     {
-        if (isset($_GET['id'])) {
-            $userId = $_GET['id'];
-        }
+        $InvoiceModel = new InvoiceModel();
         $data = [
-            "Invoice" => [
-                [
-                    "id" => $userId,
-                ]
-            ]
+            "invoice" => $InvoiceModel->getInfoInvoiceById($id)
         ];
+        // var_dump($data);
+        // die;
         $this->_renderBase->renderHeader();
         $this->load->render('admin/include/sidebar');
         $this->load->render('admin/Pages/Invoices/InvoicesDetail', $data);
@@ -88,30 +85,34 @@ class InvoiceController extends BaseController
         $this->load->render('admin/Pages/Invoices/InvoicesAddProduct');
         $this->_renderBase->renderFooter();
     }
-    function editProduct($id)
+    function editProduct()
     {
-        $data = [
-            "product" => [
-                [
-                    "id" => $id,
-                ]
-            ]
-        ];
-        $this->_renderBase->renderHeader();
-        $this->load->render('admin/include/sidebar');
-        $this->load->render('admin/Pages/Invoices/InvoicesEditProduct', $data);
-        $this->_renderBase->renderFooter();
+        $data = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), true) : [];
+        unset($data['editInvoice']);
+        $InvoicesRespon = new InvoicesRespon();
+        if($InvoicesRespon->UpdateUserInvoice($data)){
+            header('location: /?pages=InvoiceController/addProduct/&id='.$data['Invoice_id'].'');
+        }else{
+           
+        // $this->_renderBase->renderHeader();
+        // $this->load->render('admin/include/sidebar');
+        // $this->load->render('admin/Pages/Invoices/InvoicesEditProduct', $data);
+        // $this->_renderBase->renderFooter();
+        }
     }
-
+    // function EditInvoiceProduct()
+    // {
+    //     $this->_renderBase->renderHeader();
+    //     $this->load->render('admin/include/sidebar');
+    //     $this->load->render('admin/Pages/Invoices/InvoicesAddProduct');
+    //     $this->_renderBase->renderFooter();
+    // }
     function edit($id)
     {
         
+        $InvoiceModel = new InvoiceModel();
         $data = [
-            "product" => [
-                [
-                    "id" => $id,
-                ]
-            ]
+            "user" => $InvoiceModel->getInfoInvoiceById($id)
         ];
         $this->_renderBase->renderHeader();
         $this->load->render('admin/include/sidebar');

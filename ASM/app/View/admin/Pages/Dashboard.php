@@ -35,7 +35,7 @@ $currentYear = date('Y');
         </nav>
       </div>
       <div class="row">
-        <div class="col-md-4 stretch-card grid-margin">
+        <div class="col-md-3 stretch-card grid-margin">
           <div class="card bg-gradient-danger card-img-holder text-white">
             <div class="card-body">
               <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
@@ -45,7 +45,7 @@ $currentYear = date('Y');
             </div>
           </div>
         </div>
-        <div class="col-md-4 stretch-card grid-margin">
+        <div class="col-md-3 stretch-card grid-margin">
           <div class="card bg-gradient-info card-img-holder text-white">
             <div class="card-body">
               <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
@@ -57,49 +57,71 @@ $currentYear = date('Y');
             </div>
           </div>
         </div>
-        <div class="col-md-4 stretch-card grid-margin">
+        <div class="col-md-3 stretch-card grid-margin">
           <div class="card bg-gradient-success card-img-holder text-white">
             <div class="card-body">
               <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-              <h4 class="font-weight-normal mb-3">Tổng số hóa đơn tháng <?= $currentMonth . '/' . $currentYear ?> <i class="mdi mdi-diamond mdi-24px float-right"></i>
+              <h4 class="font-weight-normal mb-3">Hóa đơn tháng <?= $currentMonth . '/' . $currentYear ?> <i class="mdi mdi-diamond mdi-20px float-right"></i>
+              </h4>
+              <h2 class="mb-5"><?
+                                $UserModel =  new UserModel();
+                                echo  $UserModel->CountUserInvoicesEveryMonth($currentMonth)['COUNT(Invoice_id)'];
+                                ?>
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 stretch-card grid-margin">
+          <div class="card bg-gradient-primary card-img-holder text-white">
+            <div class="card-body">
+              <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+              <h4 class="font-weight-normal mb-3">Doanh thu tháng <?= $currentMonth . '/' . $currentYear ?> <i class="mdi mdi-chart-line mdi-24px float-right"></i>
               </h4>
               <h2 class="mb-5">
                 <?
                 $UserModel =  new UserModel();
-                echo $UserModel->CountUserInvoices($currentMonth, $currentYear)['COUNT(Invoice_id)']; ?></h2>
+                echo  number_format($UserModel->monthlyRevenue($currentMonth)['SUM(total)']) ?>đ</h2>
               </h2>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
-        <!-- <div class="col-md-7 grid-margin stretch-card">
-          <div class="card">
-            <div class="card-body">
-              <div class="clearfix">
-                <h4 class="card-title float-left">Visit And Sales Statistics</h4>
-                <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right"></div>
-              </div>
-              <canvas id="visit-sale-chart" class="mt-4"></canvas>
-            </div>
-          </div>
-        </div> -->
         <div class="col-lg-6 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Bar chart</h4>
+              <h4 class="card-title">Số đơn hàng theo từng tháng trong năm <?= $currentYear ?></h4>
               <canvas id="barChart" style="height:230px"></canvas>
             </div>
           </div>
         </div>
+        <div class="col-lg-6 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Doanh thu theo từng tháng trong năm <?= $currentYear ?></h4>
+              <canvas id="lineChart" style="height:250px"></canvas>
+            </div>
+          </div>
+        </div>
+
       </div>
       <?php
-       $dataPoints =[];
-     for ($i=1; $i < 13; $i++) { 
-      $UserModel = new UserModel();
-     $data =  $UserModel->CountUserInvoicesEveryMonth($i)['COUNT(Invoice_id)'];
-      $dataPoints[] += $data;
-     }
+      $dataPoints = [];
+      for ($i = 1; $i < 13; $i++) {
+        $UserModel = new UserModel();
+        $data =  $UserModel->CountUserInvoicesEveryMonth($i)['COUNT(Invoice_id)'];
+        $dataPoints[] += $data;
+      }
+
+
+      $dataPayments = [];
+      for ($i = 1; $i < 13; $i++) {
+        $UserModel = new UserModel();
+        $data =  $UserModel->monthlyRevenue($i)['SUM(total)'];
+        $dataPayments[] += $data;
+      }
+
       ?>
       <script>
         var data = {
@@ -127,7 +149,31 @@ $currentYear = date('Y');
             fill: false
           }]
         };
-
+        var dataPayment = {
+          labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+          datasets: [{
+            label: 'Doanh thu',
+            data: <? echo json_encode($dataPayments, JSON_NUMERIC_CHECK); ?>,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+            fill: false
+          }]
+        };
         if ($("#barChart").length) {
           var barChartCanvas = $("#barChart").get(0).getContext("2d");
           var barChart = new Chart(barChartCanvas, {
@@ -142,6 +188,23 @@ $currentYear = date('Y');
           var barChartDark = new Chart(barChartCanvasDark, {
             type: 'bar',
             data: dataDark,
+            options: optionsDark
+          });
+        }
+        if ($("#lineChart").length) {
+          var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
+          var lineChart = new Chart(lineChartCanvas, {
+            type: 'line',
+            data: dataPayment,
+            options: options
+          });
+        }
+
+        if ($("#lineChartDark").length) {
+          var lineChartCanvasDark = $("#lineChartDark").get(0).getContext("2d");
+          var lineChartDark = new Chart(lineChartCanvasDark, {
+            type: 'line',
+            data: dataPaymentDark,
             options: optionsDark
           });
         }

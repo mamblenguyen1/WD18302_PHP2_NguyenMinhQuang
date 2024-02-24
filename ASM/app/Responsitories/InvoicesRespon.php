@@ -37,9 +37,9 @@ class InvoicesRespon
         if (
             !$product_id == ''
         ) {
-            if($InvoiceFunction->DuplicateCartProStorge($product_id, $Invoice_id ,$product_id )){
-              $InvoiceFunction->updateCartQty($product_id , $Invoice_id);
-            }else{
+            if ($InvoiceFunction->DuplicateCartProStorge($product_id, $Invoice_id, $product_id)) {
+                $InvoiceFunction->updateCartQty($product_id, $Invoice_id);
+            } else {
                 $InvoiceFunction->addInvoicesDetails($Invoice_id, $product_id);
             }
         } else {
@@ -49,23 +49,26 @@ class InvoicesRespon
 
     function RemoveInvoicesDetails($Invoice_detail_id)
     {
-            $InvoiceModel = new InvoiceModel();
-            $InvoiceModel->removeItem($Invoice_detail_id);
-       
+        $InvoiceModel = new InvoiceModel();
+        $InvoiceModel->removeItem($Invoice_detail_id);
     }
     function RemoveInvoices($Invoice_detail_id)
     {
-            $InvoiceModel = new InvoiceModel();
-            
-           $invoice_id =  $InvoiceModel->getIdFormInvoiceDetail($Invoice_detail_id) ;
-            foreach($invoice_id as $id){
-                 $this->RemoveInvoicesDetails($id['Invoice_detail_id']);
-            }
-            $InvoiceModel->removeInvoice($Invoice_detail_id);
-            return true;
-       
-    }
+        $InvoiceModel = new InvoiceModel();
 
+        $invoice_id =  $InvoiceModel->getIdFormInvoiceDetail($Invoice_detail_id);
+        foreach ($invoice_id as $id) {
+            $this->RemoveInvoicesDetails($id['Invoice_detail_id']);
+        }
+        $InvoiceModel->removeInvoice($Invoice_detail_id);
+        return true;
+    }
+    function UpdateUserInvoice($data)
+    {
+        $InvoiceModel = new InvoiceModel();
+        $InvoiceModel->updateItem($data, 'Invoice_id ', ' = ', $data['Invoice_id'], '');
+        return true;
+    }
     function UpdateInvoicesDetails($id)
     {
         $InvoiceFunction = new InvoiceFunction();
@@ -77,6 +80,8 @@ class InvoicesRespon
             $totalPrice1 = $totalPrice1 + $totalPrice;
             $InvoiceFunction->updateInvoiceDetails($quantity, $InvoiceDetail['Invoice_detail_id']);
         }
-        echo '<script>window.location.href="/?pages=InvoiceController/detail/&id='.$id.'"</script>';
+        $InvoiceFunction->updateInvoiceTotal($id , $totalPrice1);
+
+        echo '<script>window.location.href="/?pages=InvoiceController/detail/' . $id . '"</script>';
     }
 }

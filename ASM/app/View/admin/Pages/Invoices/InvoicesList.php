@@ -23,6 +23,7 @@ $InvoiceFunction = new InvoiceFunction();
                             <th> Tên khách hàng </th>
                             <th> Số sản phẩm </th>
                             <th> Trạng thái </th>
+                            <th> Tổng hóa đơn </th>
                             <th> Thao tác </th>
                         </tr>
                     </thead>
@@ -45,20 +46,16 @@ $InvoiceFunction = new InvoiceFunction();
                                 </td>
                                 <td>
                                     <? if ($invoice['status'] == 1) {
-                                        echo '<label class="badge badge-primary">' . status::GetStatusInvoice()[status::PENDING] . '</label>';
-                                    } else if ($invoice['status'] == 2) {
-                                        echo '<label class="badge badge-info">' . status::GetStatusInvoice()[status::CONFIRMED] . '</label>';
-                                    } else if ($invoice['status'] == 3) {
-                                        echo '<label class="badge badge-danger">' . status::GetStatusInvoice()[status::CANCELLED] . '</label>';
-                                    } else if ($invoice['status'] == 4) {
-                                        echo '<label class="badge badge-warning">' . status::GetStatusInvoice()[status::DELIVERING] . '</label>';
-                                    } else {
-                                        echo '<label class="badge badge-success">' . status::GetStatusInvoice()[status::DELIVERED] . '</label>';
-                                    }
+                                        echo '<label class="badge badge-primary">' . status::GetStatusInvoice()[status::DIRECTLY] . '</label>';
+                                    } else  {
+                                        echo '<label class="badge badge-info">' . status::GetStatusInvoice()[status::BANKING] . '</label>';
+                                    } 
                                     ?>
                                 </td>
+                                <td> <?= number_format($invoice['total']) ?> đ</td>
+
                                 <td>
-                                    <a href="/?pages=InvoiceController/detail/&id=<?= $invoice['Invoice_id'] ?>">
+                                    <a href="/?pages=InvoiceController/detail/<?= $invoice['Invoice_id'] ?>">
                                         <button type="button" class="btn btn-outline-success btn-icon-text"><i class="mdi mdi-alert btn-icon-prepend"></i> Chi tiết </button>
 
                                     </a>

@@ -19,6 +19,19 @@ class InvoiceModel extends BaseModel
         // $this->select('Invoice_detail_id')->table('invoice_details')->where('Invoice_id' , '=', $Invoice_id)->get();
         return $this->select('Invoice_detail_id')->table('invoice_details')->where('Invoice_id' , '=', $Invoice_id)->get();
     }
+    public function getAllDetailFormInvoiceId($Invoice_id)
+    {
+        return $this->select('*')->table('invoice_details')->where('Invoice_id' , '=', $Invoice_id)->get();
+    }
+    public function getProductNameFromInvoice($Invoice_id)
+    {
+        return $this->select('*, i.product_quantity as invoiceQuantity')->table('invoice_details i')->join('products p ', 'i.product_id = p.product_id')->where('Invoice_id' , '=', $Invoice_id)->get();
+    }
+  
+    public function getInfoInvoiceById($Invoice_id )
+    {
+        return $this->select()->where('Invoice_id ', '=', $Invoice_id )->first();
+    }
 
     public function CountInvoiceDetailById($Invoice_id)
     {
@@ -95,10 +108,10 @@ class InvoiceModel extends BaseModel
     {
         return $this->insert($data, $this->tableName, $column);
     }
-    public function updateItem($data, $field, $compare, $value)
+    public function updateItem($data, $field, $compare, $value, $column)
     {
         $condition = $this->where($field, $compare, $value);
-        return $this->update($this->tableName, $data, $condition);
+        return $this->update($this->tableName, $data, $condition, $column);
     }
     public function create($data)
     {

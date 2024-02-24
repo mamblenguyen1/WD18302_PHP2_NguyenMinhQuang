@@ -49,7 +49,11 @@ class UserModel extends BaseModel
         return $this->select()->whereLike('user_name',  $user_name)->whereLike('user_password',  $user_password)->first();
     }
 
-
+    public function monthlyRevenue($month)
+    {
+        return $this->select('SUM(total)')->table('invoices')->where('MONTH(Invoice_date)' , '=', $month)->first();
+    }
+    
 
     public function checkDuplicateUserName($user_name)
     {

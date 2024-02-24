@@ -59,6 +59,13 @@ class InvoiceFunction
         return $db->pdo_execute($sql);
     }
 
+    function updateInvoiceTotal($Invoice_id, $value)
+    {
+        $db = new Database();
+        $sql = "UPDATE invoices SET total = $value WHERE Invoice_id = $Invoice_id;
+         ";
+        return $db->pdo_execute($sql);
+    }
 
 
 
