@@ -25,7 +25,6 @@ if (isset($_POST['create'])) {
         ) {
             move_uploaded_file($anhne, $path);
         }
-        // $_POST['product_img'] = $product_img;
         $data = base64_encode(json_encode($_POST));
         echo '<script>window.location.href="?pages=ProductController/handleCreate&data=' . $data . '"</script>';
     }

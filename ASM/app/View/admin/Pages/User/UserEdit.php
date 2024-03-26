@@ -19,7 +19,7 @@ if(isset($_POST['update'])){
     // die;
     if($errors == null){
         $data = base64_encode(json_encode($_POST));
-        echo '<script>window.location.href="/?pages=UserController/handleUpdate/'. $data['user']['user_id'].'&data=' . $data . '"</script>';
+        echo '<script>window.location.href="/?pages=UserController/handleUpdate&data=' . $data . '"</script>';
     }
 }
 ?>

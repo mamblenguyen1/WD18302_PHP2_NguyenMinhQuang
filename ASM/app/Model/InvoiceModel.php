@@ -16,7 +16,6 @@ class InvoiceModel extends BaseModel
 
     public function getIdFormInvoiceDetail($Invoice_id)
     {
-        // $this->select('Invoice_detail_id')->table('invoice_details')->where('Invoice_id' , '=', $Invoice_id)->get();
         return $this->select('Invoice_detail_id')->table('invoice_details')->where('Invoice_id' , '=', $Invoice_id)->get();
     }
     public function getAllDetailFormInvoiceId($Invoice_id)
@@ -35,7 +34,6 @@ class InvoiceModel extends BaseModel
 
     public function CountInvoiceDetailById($Invoice_id)
     {
-        // $this->select('Invoice_detail_id')->table('invoice_details')->where('Invoice_id' , '=', $Invoice_id)->get();
         return $this->select('COUNT(Invoice_detail_id)')->table('invoice_details')->where('Invoice_id' , '=', $Invoice_id)->first();
     }
 

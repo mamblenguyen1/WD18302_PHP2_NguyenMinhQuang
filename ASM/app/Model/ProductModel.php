@@ -31,6 +31,10 @@ class ProductModel extends BaseModel
         return $this->select()->whereLike('product_name',  $product_name)->first();
     }
 
+    public function checkProductExistById($product_id)
+    {
+        return $this->select()->whereLike('product_id',  $product_id)->first();
+    }
 
 
     

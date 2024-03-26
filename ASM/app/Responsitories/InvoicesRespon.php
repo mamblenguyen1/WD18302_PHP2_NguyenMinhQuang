@@ -4,6 +4,7 @@ namespace app\Responsitories;
 
 use app\Model\InvoiceFunction;
 use app\Model\InvoiceModel;
+use app\Model\ProductFunction;
 
 class InvoicesRespon
 {
@@ -32,7 +33,6 @@ class InvoicesRespon
     function AddInvoicesDetails($Invoice_id)
     {
         $InvoiceFunction = new InvoiceFunction();
-
         $product_id = $_POST['product_id'];
         if (
             !$product_id == ''
@@ -74,12 +74,23 @@ class InvoicesRespon
         $InvoiceFunction = new InvoiceFunction();
         $InvoiceDetails = $InvoiceFunction->Get_Invoice_Details($id);
         $totalPrice1 = 0;
+        $time = 1;
         foreach ($InvoiceDetails as $index => $InvoiceDetail) {
+            $time++;
+            $productF = new ProductFunction();
             $quantity = $_POST['quantity' . $index];
+            $product_id = $_POST['product_id' . $index];
             $totalPrice = $quantity * $InvoiceDetail['product_price'];
             $totalPrice1 = $totalPrice1 + $totalPrice;
-            $InvoiceFunction->updateInvoiceDetails($quantity, $InvoiceDetail['Invoice_detail_id']);
+            if ($quantity > ($productF->getInfoProduct($product_id, 'product_quantity'))) {
+                echo '<script> alert("Số lượng sản phẩm trong kho không đủ đáp ứng như cầu của bạn")</script>  ';
+                echo '<script>window.location.href="?pages=InvoiceController/addProduct/&id=' . $id . '"</script>';
+            } else {
+                $InvoiceFunction->updateInvoiceDetails($quantity, $InvoiceDetail['Invoice_detail_id']);
+                $InvoiceFunction->updateQuantity($quantity, $product_id);
+            }
         }
+        // }
         $InvoiceFunction->updateInvoiceTotal($id , $totalPrice1);
 
         echo '<script>window.location.href="/?pages=InvoiceController/detail/' . $id . '"</script>';

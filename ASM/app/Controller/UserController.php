@@ -48,7 +48,9 @@ class UserController extends BaseController
     }
     public function handleCreate()
     {
+       
         $data = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), true) : [];
+
         $UserRespon = new UserRespon();
         if($UserRespon->AddUserResponse($data)){
             header('location: /?pages=UserController/list/');
@@ -150,6 +152,7 @@ class UserController extends BaseController
     {
         $data = isset($_GET['data']) ? json_decode(base64_decode($_GET['data']), true) : [];
         $UserRespon = new UserRespon();
+
         if($UserRespon->UpdateUserResponse($data)){
             header('location: /?pages=UserController/list/');
         }else{

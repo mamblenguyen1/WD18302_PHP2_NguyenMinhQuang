@@ -50,10 +50,13 @@ $product = new ProductFunction();
                             <?= number_format($product['product_price']) ?> đ
                             </td>
                             <td>
-                                    <? if ($product['is_deleted'] == 0) {
-                                        echo '<label class="badge badge-primary">' . status::getShow()[status::SHOW] . '</label>';
-                                    } else {
+                                    <? if($product['product_quantity'] <= 0){
+                                        echo '<label class="badge badge-danger">Hết hàng</label>';
+                                    }
+                                    else if($product['is_deleted'] == 1){
                                         echo '<label class="badge badge-danger">' . status::getShow()[status::HIDDEN] . '</label>';
+                                    }else if ($product['is_deleted'] == 0) {
+                                        echo '<label class="badge badge-primary">' . status::getShow()[status::SHOW] . '</label>';
                                     }
                                     ?>
                                 </td>

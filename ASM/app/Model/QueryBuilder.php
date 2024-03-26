@@ -31,7 +31,6 @@ trait QueryBuilder
             $this->operator = " AND ";
             $this->where .= "$this->operator $field $compare '$value' ";
         } else {
-            // Kiểm tra nếu giá trị $value là một biểu thức SQL, không cần thêm dấu nháy đơn
             if (strpos($value, ' ') !== false) {
                 $this->where .= "$this->operator $field $compare '$value'";
             } else {

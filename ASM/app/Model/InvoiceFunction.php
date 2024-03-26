@@ -29,8 +29,14 @@ class InvoiceFunction
          ";
         return $db->pdo_execute($sql);
     }
-  
+    function updateQuantity($product_quantity, $product_id)
+    {
+        $db = new Database();
+        $sql = "  UPDATE products p SET p.product_quantity = p.product_quantity - $product_quantity WHERE p.product_id = $product_id";
+        return $db->pdo_execute($sql);
+    }
 
+    
     function Get_Invoice_Info($Invoice_id, $column)
     {
         $db = new Database();

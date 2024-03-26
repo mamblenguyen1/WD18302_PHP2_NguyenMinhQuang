@@ -48,7 +48,12 @@ if(isset($_POST['remove'])) {
                         ?>
                             <div class="product" id="product<?= $index ?>">
                                 <input type="hidden" name="Invoice_detail_id" id="" value="<?= $InvoiceDetail['Invoice_detail_id']?>">
-                                <img width="100px" height="80px" src="assets/images/product/<?= $InvoiceDetail['product_img'] ?>" alt="Product 1">
+                                <input type="hidden" name="product_id<?= $index ?>" id="" value="<?= $InvoiceDetail['product_id']?>">
+
+                                <div class="img" style="max-width: 100%; width: 100%; height: 100px;">
+                                <img style="width: 100px; height: 80px; margin: 0 auto;" src="assets/images/product/<?= $InvoiceDetail['product_img'] ?>" alt="Product 1">
+
+                                </div>
                                 <div class="product-info">
                                     <p><?= $InvoiceDetail['product_name'] ?></p>
                                     <p data-unit-price="<?= $InvoiceDetail['product_price'] ?>" id="price<?= $index ?>">Tổng: <?= $InvoiceDetail['product_price'] ?> VNĐ</p>
@@ -139,6 +144,8 @@ if(isset($_POST['remove'])) {
                                 <input type="hidden" id="product_id" name="product_id" value="<?= $product['product_id'] ?>">
                                 <span>Tên : <?= $product['product_name'] ?></span>
                                 <span>Giá : <?= $product['product_price'] ?></span>
+                                <span>SL : <?= $product['product_quantity'] ?></span>
+
                                 <button type="submit" name="addProduct">Thêm</button>
                             </form>
                         </li>

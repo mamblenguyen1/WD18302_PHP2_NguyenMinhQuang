@@ -221,10 +221,11 @@ class UserValidator
     } else {
       $UserModel = new UserModel();
       $user = ($UserModel->checkDuplicateUserName($_POST['user_name']));
+    
       if ($user) {
         if ($user['user_name'] === $_POST['user_name']) {
-        } else {
           $this->addError('user_name', 'Tên đăng nhập đã được đăng ký');
+        } else {
         }
       }
     }
@@ -243,10 +244,13 @@ class UserValidator
       if (filter_var($val, FILTER_VALIDATE_EMAIL)) {
         $UserModel = new UserModel();
         $email = ($UserModel->checkDuplicateUserEmail($_POST['user_email']));
+        $UserModel = new UserModel();
+        $user = ($UserModel->checkDuplicateUserName($_POST['user_name']));
         if ($email) {
-          if ($email['user_email'] === $_POST['user_email']) {
-          } else {
-            $this->addError('user_email', 'Email này đã đc đăng kí');
+          if ($user['user_email'] === $_POST['user_email']) {
+          } else if ($email['user_email'] === $_POST['user_email']) {
+            $this->addError('user_email', 'Email đã đc đăng ký');
+
           }
         }
       } else {

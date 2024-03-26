@@ -14,7 +14,7 @@ class ProductValidator
 
 
 
-  public function __construct( $post_data)
+  public function __construct($post_data)
   {
     $this->data = $post_data;
     // $this->data += $file_data;
@@ -22,9 +22,9 @@ class ProductValidator
     // die;
   }
 
-//giá  sản phẩm
+  //giá  sản phẩm
 
-private function validateName()
+  private function validateName()
   {
 
     $val = trim($this->data['product_name']);
@@ -33,67 +33,85 @@ private function validateName()
       $this->addError('product_name', 'Tên sản phẩm không được để trống');
     } else {
       $ProductModel = new ProductModel();
-      if ($ProductModel->checkProductExist($_POST['product_name'])) {
-        $this->addError('product_name', 'Tên sản phẩm bị trùng');
+      $product = $ProductModel->checkProductExist($_POST['product_name']);
+      $id = $product['product_id'];
+      $ProductModel = new ProductModel();
+      $product_Id = $ProductModel->checkProductExistById($id);
+      if ($product) {
+        if ($product_Id['product_name'] === $_POST['product_name']) {
+          $this->addError('product_name', 'Tên sản phẩm bị trùng');
+        } 
+       
       }
+
+      // $UserModel = new UserModel();
+      // $email = ($UserModel->checkDuplicateUserEmail($_POST['user_email']));
+      // $UserModel = new UserModel();
+      // $user = ($UserModel->checkDuplicateUserName($_POST['user_name']));
+      // if ($email) {
+      //   if ($user['user_email'] === $_POST['user_email']) {
+      //   } else if ($email['user_email'] === $_POST['user_email']) {
+      //     $this->addError('user_email', 'Email đã đc đăng ký');
+
+
     }
   }
 
   private function validatePrice()
   {
-      $val = trim($this->data['product_price']);
-      if (empty($val)) {
-        $this->addError('product_price', 'Giá không được để trống');
+    $val = trim($this->data['product_price']);
+    if (empty($val)) {
+      $this->addError('product_price', 'Giá không được để trống');
     } elseif (!is_numeric($val)) {
-        $this->addError('product_price', 'Giá phải là một số');
+      $this->addError('product_price', 'Giá phải là một số');
     } elseif (floatval($val) < 1000) {
-        $this->addError('product_price', 'Giá không được nhỏ hơn 1000 VNĐ');
+      $this->addError('product_price', 'Giá không được nhỏ hơn 1000 VNĐ');
     }
   }
 
   private function validateDescription()
   {
-      $val = trim($this->data['product_description']);
-  
-      if (empty($val)) {
-          $this->addError('product_description', 'Giá không được để trống');
-      }
+    $val = trim($this->data['product_description']);
+
+    if (empty($val)) {
+      $this->addError('product_description', 'Giá không được để trống');
+    }
   }
-// số lượng
-// private function validateQuantity()
-// {
-//     $val = trim($this->data['product_quantity']);
+  // số lượng
+  // private function validateQuantity()
+  // {
+  //     $val = trim($this->data['product_quantity']);
 
-//     if (empty($val)) {
-//         $this->addError('product_quantity', 'Số lượng không được để trống');
-//     } else {
-//         // Kiểm tra nếu giá nhỏ hơn 100
-//         if (floatval($val) < 0) {
-//             $this->addError('product_quantity', 'Giá không được nhỏ hơn 0');
-//         }
-//     }
-// }
+  //     if (empty($val)) {
+  //         $this->addError('product_quantity', 'Số lượng không được để trống');
+  //     } else {
+  //         // Kiểm tra nếu giá nhỏ hơn 100
+  //         if (floatval($val) < 0) {
+  //             $this->addError('product_quantity', 'Giá không được nhỏ hơn 0');
+  //         }
+  //     }
+  // }
 
-private function validateQuantity()
-{
+  private function validateQuantity()
+  {
     $val = trim($this->data['product_quantity']);
 
     if (empty($val)) {
-        $this->addError('product_quantity', 'Số lượng không được để trống');
+      $this->addError('product_quantity', 'Số lượng không được để trống');
     } elseif (!is_numeric($val)) {
-        $this->addError('product_quantity', 'Số lượng phải là một số');
+      $this->addError('product_quantity', 'Số lượng phải là một số');
     } elseif (floatval($val) < 0) {
-        $this->addError('product_quantity', 'Số lượng không được nhỏ hơn 0');
+      $this->addError('product_quantity', 'Số lượng không được nhỏ hơn 0');
     }
-}
-private function validateImg()
-{
+  }
+  private function validateImg()
+  {
     $val = trim($this->data['product_img']);
 
     if (empty($val)) {
-        $this->addError('product_img', 'Ảnh không được để trống');
-    } 
-}
+      $this->addError('product_img', 'Ảnh không được để trống');
+    }
+  }
 
 
   public function validateAddProduct()
